@@ -1,0 +1,248 @@
+<template>
+<style>
+#root{position:absolute;inset:0;overflow:hidden;background:#07080c;font-family:Inter,sans-serif}
+#fondo-glow{position:absolute;inset:0;background:radial-gradient(120% 45% at 50% 108%,rgba(34,197,94,.30),rgba(34,197,94,.08) 45%,transparent 70%)}
+#paralaje{position:absolute;left:0;top:0;width:10px;height:10px}
+.pt{position:absolute;border-radius:50%;background:rgba(255,255,255,.10)}
+#mundo{position:absolute;left:0;top:0;width:3000px;height:6000px;
+  background-image:linear-gradient(rgba(255,255,255,.055) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.055) 2px,transparent 2px);
+  background-size:90px 90px;background-position:-600px -600px}
+#rejilla{position:absolute;left:-2400px;top:-2400px;width:8000px;height:11000px;background-image:inherit;background-size:inherit;background-position:0 0}
+.card{position:absolute;background:#fff;border-radius:44px;box-shadow:0 30px 80px rgba(0,0,0,.5);color:#0b0d12}
+.app{overflow:hidden}
+.app-h{display:flex;align-items:center;gap:22px;height:150px;padding:0 40px;font-weight:900;font-size:62px;border-bottom:4px solid #eef0f3}
+.ico{width:1em;height:1em;flex:none}
+.ico-h{color:#0b0d12;font-size:64px}
+.badge{margin-left:auto;border-radius:999px;padding:6px 26px;font-size:56px;color:#fff}
+.rojo{background:#ef4444}.verde{background:#22c55e}
+.rod{display:inline-flex;line-height:1.1em;height:1.1em}
+.rod-c{display:inline-block;height:1.1em;overflow:hidden}
+.rod-s{display:flex;flex-direction:column}.rod-s b{height:1.1em;font-weight:900}
+.app-clock{position:absolute;width:150px;height:150px;border-radius:50%;background:#ef4444;color:#fff;display:flex;align-items:center;justify-content:center;font-size:110px;box-shadow:0 14px 40px rgba(239,68,68,.5);z-index:3}
+.app-list{position:absolute;left:0;right:0;top:154px;bottom:0;overflow:hidden}
+.row{display:flex;align-items:center;gap:26px;height:92px;padding:0 40px;font-size:48px;font-weight:700;border-bottom:3px solid #f1f3f6}
+.chk{width:46px;height:46px;border-radius:12px;border:5px solid #c4c9d2;flex:none}
+.chip{position:absolute;background:#fff;color:#0b0d12;font-weight:700;font-size:46px;padding:18px 30px;border-radius:24px;border-left:14px solid #ef4444;box-shadow:0 14px 40px rgba(0,0,0,.45);white-space:nowrap;opacity:0;z-index:6}
+.pos{position:absolute;width:230px;height:414px;z-index:4}
+.pj,.pj-in{position:absolute;inset:0}
+.tag{position:absolute;color:#fff;font-weight:900;font-size:64px;padding:10px 34px;border-radius:22px;opacity:0;z-index:7;letter-spacing:.02em}
+.duelo{display:flex;align-items:center;gap:44px;padding:0 60px}
+.num{width:210px;height:210px;border-radius:50%;background:#0b0d12;color:#fff;font-size:150px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none}
+.h-sub{font-size:52px;font-weight:700;color:#6b7280;letter-spacing:.12em}
+.h-word{font-size:112px;font-weight:900;line-height:1.05;letter-spacing:-.02em}
+.h-line{height:14px;width:470px;border-radius:7px;background:#22c55e;margin-top:8px}
+.lapiz{position:absolute;left:330px;top:150px;font-size:110px;color:#f59e0b;filter:drop-shadow(0 8px 14px rgba(0,0,0,.3))}
+.camino{position:absolute;left:0;top:0;z-index:0;pointer-events:none}
+#camino,#camino-glow{--L:2200}
+</style>
+<div id="root" data-composition-id="mundo" data-width="1080" data-height="1920">
+  <div id="fondo-glow"></div>
+  <div id="paralaje"><i class="pt" id="pt0" style="left:-300px;top:-300px;width:6px;height:6px"></i><i class="pt" id="pt1" style="left:97px;top:409px;width:10px;height:10px"></i><i class="pt" id="pt2" style="left:494px;top:1118px;width:14px;height:14px"></i><i class="pt" id="pt3" style="left:891px;top:1827px;width:18px;height:18px"></i><i class="pt" id="pt4" style="left:1288px;top:2536px;width:22px;height:22px"></i><i class="pt" id="pt5" style="left:1685px;top:3245px;width:6px;height:6px"></i><i class="pt" id="pt6" style="left:2082px;top:3954px;width:10px;height:10px"></i><i class="pt" id="pt7" style="left:-121px;top:4663px;width:14px;height:14px"></i><i class="pt" id="pt8" style="left:276px;top:172px;width:18px;height:18px"></i><i class="pt" id="pt9" style="left:673px;top:881px;width:22px;height:22px"></i><i class="pt" id="pt10" style="left:1070px;top:1590px;width:6px;height:6px"></i><i class="pt" id="pt11" style="left:1467px;top:2299px;width:10px;height:10px"></i><i class="pt" id="pt12" style="left:1864px;top:3008px;width:14px;height:14px"></i><i class="pt" id="pt13" style="left:2261px;top:3717px;width:18px;height:18px"></i><i class="pt" id="pt14" style="left:58px;top:4426px;width:22px;height:22px"></i><i class="pt" id="pt15" style="left:455px;top:-65px;width:6px;height:6px"></i><i class="pt" id="pt16" style="left:852px;top:644px;width:10px;height:10px"></i><i class="pt" id="pt17" style="left:1249px;top:1353px;width:14px;height:14px"></i><i class="pt" id="pt18" style="left:1646px;top:2062px;width:18px;height:18px"></i><i class="pt" id="pt19" style="left:2043px;top:2771px;width:22px;height:22px"></i><i class="pt" id="pt20" style="left:-160px;top:3480px;width:6px;height:6px"></i><i class="pt" id="pt21" style="left:237px;top:4189px;width:10px;height:10px"></i><i class="pt" id="pt22" style="left:634px;top:4898px;width:14px;height:14px"></i><i class="pt" id="pt23" style="left:1031px;top:407px;width:18px;height:18px"></i><i class="pt" id="pt24" style="left:1428px;top:1116px;width:22px;height:22px"></i><i class="pt" id="pt25" style="left:1825px;top:1825px;width:6px;height:6px"></i><i class="pt" id="pt26" style="left:2222px;top:2534px;width:10px;height:10px"></i><i class="pt" id="pt27" style="left:19px;top:3243px;width:14px;height:14px"></i><i class="pt" id="pt28" style="left:416px;top:3952px;width:18px;height:18px"></i><i class="pt" id="pt29" style="left:813px;top:4661px;width:22px;height:22px"></i><i class="pt" id="pt30" style="left:1210px;top:170px;width:6px;height:6px"></i><i class="pt" id="pt31" style="left:1607px;top:879px;width:10px;height:10px"></i><i class="pt" id="pt32" style="left:2004px;top:1588px;width:14px;height:14px"></i><i class="pt" id="pt33" style="left:-199px;top:2297px;width:18px;height:18px"></i><i class="pt" id="pt34" style="left:198px;top:3006px;width:22px;height:22px"></i><i class="pt" id="pt35" style="left:595px;top:3715px;width:6px;height:6px"></i><i class="pt" id="pt36" style="left:992px;top:4424px;width:10px;height:10px"></i><i class="pt" id="pt37" style="left:1389px;top:-67px;width:14px;height:14px"></i><i class="pt" id="pt38" style="left:1786px;top:642px;width:18px;height:18px"></i><i class="pt" id="pt39" style="left:2183px;top:1351px;width:22px;height:22px"></i><i class="pt" id="pt40" style="left:-20px;top:2060px;width:6px;height:6px"></i><i class="pt" id="pt41" style="left:377px;top:2769px;width:10px;height:10px"></i><i class="pt" id="pt42" style="left:774px;top:3478px;width:14px;height:14px"></i><i class="pt" id="pt43" style="left:1171px;top:4187px;width:18px;height:18px"></i><i class="pt" id="pt44" style="left:1568px;top:4896px;width:22px;height:22px"></i><i class="pt" id="pt45" style="left:1965px;top:405px;width:6px;height:6px"></i><i class="pt" id="pt46" style="left:-238px;top:1114px;width:10px;height:10px"></i><i class="pt" id="pt47" style="left:159px;top:1823px;width:14px;height:14px"></i><i class="pt" id="pt48" style="left:556px;top:2532px;width:18px;height:18px"></i><i class="pt" id="pt49" style="left:953px;top:3241px;width:22px;height:22px"></i><i class="pt" id="pt50" style="left:1350px;top:3950px;width:6px;height:6px"></i><i class="pt" id="pt51" style="left:1747px;top:4659px;width:10px;height:10px"></i><i class="pt" id="pt52" style="left:2144px;top:168px;width:14px;height:14px"></i><i class="pt" id="pt53" style="left:-59px;top:877px;width:18px;height:18px"></i><i class="pt" id="pt54" style="left:338px;top:1586px;width:22px;height:22px"></i><i class="pt" id="pt55" style="left:735px;top:2295px;width:6px;height:6px"></i><i class="pt" id="pt56" style="left:1132px;top:3004px;width:10px;height:10px"></i><i class="pt" id="pt57" style="left:1529px;top:3713px;width:14px;height:14px"></i><i class="pt" id="pt58" style="left:1926px;top:4422px;width:18px;height:18px"></i><i class="pt" id="pt59" style="left:-277px;top:-69px;width:22px;height:22px"></i></div>
+  <div id="mundo" data-layout-allow-overflow data-layout-allow-overlap>
+<div id="rejilla" data-layout-ignore></div>
+
+<div class="card app" id="app0" style="left:210px;top:430px;width:660px;height:640px">
+  <div class="app-h"><svg class="ico ico-h" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM117.66,149.66l-32,32a8,8,0,0,1-11.32,0l-16-16a8,8,0,0,1,11.32-11.32L80,164.69l26.34-26.35a8,8,0,0,1,11.32,11.32Zm0-64-32,32a8,8,0,0,1-11.32,0l-16-16A8,8,0,0,1,69.66,90.34L80,100.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM192,168H144a8,8,0,0,1,0-16h48a8,8,0,0,1,0,16Zm0-64H144a8,8,0,0,1,0-16h48a8,8,0,0,1,0,16Z"/></svg><span>Mis tareas</span>
+    <span class="badge rojo" id="b0"><span class="rod" id="r0" data-layout-ignore><span class="rod-c"><span class="rod-s" id="r0-0"><b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b></span></span><span class="rod-c"><span class="rod-s" id="r0-1"><b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b></span></span></span></span></div>
+  <div class="app-list"><div class="app-scroll" id="sc0">
+    <div class="row" id="row0-0"><span class="chk"></span>Responder correos</div><div class="row" id="row0-1"><span class="chk"></span>Llamar al banco</div><div class="row" id="row0-2"><span class="chk"></span>Comprar pan</div><div class="row" id="row0-3"><span class="chk"></span>Ir al gimnasio</div><div class="row" id="row0-4"><span class="chk"></span>Pagar facturas</div><div class="row" id="row0-5"><span class="chk"></span>Hacer el informe</div><div class="row" id="row0-6"><span class="chk"></span>Ordenar cajones</div><div class="row" id="row0-7"><span class="chk"></span>Lavar el coche</div><div class="row" id="row0-8"><span class="chk"></span>Pedir cita</div><div class="row" id="row0-9"><span class="chk"></span>Regar plantas</div><div class="row" id="row0-10"><span class="chk"></span>Leer un libro</div><div class="row" id="row0-11"><span class="chk"></span>Revisar gastos</div>
+  </div></div>
+</div>
+<div class="chip" data-layout-allow-occlusion id="cae0" style="left:330px;top:640px">Comprar pan</div><div class="chip" data-layout-allow-occlusion id="cae1" style="left:390px;top:710px">Lavar el coche</div><div class="chip" data-layout-allow-occlusion id="cae2" style="left:330px;top:780px">Responder correos</div><div class="chip" data-layout-allow-occlusion id="cae3" style="left:390px;top:850px">Hacer el informe</div><div class="chip" data-layout-allow-occlusion id="cae4" style="left:330px;top:920px">Leer un libro</div>
+<div class="app-clock" id="clk0" style="left:790px;top:560px"><svg class="ico " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm56,112H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48a8,8,0,0,1,0,16Z"/></svg></div>
+<div class="pos" id="nov-pos" style="left:425px;top:1085px">
+<div class="pj" id="nov"><div class="pj-in" id="nov-in">
+<svg viewBox="0 0 200 360" width="230" height="414" overflow="visible">
+  <ellipse cx="100" cy="352" rx="62" ry="9" fill="rgba(0,0,0,.45)"/>
+  <g id="nov-legL"><rect x="70" y="226" width="26" height="118" rx="13" fill="#334155"/><ellipse cx="80" cy="346" rx="20" ry="10" fill="#f1f1f1"/></g>
+  <g id="nov-legR"><rect x="104" y="226" width="26" height="118" rx="13" fill="#334155"/><ellipse cx="120" cy="346" rx="20" ry="10" fill="#f1f1f1"/></g>
+  <g id="nov-torso">
+    <g id="nov-armL"><rect x="34" y="148" width="24" height="96" rx="12" fill="#ef4444"/><circle cx="46" cy="246" r="13" fill="#f5c9a5"/></g>
+    <rect x="52" y="138" width="96" height="112" rx="38" fill="#ef4444"/>
+    <rect x="52" y="214" width="96" height="16" fill="rgba(0,0,0,.12)"/>
+    <g id="nov-armR"><rect x="142" y="148" width="24" height="96" rx="12" fill="#ef4444"/><circle cx="154" cy="246" r="13" fill="#f5c9a5"/></g>
+    <g id="nov-head">
+      <rect x="88" y="124" width="24" height="22" fill="#f5c9a5"/>
+      <circle cx="100" cy="90" r="52" fill="#f5c9a5"/>
+      <path d="M48 82 Q52 30 100 34 Q150 30 152 82 L140 66 L128 78 L118 60 L104 76 L92 58 L80 76 L66 62 Z" fill="#5b3a29"/>
+         <path d="M44 74 Q100 20 156 74 L156 64 Q100 6 44 64 Z" fill="#b91c1c"/><rect x="40" y="66" width="80" height="12" rx="6" fill="#991b1b"/>
+      <g id="nov-eyes"><ellipse cx="82" cy="94" rx="6.5" ry="9" fill="#111"/><ellipse cx="118" cy="94" rx="6.5" ry="9" fill="#111"/></g>
+      
+      <path id="nov-smile" d="M84 116 Q100 130 116 116" stroke="#111" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path id="nov-sad" d="M84 124 Q100 110 116 124" stroke="#111" stroke-width="5" fill="none" stroke-linecap="round" opacity="0"/>
+    </g>
+  </g>
+</svg></div></div></div>
+<div class="pos" id="pro-pos" style="left:640px;top:1085px">
+<div class="pj" id="pro"><div class="pj-in" id="pro-in">
+<svg viewBox="0 0 200 360" width="230" height="414" overflow="visible">
+  <ellipse cx="100" cy="352" rx="62" ry="9" fill="rgba(0,0,0,.45)"/>
+  <g id="pro-legL"><rect x="70" y="226" width="26" height="118" rx="13" fill="#1e293b"/><ellipse cx="80" cy="346" rx="20" ry="10" fill="#f1f1f1"/></g>
+  <g id="pro-legR"><rect x="104" y="226" width="26" height="118" rx="13" fill="#1e293b"/><ellipse cx="120" cy="346" rx="20" ry="10" fill="#f1f1f1"/></g>
+  <g id="pro-torso">
+    <g id="pro-armL"><rect x="34" y="148" width="24" height="96" rx="12" fill="#22c55e"/><circle cx="46" cy="246" r="13" fill="#c98e66"/></g>
+    <rect x="52" y="138" width="96" height="112" rx="38" fill="#22c55e"/>
+    <rect x="52" y="214" width="96" height="16" fill="rgba(0,0,0,.12)"/>
+    <g id="pro-armR"><rect x="142" y="148" width="24" height="96" rx="12" fill="#22c55e"/><circle cx="154" cy="246" r="13" fill="#c98e66"/></g>
+    <g id="pro-head">
+      <rect x="88" y="124" width="24" height="22" fill="#c98e66"/>
+      <circle cx="100" cy="90" r="52" fill="#c98e66"/>
+      <path d="M48 84 Q46 34 100 32 Q156 34 152 84 Q140 52 100 54 Q62 52 48 84 Z" fill="#1f1611"/>
+      <g id="pro-eyes"><ellipse cx="82" cy="94" rx="6.5" ry="9" fill="#111"/><ellipse cx="118" cy="94" rx="6.5" ry="9" fill="#111"/></g>
+      <g fill="none" stroke="#111" stroke-width="4"><rect x="66" y="82" width="30" height="24" rx="8"/><rect x="104" y="82" width="30" height="24" rx="8"/><path d="M96 92 H104"/></g>
+      <path id="pro-smile" d="M84 116 Q100 130 116 116" stroke="#111" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path id="pro-sad" d="M84 124 Q100 110 116 124" stroke="#111" stroke-width="5" fill="none" stroke-linecap="round" opacity="0"/>
+    </g>
+  </g>
+</svg></div></div></div>
+<div class="tag rojo" id="tag-nov" style="left:200px;top:965px">NOVATO</div>
+<div class="tag verde" id="tag-pro" style="left:680px;top:965px">PRO</div>
+
+
+<div class="card duelo" id="h1" style="left:90px;top:2430px;width:900px;height:380px">
+  <div class="num" id="h1-num">1</div>
+  <div class="h-txt"><div class="h-sub">DUELO</div>
+    <div class="h-word" id="h1-word">APUNTAR</div>
+    <div class="h-line" id="h1-line"></div></div>
+  <div class="lapiz" id="h1-lapiz"><svg class="ico " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM192,108.68,147.31,64l24-24L216,84.68Z"/></svg></div>
+</div>
+<svg class="camino" width="3000" height="6000" viewBox="0 0 3000 6000" overflow="visible">
+  <path id="camino" d="M 540 1530 C 540 1760, 980 1760, 980 2000 S 540 2240, 540 2430" fill="none" stroke="#22c55e" stroke-width="14" stroke-linecap="round" stroke-dasharray="1 0"/>
+  <path id="camino-glow" d="M 540 1530 C 540 1760, 980 1760, 980 2000 S 540 2240, 540 2430" fill="none" stroke="#22c55e" stroke-opacity=".25" stroke-width="40" stroke-linecap="round"/>
+</svg>
+  </div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+// longitud real del camino para dibujarlo
+document.querySelectorAll("#camino,#camino-glow").forEach(p=>{const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.setProperty("--L",L);p.style.strokeDashoffset=L;});
+tl.set("#mundo",{x:0,y:0,scale:1,transformOrigin:"0 0"},0);
+tl.set("#paralaje",{x:0,y:0},0);
+tl.fromTo("#app0",{scale:1.3,rotation:-8,clipPath:"inset(0% 0% 0% 0% round 44px)"},{scale:1,rotation:0,duration:0.6,ease:"expo.out"},0);
+tl.fromTo("#app0 .row",{x:-60},{x:0,duration:0.4,stagger:0.04,ease:"power3.out"},0);
+tl.fromTo("#nov-in",{y:0},{y:0},0);
+tl.to("#sc0",{y:-460,duration:1.855,ease:"power1.in"},0.41);
+tl.to("#r0-0",{yPercent:-40,duration:1.4,ease:"power3.out"},0.41);
+tl.to("#r0-1",{yPercent:0,duration:1.5499999999999998,ease:"power3.out"},0.41);
+tl.to("#nov-head",{rotation:-12,svgOrigin:"100 140",duration:0.3,ease:"power2.out",overwrite:"auto"},0.835);
+tl.to("#nov-smile",{opacity:0,duration:0.15},0.835);
+tl.to("#nov-sad",{opacity:1,duration:0.15},0.835);
+tl.fromTo("#cae0",{opacity:0,scale:0.6,x:0,y:0,rotation:0},{opacity:1,scale:1,x:10,y:560,rotation:-8,duration:0.55,ease:"power2.in"},2.265);
+tl.fromTo("#cae1",{opacity:0,scale:0.6,x:0,y:0,rotation:0},{opacity:1,scale:1,x:64,y:498,rotation:12,duration:0.55,ease:"power2.in"},2.335);
+tl.fromTo("#cae2",{opacity:0,scale:0.6,x:0,y:0,rotation:0},{opacity:1,scale:1,x:-2,y:436,rotation:-16,duration:0.55,ease:"power2.in"},2.405);
+tl.fromTo("#cae3",{opacity:0,scale:0.6,x:0,y:0,rotation:0},{opacity:1,scale:1,x:52,y:374,rotation:20,duration:0.55,ease:"power2.in"},2.475);
+tl.fromTo("#cae4",{opacity:0,scale:0.6,x:0,y:0,rotation:0},{opacity:1,scale:1,x:-14,y:312,rotation:-24,duration:0.55,ease:"power2.in"},2.545);
+tl.to("#nov-in",{scaleY:0.82,scaleX:1.1,transformOrigin:"50% 100%",duration:0.12,ease:"power2.in"},2.765);
+tl.to("#nov-in",{scaleY:1,scaleX:1,duration:0.4,ease:"elastic.out(1,0.45)"},2.885);
+tl.to("#app0",{rotation:-3,duration:0.3,ease:"power2.out"},2.265);
+tl.fromTo("#clk0",{scale:0,rotation:-90},{scale:1,rotation:0,duration:0.35,ease:"back.out(2)"},2.775);
+tl.to("#clk0 svg",{rotation:720,duration:1.2,ease:"power2.inOut"},2.875);
+tl.to("#mundo",{x:54,y:69,scale:0.9,duration:0.9,ease:"power3.inOut"},3.388);
+tl.to("#paralaje",{x:18.9,y:24.15,duration:0.9,ease:"power3.inOut"},3.388);
+tl.to("#app0",{rotation:0,clipPath:"inset(0% 0% 47.2% 0% round 44px)",duration:0.6,ease:"power3.inOut"},3.538);
+tl.to(["#nov-pos","#cae0","#cae1","#cae2","#cae3","#cae4"],{x:"-=215",duration:0.7,ease:"power2.inOut"},3.638);
+tl.fromTo("#nov-legL",{rotation:-22},{rotation:22,immediateRender:false,svgOrigin:"83 230",duration:0.175,ease:"sine.inOut",yoyo:true,repeat:3},3.638);
+tl.fromTo("#nov-legR",{rotation:22},{rotation:-22,immediateRender:false,svgOrigin:"117 230",duration:0.175,ease:"sine.inOut",yoyo:true,repeat:3},3.638);
+tl.fromTo("#nov-in",{y:0},{y:-14,immediateRender:false,duration:0.088,ease:"sine.out",yoyo:true,repeat:7},3.638);
+tl.to(["#nov-legL","#nov-legR"],{rotation:0,duration:0.15,ease:"power2.out"},4.338);
+tl.fromTo("#tag-nov",{scale:0,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2.2)"},5.203);
+tl.to("#nov-armR",{rotation:-150,svgOrigin:"154 154",duration:0.3,ease:"back.out(1.6)"},5.203);
+tl.to("#nov-armR",{rotation:-4,svgOrigin:"154 154",duration:0.4,ease:"back.out(1.6)"},5.803);
+tl.fromTo("#pro-pos",{x:800},{x:0,duration:1.3,ease:"power2.out"},4.693);
+tl.fromTo("#pro-legL",{rotation:-38},{rotation:38,immediateRender:false,svgOrigin:"83 230",duration:0.108,ease:"sine.inOut",yoyo:true,repeat:11},4.693);
+tl.fromTo("#pro-legR",{rotation:38},{rotation:-38,immediateRender:false,svgOrigin:"117 230",duration:0.108,ease:"sine.inOut",yoyo:true,repeat:11},4.693);
+tl.fromTo("#pro-in",{y:0},{y:-14,immediateRender:false,duration:0.054,ease:"sine.out",yoyo:true,repeat:23},4.693);
+tl.to(["#pro-legL","#pro-legR"],{rotation:0,duration:0.15,ease:"power2.out"},5.993);
+tl.fromTo("#pro-in",{rotation:0},{rotation:-6,transformOrigin:"50% 100%",duration:0.12,yoyo:true,repeat:1,ease:"power2.out"},5.943);
+tl.fromTo("#tag-pro",{scale:0,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2.2)"},5.943);
+tl.to("#pro-armL",{rotation:140,svgOrigin:"46 154",duration:0.3,ease:"back.out(1.6)"},6.043);
+tl.to("#nov-head",{rotation:10,svgOrigin:"100 140",duration:0.35,ease:"power2.out",overwrite:"auto"},5.943);
+tl.fromTo("#camino",{strokeDashoffset:"var(--L)"},{strokeDashoffset:0,duration:0.81,ease:"power2.inOut"},6.427);
+tl.fromTo("#camino-glow",{strokeDashoffset:"var(--L)"},{strokeDashoffset:0,duration:0.81,ease:"power2.inOut"},6.427);
+tl.to("#mundo",{x:0,y:-1690,scale:1,duration:0.81,ease:"power2.inOut"},6.427);
+tl.to("#paralaje",{x:0,y:-591.5,duration:0.81,ease:"power2.inOut"},6.427);
+tl.to("#mundo",{filter:"blur(6px)",duration:0.364,ease:"power2.in"},6.427);
+tl.to("#mundo",{filter:"blur(0px)",duration:0.445,ease:"power2.out"},6.792);
+tl.fromTo("#h1",{scale:0.7,opacity:0},{scale:1,opacity:1,duration:0.5,ease:"expo.out"},6.677);
+tl.fromTo("#h1-num",{scale:0,rotation:-180},{scale:1,rotation:0,duration:0.45,ease:"back.out(1.8)"},6.902);
+tl.fromTo("#h1-word",{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",duration:0.679,ease:"none"},7.237);
+tl.fromTo("#h1-lapiz",{x:0,y:0,rotation:0},{x:430,y:0,duration:0.679,ease:"none"},7.237);
+tl.fromTo("#h1-lapiz",{rotation:-6},{rotation:6,duration:0.08,yoyo:true,repeat:8,ease:"sine.inOut"},7.237);
+tl.to("#h1-lapiz",{scale:0,opacity:0,duration:0.25,ease:"power3.in"},7.966);
+tl.fromTo("#h1-line",{scaleX:0},{scaleX:1,transformOrigin:"0 50%",duration:0.35,ease:"power3.out"},7.916);
+tl.fromTo("#nov-torso",{y:0},{y:-3,duration:1.7,ease:"sine.inOut",yoyo:true,repeat:7},0);
+tl.fromTo("#nov-head",{rotation:-1.5},{rotation:1.5,svgOrigin:"100 140",duration:2.3,ease:"sine.inOut",yoyo:true,repeat:5},0);
+tl.fromTo("#nov-armL",{rotation:3},{rotation:-3,svgOrigin:"46 154",duration:1.9,ease:"sine.inOut",yoyo:true,repeat:6},0);
+tl.fromTo("#nov-armR",{rotation:-3},{rotation:4,svgOrigin:"154 154",duration:2.1,ease:"sine.inOut",yoyo:true,repeat:6},0);
+tl.to("#nov-eyes",{scaleY:0.1,svgOrigin:"100 94",duration:0.06,ease:"power1.in",yoyo:true,repeat:1},0.9);
+tl.to("#nov-eyes",{scaleY:0.1,svgOrigin:"100 94",duration:0.06,ease:"power1.in",yoyo:true,repeat:1},3.81);
+tl.to("#nov-eyes",{scaleY:0.1,svgOrigin:"100 94",duration:0.06,ease:"power1.in",yoyo:true,repeat:1},6.55);
+tl.fromTo("#pro-torso",{y:0},{y:-3,duration:1.7,ease:"sine.inOut",yoyo:true,repeat:7},0);
+tl.fromTo("#pro-head",{rotation:-1.5},{rotation:1.5,svgOrigin:"100 140",duration:2.3,ease:"sine.inOut",yoyo:true,repeat:5},0);
+tl.fromTo("#pro-armL",{rotation:3},{rotation:-3,svgOrigin:"46 154",duration:1.9,ease:"sine.inOut",yoyo:true,repeat:6},0);
+tl.fromTo("#pro-armR",{rotation:-3},{rotation:4,svgOrigin:"154 154",duration:2.1,ease:"sine.inOut",yoyo:true,repeat:6},0);
+tl.to("#pro-eyes",{scaleY:0.1,svgOrigin:"100 94",duration:0.06,ease:"power1.in",yoyo:true,repeat:1},1.6);
+tl.to("#pro-eyes",{scaleY:0.1,svgOrigin:"100 94",duration:0.06,ease:"power1.in",yoyo:true,repeat:1},5.7);
+tl.fromTo("#pt0",{y:0},{y:-30,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt1",{y:0},{y:-45,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt2",{y:0},{y:-60,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt3",{y:0},{y:-75,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt4",{y:0},{y:-30,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt5",{y:0},{y:-45,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt6",{y:0},{y:-60,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt7",{y:0},{y:-75,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt8",{y:0},{y:-30,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt9",{y:0},{y:-45,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt10",{y:0},{y:-60,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt11",{y:0},{y:-75,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt12",{y:0},{y:-30,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt13",{y:0},{y:-45,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt14",{y:0},{y:-60,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt15",{y:0},{y:-75,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt16",{y:0},{y:-30,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt17",{y:0},{y:-45,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt18",{y:0},{y:-60,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt19",{y:0},{y:-75,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt20",{y:0},{y:-30,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt21",{y:0},{y:-45,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt22",{y:0},{y:-60,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt23",{y:0},{y:-75,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt24",{y:0},{y:-30,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt25",{y:0},{y:-45,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt26",{y:0},{y:-60,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt27",{y:0},{y:-75,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt28",{y:0},{y:-30,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt29",{y:0},{y:-45,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt30",{y:0},{y:-60,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt31",{y:0},{y:-75,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt32",{y:0},{y:-30,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt33",{y:0},{y:-45,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt34",{y:0},{y:-60,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt35",{y:0},{y:-75,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt36",{y:0},{y:-30,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt37",{y:0},{y:-45,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt38",{y:0},{y:-60,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt39",{y:0},{y:-75,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt40",{y:0},{y:-30,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt41",{y:0},{y:-45,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt42",{y:0},{y:-60,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt43",{y:0},{y:-75,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt44",{y:0},{y:-30,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt45",{y:0},{y:-45,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt46",{y:0},{y:-60,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt47",{y:0},{y:-75,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt48",{y:0},{y:-30,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt49",{y:0},{y:-45,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt50",{y:0},{y:-60,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt51",{y:0},{y:-75,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt52",{y:0},{y:-30,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt53",{y:0},{y:-45,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt54",{y:0},{y:-60,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt55",{y:0},{y:-75,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt56",{y:0},{y:-30,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt57",{y:0},{y:-45,duration:3,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt58",{y:0},{y:-60,duration:4,ease:"sine.inOut",yoyo:true,repeat:4},0);
+tl.fromTo("#pt59",{y:0},{y:-75,duration:5,ease:"sine.inOut",yoyo:true,repeat:4},0);
+window.__timelines["mundo"] = tl;
+</script>
+</template>

@@ -1,0 +1,1010 @@
+[
+ {
+  "text": "Tu",
+  "start": 0.08,
+  "end": 0.41,
+  "frase": 0,
+  "id": "w0"
+ },
+ {
+  "text": "lista",
+  "start": 0.41,
+  "end": 0.69,
+  "frase": 0,
+  "id": "w1"
+ },
+ {
+  "text": "de",
+  "start": 0.69,
+  "end": 0.835,
+  "frase": 0,
+  "id": "w2"
+ },
+ {
+  "text": "tareas",
+  "start": 0.835,
+  "end": 1.3,
+  "frase": 0,
+  "id": "w3"
+ },
+ {
+  "text": "te",
+  "start": 1.3,
+  "end": 1.52,
+  "frase": 0,
+  "id": "w4"
+ },
+ {
+  "text": "está",
+  "start": 1.52,
+  "end": 1.82,
+  "frase": 0,
+  "id": "w5"
+ },
+ {
+  "text": "haciendo",
+  "start": 1.82,
+  "end": 2.265,
+  "frase": 0,
+  "id": "w6"
+ },
+ {
+  "text": "perder",
+  "start": 2.265,
+  "end": 2.585,
+  "frase": 0,
+  "id": "w7"
+ },
+ {
+  "text": "el",
+  "start": 2.585,
+  "end": 2.775,
+  "frase": 0,
+  "id": "w8"
+ },
+ {
+  "text": "tiempo.",
+  "start": 2.775,
+  "end": 3.288,
+  "frase": 0,
+  "id": "w9"
+ },
+ {
+  "text": "Mira",
+  "start": 3.538,
+  "end": 3.948,
+  "frase": 1,
+  "id": "w10"
+ },
+ {
+  "text": "la",
+  "start": 3.948,
+  "end": 4.063,
+  "frase": 1,
+  "id": "w11"
+ },
+ {
+  "text": "diferencia",
+  "start": 4.063,
+  "end": 4.693,
+  "frase": 1,
+  "id": "w12"
+ },
+ {
+  "text": "entre",
+  "start": 4.693,
+  "end": 4.988,
+  "frase": 1,
+  "id": "w13"
+ },
+ {
+  "text": "un",
+  "start": 4.988,
+  "end": 5.203,
+  "frase": 1,
+  "id": "w14"
+ },
+ {
+  "text": "novato",
+  "start": 5.203,
+  "end": 5.688,
+  "frase": 1,
+  "id": "w15"
+ },
+ {
+  "text": "y",
+  "start": 5.688,
+  "end": 5.768,
+  "frase": 1,
+  "id": "w16"
+ },
+ {
+  "text": "un",
+  "start": 5.768,
+  "end": 5.943,
+  "frase": 1,
+  "id": "w17"
+ },
+ {
+  "text": "pro.",
+  "start": 5.943,
+  "end": 6.277,
+  "frase": 1,
+  "id": "w18"
+ },
+ {
+  "text": "Duelo",
+  "start": 6.527,
+  "end": 6.902,
+  "frase": 2,
+  "id": "w19"
+ },
+ {
+  "text": "uno:",
+  "start": 6.902,
+  "end": 7.237,
+  "frase": 2,
+  "id": "w20"
+ },
+ {
+  "text": "apuntar.",
+  "start": 7.237,
+  "end": 7.916,
+  "frase": 2,
+  "id": "w21"
+ },
+ {
+  "text": "El",
+  "start": 8.166,
+  "end": 8.411,
+  "frase": 3,
+  "id": "w22"
+ },
+ {
+  "text": "novato",
+  "start": 8.411,
+  "end": 8.891,
+  "frase": 3,
+  "id": "w23"
+ },
+ {
+  "text": "lo",
+  "start": 8.891,
+  "end": 8.971,
+  "frase": 3,
+  "id": "w24"
+ },
+ {
+  "text": "apunta",
+  "start": 8.971,
+  "end": 9.431,
+  "frase": 3,
+  "id": "w25"
+ },
+ {
+  "text": "todo",
+  "start": 9.431,
+  "end": 9.651,
+  "frase": 3,
+  "id": "w26"
+ },
+ {
+  "text": "en",
+  "start": 9.651,
+  "end": 9.851,
+  "frase": 3,
+  "id": "w27"
+ },
+ {
+  "text": "una",
+  "start": 9.851,
+  "end": 10.076,
+  "frase": 3,
+  "id": "w28"
+ },
+ {
+  "text": "sola",
+  "start": 10.076,
+  "end": 10.271,
+  "frase": 3,
+  "id": "w29"
+ },
+ {
+  "text": "lista",
+  "start": 10.271,
+  "end": 10.711,
+  "frase": 3,
+  "id": "w30"
+ },
+ {
+  "text": "de",
+  "start": 10.711,
+  "end": 10.836,
+  "frase": 3,
+  "id": "w31"
+ },
+ {
+  "text": "cuarenta",
+  "start": 10.836,
+  "end": 11.296,
+  "frase": 3,
+  "id": "w32"
+ },
+ {
+  "text": "cosas.",
+  "start": 11.296,
+  "end": 11.946,
+  "frase": 3,
+  "id": "w33"
+ },
+ {
+  "text": "El",
+  "start": 12.196,
+  "end": 12.416,
+  "frase": 4,
+  "id": "w34"
+ },
+ {
+  "text": "pro",
+  "start": 12.416,
+  "end": 12.761,
+  "frase": 4,
+  "id": "w35"
+ },
+ {
+  "text": "elige",
+  "start": 12.761,
+  "end": 13.091,
+  "frase": 4,
+  "id": "w36"
+ },
+ {
+  "text": "solo",
+  "start": 13.091,
+  "end": 13.351,
+  "frase": 4,
+  "id": "w37"
+ },
+ {
+  "text": "tres",
+  "start": 13.351,
+  "end": 13.736,
+  "frase": 4,
+  "id": "w38"
+ },
+ {
+  "text": "tareas",
+  "start": 13.736,
+  "end": 14.166,
+  "frase": 4,
+  "id": "w39"
+ },
+ {
+  "text": "importantes",
+  "start": 14.166,
+  "end": 14.911,
+  "frase": 4,
+  "id": "w40"
+ },
+ {
+  "text": "para",
+  "start": 14.911,
+  "end": 15.016,
+  "frase": 4,
+  "id": "w41"
+ },
+ {
+  "text": "hoy.",
+  "start": 15.016,
+  "end": 15.46,
+  "frase": 4,
+  "id": "w42"
+ },
+ {
+  "text": "Duelo",
+  "start": 15.71,
+  "end": 16.115,
+  "frase": 5,
+  "id": "w43"
+ },
+ {
+  "text": "dos:",
+  "start": 16.115,
+  "end": 16.44,
+  "frase": 5,
+  "id": "w44"
+ },
+ {
+  "text": "empezar.",
+  "start": 16.44,
+  "end": 17.15,
+  "frase": 5,
+  "id": "w45"
+ },
+ {
+  "text": "El",
+  "start": 17.4,
+  "end": 17.775,
+  "frase": 6,
+  "id": "w46"
+ },
+ {
+  "text": "novato",
+  "start": 17.775,
+  "end": 18.12,
+  "frase": 6,
+  "id": "w47"
+ },
+ {
+  "text": "empieza",
+  "start": 18.12,
+  "end": 18.58,
+  "frase": 6,
+  "id": "w48"
+ },
+ {
+  "text": "por",
+  "start": 18.58,
+  "end": 18.87,
+  "frase": 6,
+  "id": "w49"
+ },
+ {
+  "text": "lo",
+  "start": 18.87,
+  "end": 18.95,
+  "frase": 6,
+  "id": "w50"
+ },
+ {
+  "text": "fácil",
+  "start": 18.95,
+  "end": 19.41,
+  "frase": 6,
+  "id": "w51"
+ },
+ {
+  "text": "para",
+  "start": 19.41,
+  "end": 19.64,
+  "frase": 6,
+  "id": "w52"
+ },
+ {
+  "text": "sentirse",
+  "start": 19.64,
+  "end": 20.245,
+  "frase": 6,
+  "id": "w53"
+ },
+ {
+  "text": "productivo.",
+  "start": 20.245,
+  "end": 20.975,
+  "frase": 6,
+  "id": "w54"
+ },
+ {
+  "text": "El",
+  "start": 21.225,
+  "end": 21.46,
+  "frase": 7,
+  "id": "w55"
+ },
+ {
+  "text": "pro",
+  "start": 21.46,
+  "end": 21.72,
+  "frase": 7,
+  "id": "w56"
+ },
+ {
+  "text": "hace",
+  "start": 21.72,
+  "end": 21.985,
+  "frase": 7,
+  "id": "w57"
+ },
+ {
+  "text": "primero",
+  "start": 21.985,
+  "end": 22.53,
+  "frase": 7,
+  "id": "w58"
+ },
+ {
+  "text": "la",
+  "start": 22.53,
+  "end": 22.67,
+  "frase": 7,
+  "id": "w59"
+ },
+ {
+  "text": "tarea",
+  "start": 22.67,
+  "end": 22.955,
+  "frase": 7,
+  "id": "w60"
+ },
+ {
+  "text": "más",
+  "start": 22.955,
+  "end": 23.14,
+  "frase": 7,
+  "id": "w61"
+ },
+ {
+  "text": "difícil,",
+  "start": 23.14,
+  "end": 23.75,
+  "frase": 7,
+  "id": "w62"
+ },
+ {
+  "text": "antes",
+  "start": 23.75,
+  "end": 24.215,
+  "frase": 7,
+  "id": "w63"
+ },
+ {
+  "text": "de",
+  "start": 24.215,
+  "end": 24.295,
+  "frase": 7,
+  "id": "w64"
+ },
+ {
+  "text": "mirar",
+  "start": 24.295,
+  "end": 24.59,
+  "frase": 7,
+  "id": "w65"
+ },
+ {
+  "text": "el",
+  "start": 24.59,
+  "end": 24.73,
+  "frase": 7,
+  "id": "w66"
+ },
+ {
+  "text": "móvil.",
+  "start": 24.73,
+  "end": 25.293,
+  "frase": 7,
+  "id": "w67"
+ },
+ {
+  "text": "Duelo",
+  "start": 25.543,
+  "end": 25.933,
+  "frase": 8,
+  "id": "w68"
+ },
+ {
+  "text": "tres:",
+  "start": 25.933,
+  "end": 26.318,
+  "frase": 8,
+  "id": "w69"
+ },
+ {
+  "text": "lo",
+  "start": 26.318,
+  "end": 26.518,
+  "frase": 8,
+  "id": "w70"
+ },
+ {
+  "text": "pequeño.",
+  "start": 26.518,
+  "end": 27.153,
+  "frase": 8,
+  "id": "w71"
+ },
+ {
+  "text": "El",
+  "start": 27.403,
+  "end": 27.643,
+  "frase": 9,
+  "id": "w72"
+ },
+ {
+  "text": "novato",
+  "start": 27.643,
+  "end": 28.053,
+  "frase": 9,
+  "id": "w73"
+ },
+ {
+  "text": "apunta",
+  "start": 28.053,
+  "end": 28.613,
+  "frase": 9,
+  "id": "w74"
+ },
+ {
+  "text": "hasta",
+  "start": 28.613,
+  "end": 28.858,
+  "frase": 9,
+  "id": "w75"
+ },
+ {
+  "text": "lo",
+  "start": 28.858,
+  "end": 29.058,
+  "frase": 9,
+  "id": "w76"
+ },
+ {
+  "text": "que",
+  "start": 29.058,
+  "end": 29.203,
+  "frase": 9,
+  "id": "w77"
+ },
+ {
+  "text": "tarda",
+  "start": 29.203,
+  "end": 29.428,
+  "frase": 9,
+  "id": "w78"
+ },
+ {
+  "text": "un",
+  "start": 29.428,
+  "end": 29.578,
+  "frase": 9,
+  "id": "w79"
+ },
+ {
+  "text": "minuto.",
+  "start": 29.578,
+  "end": 30.192,
+  "frase": 9,
+  "id": "w80"
+ },
+ {
+  "text": "El",
+  "start": 30.442,
+  "end": 30.832,
+  "frase": 10,
+  "id": "w81"
+ },
+ {
+  "text": "pro",
+  "start": 30.832,
+  "end": 30.912,
+  "frase": 10,
+  "id": "w82"
+ },
+ {
+  "text": "aplica",
+  "start": 30.912,
+  "end": 31.382,
+  "frase": 10,
+  "id": "w83"
+ },
+ {
+  "text": "la",
+  "start": 31.382,
+  "end": 31.572,
+  "frase": 10,
+  "id": "w84"
+ },
+ {
+  "text": "regla",
+  "start": 31.572,
+  "end": 31.962,
+  "frase": 10,
+  "id": "w85"
+ },
+ {
+  "text": "de",
+  "start": 31.962,
+  "end": 32.152,
+  "frase": 10,
+  "id": "w86"
+ },
+ {
+  "text": "los",
+  "start": 32.152,
+  "end": 32.302,
+  "frase": 10,
+  "id": "w87"
+ },
+ {
+  "text": "dos",
+  "start": 32.302,
+  "end": 32.497,
+  "frase": 10,
+  "id": "w88"
+ },
+ {
+  "text": "minutos:",
+  "start": 32.497,
+  "end": 32.852,
+  "frase": 10,
+  "id": "w89"
+ },
+ {
+  "text": "si",
+  "start": 32.852,
+  "end": 33.072,
+  "frase": 10,
+  "id": "w90"
+ },
+ {
+  "text": "tarda",
+  "start": 33.072,
+  "end": 33.497,
+  "frase": 10,
+  "id": "w91"
+ },
+ {
+  "text": "menos,",
+  "start": 33.497,
+  "end": 33.907,
+  "frase": 10,
+  "id": "w92"
+ },
+ {
+  "text": "lo",
+  "start": 33.907,
+  "end": 34.062,
+  "frase": 10,
+  "id": "w93"
+ },
+ {
+  "text": "hace",
+  "start": 34.062,
+  "end": 34.377,
+  "frase": 10,
+  "id": "w94"
+ },
+ {
+  "text": "ya.",
+  "start": 34.377,
+  "end": 34.739,
+  "frase": 10,
+  "id": "w95"
+ },
+ {
+  "text": "Y",
+  "start": 34.989,
+  "end": 35.239,
+  "frase": 11,
+  "id": "w96"
+ },
+ {
+  "text": "ahora,",
+  "start": 35.239,
+  "end": 35.664,
+  "frase": 11,
+  "id": "w97"
+ },
+ {
+  "text": "el",
+  "start": 35.664,
+  "end": 35.889,
+  "frase": 11,
+  "id": "w98"
+ },
+ {
+  "text": "truco",
+  "start": 35.889,
+  "end": 36.119,
+  "frase": 11,
+  "id": "w99"
+ },
+ {
+  "text": "más",
+  "start": 36.119,
+  "end": 36.529,
+  "frase": 11,
+  "id": "w100"
+ },
+ {
+  "text": "potente.",
+  "start": 36.529,
+  "end": 37.124,
+  "frase": 11,
+  "id": "w101"
+ },
+ {
+  "text": "Tu",
+  "start": 37.374,
+  "end": 37.689,
+  "frase": 12,
+  "id": "w102"
+ },
+ {
+  "text": "cerebro",
+  "start": 37.689,
+  "end": 38.069,
+  "frase": 12,
+  "id": "w103"
+ },
+ {
+  "text": "tiende",
+  "start": 38.069,
+  "end": 38.394,
+  "frase": 12,
+  "id": "w104"
+ },
+ {
+  "text": "a",
+  "start": 38.394,
+  "end": 38.559,
+  "frase": 12,
+  "id": "w105"
+ },
+ {
+  "text": "recordar",
+  "start": 38.559,
+  "end": 39.134,
+  "frase": 12,
+  "id": "w106"
+ },
+ {
+  "text": "mejor",
+  "start": 39.134,
+  "end": 39.694,
+  "frase": 12,
+  "id": "w107"
+ },
+ {
+  "text": "lo",
+  "start": 39.694,
+  "end": 39.774,
+  "frase": 12,
+  "id": "w108"
+ },
+ {
+  "text": "que",
+  "start": 39.774,
+  "end": 39.884,
+  "frase": 12,
+  "id": "w109"
+ },
+ {
+  "text": "dejas",
+  "start": 39.884,
+  "end": 40.264,
+  "frase": 12,
+  "id": "w110"
+ },
+ {
+  "text": "a",
+  "start": 40.264,
+  "end": 40.414,
+  "frase": 12,
+  "id": "w111"
+ },
+ {
+  "text": "medias.",
+  "start": 40.414,
+  "end": 40.982,
+  "frase": 12,
+  "id": "w112"
+ },
+ {
+  "text": "Se",
+  "start": 41.232,
+  "end": 41.447,
+  "frase": 13,
+  "id": "w113"
+ },
+ {
+  "text": "llama",
+  "start": 41.447,
+  "end": 41.917,
+  "frase": 13,
+  "id": "w114"
+ },
+ {
+  "text": "efecto",
+  "start": 41.917,
+  "end": 42.367,
+  "frase": 13,
+  "id": "w115"
+ },
+ {
+  "text": "Zeigarnik.",
+  "start": 42.367,
+  "end": 43.033,
+  "frase": 13,
+  "id": "w116"
+ },
+ {
+  "text": "Por",
+  "start": 43.283,
+  "end": 43.578,
+  "frase": 14,
+  "id": "w117"
+ },
+ {
+  "text": "eso",
+  "start": 43.578,
+  "end": 43.793,
+  "frase": 14,
+  "id": "w118"
+ },
+ {
+  "text": "el",
+  "start": 43.793,
+  "end": 44.033,
+  "frase": 14,
+  "id": "w119"
+ },
+ {
+  "text": "pro",
+  "start": 44.033,
+  "end": 44.208,
+  "frase": 14,
+  "id": "w120"
+ },
+ {
+  "text": "deja",
+  "start": 44.208,
+  "end": 44.638,
+  "frase": 14,
+  "id": "w121"
+ },
+ {
+  "text": "escrita",
+  "start": 44.638,
+  "end": 45.073,
+  "frase": 14,
+  "id": "w122"
+ },
+ {
+  "text": "la",
+  "start": 45.073,
+  "end": 45.178,
+  "frase": 14,
+  "id": "w123"
+ },
+ {
+  "text": "primera",
+  "start": 45.178,
+  "end": 45.533,
+  "frase": 14,
+  "id": "w124"
+ },
+ {
+  "text": "acción",
+  "start": 45.533,
+  "end": 46.053,
+  "frase": 14,
+  "id": "w125"
+ },
+ {
+  "text": "de",
+  "start": 46.053,
+  "end": 46.203,
+  "frase": 14,
+  "id": "w126"
+ },
+ {
+  "text": "mañana",
+  "start": 46.203,
+  "end": 46.593,
+  "frase": 14,
+  "id": "w127"
+ },
+ {
+  "text": "antes",
+  "start": 46.593,
+  "end": 47.098,
+  "frase": 14,
+  "id": "w128"
+ },
+ {
+  "text": "de",
+  "start": 47.098,
+  "end": 47.258,
+  "frase": 14,
+  "id": "w129"
+ },
+ {
+  "text": "cerrar.",
+  "start": 47.258,
+  "end": 47.732,
+  "frase": 14,
+  "id": "w130"
+ },
+ {
+  "text": "Comenta",
+  "start": 47.982,
+  "end": 48.632,
+  "frase": 15,
+  "id": "w131"
+ },
+ {
+  "text": "LISTA",
+  "start": 48.632,
+  "end": 48.977,
+  "frase": 15,
+  "id": "w132"
+ },
+ {
+  "text": "y",
+  "start": 48.977,
+  "end": 49.237,
+  "frase": 15,
+  "id": "w133"
+ },
+ {
+  "text": "mándaselo",
+  "start": 49.237,
+  "end": 49.857,
+  "frase": 15,
+  "id": "w134"
+ },
+ {
+  "text": "a",
+  "start": 49.857,
+  "end": 50.007,
+  "frase": 15,
+  "id": "w135"
+ },
+ {
+  "text": "quien",
+  "start": 50.007,
+  "end": 50.087,
+  "frase": 15,
+  "id": "w136"
+ },
+ {
+  "text": "siempre",
+  "start": 50.087,
+  "end": 50.492,
+  "frase": 15,
+  "id": "w137"
+ },
+ {
+  "text": "dice",
+  "start": 50.492,
+  "end": 50.922,
+  "frase": 15,
+  "id": "w138"
+ },
+ {
+  "text": "que",
+  "start": 50.922,
+  "end": 51.067,
+  "frase": 15,
+  "id": "w139"
+ },
+ {
+  "text": "no",
+  "start": 51.067,
+  "end": 51.172,
+  "frase": 15,
+  "id": "w140"
+ },
+ {
+  "text": "le",
+  "start": 51.172,
+  "end": 51.427,
+  "frase": 15,
+  "id": "w141"
+ },
+ {
+  "text": "da",
+  "start": 51.427,
+  "end": 51.552,
+  "frase": 15,
+  "id": "w142"
+ },
+ {
+  "text": "tiempo.",
+  "start": 51.552,
+  "end": 52.102,
+  "frase": 15,
+  "id": "w143"
+ }
+]

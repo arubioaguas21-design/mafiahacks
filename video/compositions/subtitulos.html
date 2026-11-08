@@ -1,0 +1,69 @@
+<template>
+<style>
+#root{position:absolute;inset:0;pointer-events:none;font-family:Inter,sans-serif}
+.sg{position:absolute;left:60px;right:60px;top:240px;text-align:center;font-weight:900;color:#fff;line-height:1.25;opacity:0;visibility:hidden;
+  text-shadow:0 4px 18px rgba(0,0,0,.85);letter-spacing:-.01em}
+.sw{display:inline-block;margin:0 .1em}
+.k{padding:0 .22em;border-radius:.2em;text-shadow:none}
+.k.ama{background:#facc15;color:#0b0d12}.k.verde{background:#22c55e;color:#0b0d12}.k.rojo{background:#ef4444;color:#fff}
+</style>
+<div id="root" data-composition-id="subtitulos" data-width="1080" data-height="1920">
+<div class="sg" id="sg0" style="font-size:82px"><span class="sw" id="w0">TU</span> <span class="sw k ama" id="w1">LISTA</span> <span class="sw" id="w2">DE</span></div><div class="sg" id="sg1" style="font-size:82px"><span class="sw k ama" id="w3">TAREAS</span> <span class="sw" id="w4">TE</span></div><div class="sg" id="sg2" style="font-size:73px"><span class="sw" id="w5">ESTÁ</span> <span class="sw" id="w6">HACIENDO</span> <span class="sw" id="w7">PERDER</span></div><div class="sg" id="sg3" style="font-size:82px"><span class="sw" id="w8">EL</span> <span class="sw k rojo" id="w9">TIEMPO</span></div><div class="sg" id="sg4" style="font-size:81px"><span class="sw" id="w10">MIRA</span> <span class="sw" id="w11">LA</span> <span class="sw" id="w12">DIFERENCIA</span></div><div class="sg" id="sg5" style="font-size:82px"><span class="sw" id="w13">ENTRE</span> <span class="sw" id="w14">UN</span> <span class="sw k rojo" id="w15">NOVATO</span></div><div class="sg" id="sg6" style="font-size:82px"><span class="sw" id="w16">Y</span> <span class="sw" id="w17">UN</span> <span class="sw k verde" id="w18">PRO</span></div><div class="sg" id="sg7" style="font-size:76px"><span class="sw" id="w19">DUELO</span> <span class="sw k ama" id="w20">UNO</span> <span class="sw k ama" id="w21">APUNTAR</span></div><div class="sg" id="sg8" style="font-size:82px"><span class="sw" id="w22">EL</span> <span class="sw k rojo" id="w23">NOVATO</span> <span class="sw" id="w24">LO</span></div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+tl.set("#sg0",{opacity:1,visibility:"visible"},0.1);
+tl.fromTo("#w0",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},0.08);
+tl.fromTo("#w1",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},0.41);
+tl.fromTo("#w2",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},0.69);
+tl.to("#sg0",{opacity:0,duration:0.1,ease:"power2.in"},0.685);
+tl.set("#sg0",{opacity:0,visibility:"hidden"},0.785);
+tl.set("#sg1",{opacity:1,visibility:"visible"},0.785);
+tl.fromTo("#w3",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},0.835);
+tl.fromTo("#w4",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},1.3);
+tl.to("#sg1",{opacity:0,duration:0.1,ease:"power2.in"},1.37);
+tl.set("#sg1",{opacity:0,visibility:"hidden"},1.47);
+tl.set("#sg2",{opacity:1,visibility:"visible"},1.47);
+tl.fromTo("#w5",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},1.52);
+tl.fromTo("#w6",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},1.82);
+tl.fromTo("#w7",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},2.265);
+tl.to("#sg2",{opacity:0,duration:0.1,ease:"power2.in"},2.435);
+tl.set("#sg2",{opacity:0,visibility:"hidden"},2.535);
+tl.set("#sg3",{opacity:1,visibility:"visible"},2.535);
+tl.fromTo("#w8",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},2.585);
+tl.fromTo("#w9",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},2.775);
+tl.to("#sg3",{opacity:0,duration:0.1,ease:"power2.in"},3.388);
+tl.set("#sg3",{opacity:0,visibility:"hidden"},3.488);
+tl.set("#sg4",{opacity:1,visibility:"visible"},3.488);
+tl.fromTo("#w10",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},3.538);
+tl.fromTo("#w11",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},3.948);
+tl.fromTo("#w12",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},4.063);
+tl.to("#sg4",{opacity:0,duration:0.1,ease:"power2.in"},4.543);
+tl.set("#sg4",{opacity:0,visibility:"hidden"},4.643);
+tl.set("#sg5",{opacity:1,visibility:"visible"},4.643);
+tl.fromTo("#w13",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},4.693);
+tl.fromTo("#w14",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},4.988);
+tl.fromTo("#w15",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},5.203);
+tl.to("#sg5",{opacity:0,duration:0.1,ease:"power2.in"},5.538);
+tl.set("#sg5",{opacity:0,visibility:"hidden"},5.638);
+tl.set("#sg6",{opacity:1,visibility:"visible"},5.638);
+tl.fromTo("#w16",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},5.688);
+tl.fromTo("#w17",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},5.768);
+tl.fromTo("#w18",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},5.943);
+tl.to("#sg6",{opacity:0,duration:0.1,ease:"power2.in"},6.377);
+tl.set("#sg6",{opacity:0,visibility:"hidden"},6.477);
+tl.set("#sg7",{opacity:1,visibility:"visible"},6.477);
+tl.fromTo("#w19",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},6.527);
+tl.fromTo("#w20",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},6.902);
+tl.fromTo("#w21",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},7.237);
+tl.to("#sg7",{opacity:0,duration:0.1,ease:"power2.in"},8.016);
+tl.set("#sg7",{opacity:0,visibility:"hidden"},8.116);
+tl.set("#sg8",{opacity:1,visibility:"visible"},8.116);
+tl.fromTo("#w22",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},8.166);
+tl.fromTo("#w23",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},8.411);
+tl.fromTo("#w24",{opacity:0,scale:0.7,y:12},{opacity:1,scale:1,y:0,duration:0.14,ease:"back.out(2)"},8.891);
+tl.to("#sg8",{opacity:0,duration:0.1,ease:"power2.in"},8.821);
+tl.set("#sg8",{opacity:0,visibility:"hidden"},8.921);
+window.__timelines["subtitulos"] = tl;
+</script>
+</template>

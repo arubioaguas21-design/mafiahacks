@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #07080c; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="8.6" data-width="1080" data-height="1920">
+      <div id="mundo-host" data-composition-id="mundo" data-composition-src="compositions/mundo.html"
+        data-start="0" data-duration="8.6" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="subtitulos" data-composition-id="subtitulos" data-composition-src="compositions/subtitulos.html"
+        data-start="0" data-duration="8.6" data-track-index="2" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index:5"></div>
+      <audio id="voz" class="clip" src="assets/voz.wav" data-start="0" data-duration="8.6" data-track-index="3" data-volume="1"></audio>
+      
+      <audio id="sfx0" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="0.02" data-duration="2.116" data-track-index="10" data-volume="0.7"></audio>
+      <audio id="sfx1" class="clip" src="assets/sfx/pop.mp3" data-start="0.41" data-duration="0.72" data-track-index="11" data-volume="0.45"></audio>
+      <audio id="sfx2" class="clip" src="assets/sfx/pop.mp3" data-start="2.765" data-duration="0.72" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sfx3" class="clip" src="assets/sfx/pop.mp3" data-start="5.203" data-duration="0.72" data-track-index="13" data-volume="0.45"></audio>
+      <audio id="sfx4" class="clip" src="assets/sfx/pop.mp3" data-start="5.943" data-duration="0.72" data-track-index="10" data-volume="0.45"></audio>
+      <audio id="sfx5" class="clip" src="assets/sfx/whoosh.mp3" data-start="6.67" data-duration="0.575" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx6" class="clip" src="assets/sfx/pop.mp3" data-start="6.902" data-duration="0.72" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="sfx7" class="clip" src="assets/sfx/typing.mp3" data-start="7.237" data-duration="1.363" data-track-index="13" data-volume="0.3"></audio>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>
