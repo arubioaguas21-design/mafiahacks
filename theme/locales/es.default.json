@@ -1,0 +1,9 @@
+{
+  "general": {
+    "password_page": {
+      "login_form_heading": "Entrar en la tienda con contraseña",
+      "login_password_button": "Entrar",
+      "login_form_password_label": "Contraseña"
+    }
+  }
+}

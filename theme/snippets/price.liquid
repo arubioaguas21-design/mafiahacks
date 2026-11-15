@@ -1,0 +1,17 @@
+{%- comment -%} Precio de un producto. Uso: {% render 'price', product: product, variant: variant %} {%- endcomment -%}
+{%- liquid
+  assign target = variant | default: product.selected_or_first_available_variant
+  assign compare = target.compare_at_price
+  assign on_sale = false
+  if compare > target.price
+    assign on_sale = true
+  endif
+-%}
+<span class="price-wrap{% if on_sale %} is-sale{% endif %}" data-price-wrap>
+  {%- if variant == blank and product.price_varies -%}
+    <span class="price-from">desde</span> <span data-price>{{ product.price_min | money }}</span>
+  {%- else -%}
+    <span data-price>{{ target.price | money }}</span>
+  {%- endif -%}
+  <s class="price-compare" data-compare>{% if on_sale %}{{ compare | money }}{% endif %}</s>
+</span>

@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "care": { "type": "collapsible", "settings": { "title": "Cuidados", "text": "<p>Lavar del revés en agua fría. No usar secadora. No planchar sobre el diseño.</p>" } },
+        "shipping": { "type": "collapsible", "settings": { "title": "Envíos y devoluciones", "text": "<p>Fabricación bajo pedido en 2-5 días laborables y envío con seguimiento. Tienes 14 días para solicitar una devolución. Si la prenda llega defectuosa, te la reponemos gratis.</p>" } }
+      },
+      "block_order": ["care", "shipping"],
+      "settings": {}
+    },
+    "related": {
+      "type": "featured-collection",
+      "settings": { "eyebrow": "Te puede gustar", "heading": "Más diseños", "limit": 4, "alt_bg": true }
+    }
+  },
+  "order": ["main", "related"]
+}

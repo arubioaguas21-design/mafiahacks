@@ -1,0 +1,29 @@
+<section class="section section--tight">
+  <div class="container">
+    <div class="section__head"><h1 class="h2">Buscar</h1></div>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-form">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Buscar productos…" aria-label="Buscar">
+      <input type="hidden" name="options[prefix]" value="last">
+      <button type="submit" class="btn btn--primary">Buscar</button>
+    </form>
+    {%- if search.performed -%}
+      <p class="muted search__count">{{ search.results_count }} {% if search.results_count == 1 %}resultado{% else %}resultados{% endif %} para “{{ search.terms | escape }}”</p>
+      {%- paginate search.results by 24 -%}
+        <div class="grid">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product: item, index: forloop.index %}
+            {%- else -%}
+              <a href="{{ item.url }}" class="card"><div class="card__body"><p class="eyebrow">{{ item.object_type }}</p><h3 class="card__title">{{ item.title | escape }}</h3></div></a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {% render 'pagination', paginate: paginate %}
+      {%- endpaginate -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Búsqueda", "tag": "div", "settings": [] }
+{% endschema %}

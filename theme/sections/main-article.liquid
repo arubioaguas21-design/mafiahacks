@@ -1,0 +1,15 @@
+<article class="section section--tight">
+  <div class="container container--narrow rich-text">
+    <p class="eyebrow">{{ article.published_at | date: '%d/%m/%Y' }}</p>
+    <h1 class="h2">{{ article.title | escape }}</h1>
+    {%- if article.image -%}
+      <div class="article__img">{{ article.image | image_url: width: 1400 | image_tag: widths: '700, 1000, 1400', sizes: '(min-width: 800px) 780px, 100vw' }}</div>
+    {%- endif -%}
+    <div class="rte">{{ article.content }}</div>
+    <p><a href="{{ blog.url }}" class="link">← Volver a {{ blog.title | escape }}</a></p>
+  </div>
+</article>
+
+{% schema %}
+{ "name": "Artículo", "tag": "div", "settings": [] }
+{% endschema %}

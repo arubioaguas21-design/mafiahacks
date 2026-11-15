@@ -1,0 +1,41 @@
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__head section__head--center">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h2>{{ section.settings.heading | escape }}</h2>
+    </div>
+    <div class="reviews">
+      {%- for block in section.blocks -%}
+        <blockquote class="review" {{ block.shopify_attributes }}>
+          <p class="stars" aria-label="{{ block.settings.stars }} de 5">{% for i in (1..block.settings.stars) %}★{% endfor %}</p>
+          <p>“{{ block.settings.quote | escape }}”</p>
+          <cite>— {{ block.settings.author | escape }}</cite>
+        </blockquote>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Opiniones",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Opiniones" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Lo que dicen nuestros clientes" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Opinión",
+      "settings": [
+        { "type": "range", "id": "stars", "label": "Estrellas", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Texto", "default": "Escribe aquí la opinión de un cliente real." },
+        { "type": "text", "id": "author", "label": "Autor", "default": "Nombre del cliente" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Opiniones", "blocks": [{ "type": "review" }, { "type": "review" }, { "type": "review" }] }]
+}
+{% endschema %}

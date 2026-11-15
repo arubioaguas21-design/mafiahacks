@@ -1,20 +1,25 @@
-# MAFIA · Tienda de camisetas y sudaderas personalizadas
+# MAFIA · Camisetas y sudaderas
 
-Web estática (HTML + CSS + JS, sin dependencias) para una tienda de camisetas y sudaderas personalizadas. No incluye personalizador: el cliente elige prenda, color, talla y zona de estampado, y envía su diseño después del pedido por email o WhatsApp.
+Tienda de camisetas y sudaderas con diseños propios, impresas bajo pedido con **Gelato** y vendidas con **Shopify**.
 
-## Cómo verla
-Abre `index.html` en el navegador (o sirve la carpeta con cualquier servidor estático, p. ej. `python3 -m http.server`).
+## Carpetas
 
-## Qué incluye
-- Catálogo de 10 prendas con filtros (camisetas / sudaderas) y orden por precio
-- Ficha de producto con color, talla, zona de estampado y cantidad
-- Carrito lateral guardado en el navegador, con barra de envío gratis
-- Secciones: cómo funciona, técnicas, empresas y descuentos por volumen, opiniones, FAQ y contacto
-- Diseño adaptado a móvil
+| Carpeta / archivo | Qué es |
+|---|---|
+| `theme/` | **Tema de Shopify** listo para subir (Tienda online → Temas → Subir archivo zip) |
+| `docs/GUIA-SHOPIFY-GELATO.md` | Guía paso a paso: crear la tienda, subir el tema, conectar Gelato, envíos, precios y devoluciones |
+| `index.html`, `styles.css`, `script.js` | Primera maqueta estática de la web (solo de referencia visual) |
 
-## Personalizar
-- Productos, precios y colores: arrays `PRODUCTS` y `COLORS` en `script.js`
-- Colores de la marca: variables `:root` en `styles.css`
-- Nombre, email y teléfono: `index.html`
+## Generar el zip del tema
 
-> El checkout, el formulario de contacto y la newsletter son de demostración: no envían nada todavía. Para cobrar de verdad hay que conectarlo a una pasarela (Stripe, Shopify, WooCommerce…).
+```bash
+cd theme && zip -r ../tema-mafia.zip . -x '.*'
+```
+
+## Qué incluye el tema
+
+- Portada editable: portada con imágenes, cinta de texto, categorías, productos destacados, "Así funciona", ventajas, opiniones (oculta hasta que tengas opiniones reales) y FAQ
+- Ficha de producto con galería, colores y tallas, añadir al carrito sin recargar y pago rápido
+- Colección con filtros de Shopify, orden y paginación
+- Carrito con barra de envío gratis, búsqueda, blog, contacto, 404, contraseña y tarjeta regalo
+- Todo en español y editable desde el editor de temas de Shopify

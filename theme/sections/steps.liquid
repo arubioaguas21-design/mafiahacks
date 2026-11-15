@@ -1,0 +1,41 @@
+<section class="section" id="{{ section.settings.anchor | default: 'como-funciona' | handleize }}">
+  <div class="container">
+    <div class="section__head section__head--center">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h2>{{ section.settings.heading | escape }}</h2>
+    </div>
+    <ol class="steps">
+      {%- for block in section.blocks -%}
+        <li class="step" {{ block.shopify_attributes }}>
+          <span class="step__n">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <h3>{{ block.settings.title | escape }}</h3>
+          <p>{{ block.settings.text | escape }}</p>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pasos",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Proceso" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Así funciona" },
+    { "type": "text", "id": "anchor", "label": "Ancla (id)", "default": "como-funciona", "info": "Para enlazar con #como-funciona" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Paso",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Elige tu diseño" },
+        { "type": "textarea", "id": "text", "label": "Texto", "default": "Descripción del paso." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "Pasos", "blocks": [{ "type": "step" }, { "type": "step" }, { "type": "step" }] }]
+}
+{% endschema %}

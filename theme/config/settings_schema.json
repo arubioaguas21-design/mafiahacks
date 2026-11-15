@@ -1,0 +1,41 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Mafia",
+    "theme_version": "1.0.0",
+    "theme_author": "Mafia",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com/manual/online-store/themes"
+  },
+  {
+    "name": "Colores",
+    "settings": [
+      { "type": "color", "id": "color_bg", "label": "Fondo", "default": "#faf9f6" },
+      { "type": "color", "id": "color_bg_alt", "label": "Fondo alternativo", "default": "#f0eee8" },
+      { "type": "color", "id": "color_ink", "label": "Texto y botones", "default": "#141414" },
+      { "type": "color", "id": "color_accent", "label": "Color de acento", "default": "#e63b2e" },
+      { "type": "color", "id": "color_highlight", "label": "Color secundario", "default": "#ffd23f" }
+    ]
+  },
+  {
+    "name": "Marca",
+    "settings": [
+      { "type": "image_picker", "id": "favicon", "label": "Favicon", "info": "Imagen cuadrada de 32 × 32 px" }
+    ]
+  },
+  {
+    "name": "Tarjetas de producto",
+    "settings": [
+      { "type": "checkbox", "id": "card_show_swatches", "label": "Mostrar colores disponibles", "default": true },
+      { "type": "text", "id": "color_option_name", "label": "Nombre de la opción de color", "default": "Color", "info": "Tal como se llama la opción en tus productos (p. ej. Color o Colour)." },
+      { "type": "checkbox", "id": "card_second_image", "label": "Mostrar segunda imagen al pasar el ratón", "default": true }
+    ]
+  },
+  {
+    "name": "Redes sociales",
+    "settings": [
+      { "type": "text", "id": "social_instagram", "label": "Instagram (URL)" },
+      { "type": "text", "id": "social_tiktok", "label": "TikTok (URL)" }
+    ]
+  }
+]

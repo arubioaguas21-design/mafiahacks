@@ -1,0 +1,21 @@
+{%- if section.settings.text != blank -%}
+  <div class="topbar">
+    {%- if section.settings.link != blank -%}
+      <a href="{{ section.settings.link }}">{{ section.settings.text | escape }}</a>
+    {%- else -%}
+      {{ section.settings.text | escape }}
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Barra de anuncios",
+  "class": "section-announcement",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Texto", "default": "Envío gratis en pedidos de más de 60 €" },
+    { "type": "url", "id": "link", "label": "Enlace" }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

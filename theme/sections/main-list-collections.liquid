@@ -1,0 +1,27 @@
+<section class="section section--tight">
+  <div class="container">
+    <div class="section__head"><h1 class="h2">Colecciones</h1></div>
+    <div class="grid">
+      {%- for collection in collections -%}
+        {%- if collection.products_count > 0 -%}
+          <a href="{{ collection.url }}" class="card">
+            <div class="card__img">
+              {%- if collection.featured_image -%}
+                {{ collection.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'card__photo', widths: '300, 450, 600' }}
+              {%- elsif collection.products.first.featured_media -%}
+                {{ collection.products.first.featured_media.preview_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'card__photo', widths: '300, 450, 600' }}
+              {%- else -%}
+                {% render 'garment', type: 'tee', color: '#d9d6cf' %}
+              {%- endif -%}
+            </div>
+            <div class="card__body"><h3 class="card__title">{{ collection.title | escape }}</h3><p class="card__meta">{{ collection.products_count }} productos</p></div>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Lista de colecciones", "tag": "div", "settings": [] }
+{% endschema %}

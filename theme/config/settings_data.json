@@ -1,0 +1,15 @@
+{
+  "current": "Default",
+  "presets": {
+    "Default": {
+      "color_bg": "#faf9f6",
+      "color_bg_alt": "#f0eee8",
+      "color_ink": "#141414",
+      "color_accent": "#e63b2e",
+      "color_highlight": "#ffd23f",
+      "card_show_swatches": true,
+      "color_option_name": "Color",
+      "card_second_image": true
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{%- if section.blocks.size > 0 -%}
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      {%- for i in (1..2) -%}
+        {%- for block in section.blocks -%}
+          <span>{{ block.settings.text | escape }}</span><span>★</span>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Cinta de texto",
+  "tag": "div",
+  "blocks": [
+    { "type": "text", "name": "Texto", "settings": [{ "type": "text", "id": "text", "label": "Texto", "default": "Diseños propios" }] }
+  ],
+  "presets": [{ "name": "Cinta de texto", "blocks": [{ "type": "text" }, { "type": "text" }] }]
+}
+{% endschema %}

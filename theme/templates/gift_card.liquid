@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tarjeta regalo · {{ shop.name }}</title>
+    {% render 'css-variables' %}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body class="template-gift-card">
+    <main class="section">
+      <div class="container container--narrow empty">
+        <a href="{{ shop.url }}" class="logo">{{ shop.name | escape }}<span>.</span></a>
+        <h1 class="h2">Tu tarjeta regalo de {{ gift_card.initial_value | money }}</h1>
+        {%- if gift_card.enabled == false or gift_card.expired -%}
+          <p class="form__error">Esta tarjeta ya no está activa.</p>
+        {%- else -%}
+          <p class="muted">Saldo disponible: <strong>{{ gift_card.balance | money }}</strong></p>
+        {%- endif -%}
+        <p class="gift-code">{{ gift_card.code | format_code }}</p>
+        {%- if gift_card.expires_on -%}<p class="small muted">Caduca el {{ gift_card.expires_on | date: '%d/%m/%Y' }}</p>{%- endif -%}
+        <div class="hero__cta">
+          <a href="{{ shop.url }}" class="btn btn--primary">Ir a la tienda</a>
+          <button type="button" class="btn btn--ghost" onclick="window.print()">Imprimir</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<section class="section{% if section.settings.alt_bg %} section--alt{% endif %}">
+  <div class="container container--narrow rich-text">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading | escape }}</h2>{%- endif -%}
+    {%- if section.settings.text != blank -%}<div class="rte">{{ section.settings.text }}</div>{%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="btn btn--primary">{{ section.settings.button_label | escape }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Texto",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Nuestra historia" },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Cuenta aquí quién está detrás de la marca.</p>" },
+    { "type": "text", "id": "button_label", "label": "Botón" },
+    { "type": "url", "id": "button_link", "label": "Enlace del botón" },
+    { "type": "checkbox", "id": "alt_bg", "label": "Fondo alternativo", "default": false }
+  ],
+  "presets": [{ "name": "Texto" }]
+}
+{% endschema %}

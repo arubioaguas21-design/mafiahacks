@@ -1,0 +1,55 @@
+{%- comment -%} Tarjeta de producto. Uso: {% render 'product-card', product: product, index: forloop.index %} {%- endcomment -%}
+{%- liquid
+  assign first = product.featured_media
+  assign second = product.media[1]
+  assign tags = product.tags | join: ',' | downcase
+  assign color_option = nil
+  for option in product.options_with_values
+    assign oname = option.name | downcase
+    assign wanted = settings.color_option_name | downcase
+    if oname == wanted
+      assign color_option = option
+    endif
+  endfor
+-%}
+<a href="{{ product.url }}" class="card" style="--d: {{ index | default: 0 | times: 40 }}ms">
+  <div class="card__img{% if first == blank %} card__img--empty{% endif %}">
+    {%- unless product.available -%}
+      <span class="badge badge--dark">Agotado</span>
+    {%- else -%}
+      {%- if product.compare_at_price > product.price -%}
+        <span class="badge">Oferta</span>
+      {%- elsif tags contains 'nuevo' -%}
+        <span class="badge">Nuevo</span>
+      {%- elsif tags contains 'mas-vendido' or tags contains 'más vendido' -%}
+        <span class="badge">Más vendido</span>
+      {%- endif -%}
+    {%- endunless -%}
+    {%- if first != blank -%}
+      {{ first.preview_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '300, 450, 600, 800', sizes: '(min-width: 990px) 25vw, 50vw', class: 'card__photo', alt: product.title }}
+      {%- if settings.card_second_image and second != blank -%}
+        {{ second.preview_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '300, 450, 600, 800', sizes: '(min-width: 990px) 25vw, 50vw', class: 'card__photo card__photo--alt', alt: '' }}
+      {%- endif -%}
+    {%- else -%}
+      {% render 'garment', type: 'tee', color: '#d9d6cf' %}
+    {%- endif -%}
+  </div>
+  <div class="card__body">
+    <div class="card__top">
+      <h3 class="card__title">{{ product.title | escape }}</h3>
+      <span class="card__price">{% render 'price', product: product %}</span>
+    </div>
+    {%- if settings.card_show_swatches and color_option -%}
+      <div class="card__dots">
+        {%- for value in color_option.values limit: 6 -%}
+          {%- if value.swatch.color -%}
+            <span class="dot" style="background: {{ value.swatch.color }}" title="{{ value | escape }}"></span>
+          {%- elsif value.swatch.image -%}
+            <span class="dot" style="background-image: url({{ value.swatch.image | image_url: width: 40 }})" title="{{ value | escape }}"></span>
+          {%- endif -%}
+        {%- endfor -%}
+        <span class="card__meta">{{ color_option.values.size }} {% if color_option.values.size == 1 %}color{% else %}colores{% endif %}</span>
+      </div>
+    {%- endif -%}
+  </div>
+</a>

@@ -1,0 +1,97 @@
+{%- assign threshold = section.settings.free_shipping | times: 100 -%}
+<section class="section section--tight">
+  <div class="container cart">
+    <div class="section__head">
+      <h1 class="h2">Tu carrito</h1>
+      {%- if cart.item_count > 0 -%}<a href="{{ routes.all_products_collection_url }}" class="link">Seguir comprando</a>{%- endif -%}
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" class="cart__layout" data-cart-form>
+        <div class="cart__items">
+          {%- for item in cart.items -%}
+            <div class="item">
+              <a href="{{ item.url }}" class="item__img">
+                {%- if item.image -%}
+                  {{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: item.product.title }}
+                {%- else -%}
+                  {% render 'garment', type: 'tee', color: '#d9d6cf' %}
+                {%- endif -%}
+              </a>
+              <div>
+                <a href="{{ item.url }}" class="item__title">{{ item.product.title | escape }}</a>
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="item__meta">{{ item.variant.title | escape }}</p>
+                {%- endunless -%}
+                {%- for discount in item.line_level_discount_allocations -%}
+                  <p class="item__meta item__discount">{{ discount.discount_application.title | escape }} (−{{ discount.amount | money }})</p>
+                {%- endfor -%}
+                <div class="qty qty--sm">
+                  <button type="button" data-qty="-1" aria-label="Menos">−</button>
+                  <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Cantidad de {{ item.product.title | escape }}" data-cart-qty>
+                  <button type="button" data-qty="1" aria-label="Más">+</button>
+                </div>
+              </div>
+              <div class="item__right">
+                {%- if item.original_line_price != item.final_line_price -%}<s class="price-compare">{{ item.original_line_price | money }}</s>{%- endif -%}
+                <strong>{{ item.final_line_price | money }}</strong>
+                <a href="{{ item.url_to_remove }}" class="item__remove">Eliminar</a>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <aside class="cart__summary">
+          {%- if threshold > 0 -%}
+            {%- liquid
+              assign left = threshold | minus: cart.total_price
+              assign pct = cart.total_price | times: 100 | divided_by: threshold
+              if pct > 100
+                assign pct = 100
+              endif
+            -%}
+            <div class="ship">
+              {%- if left > 0 -%}
+                Te faltan <strong>{{ left | money }}</strong> para el envío gratis
+              {%- else -%}
+                🎉 ¡Tienes <strong>envío gratis</strong>!
+              {%- endif -%}
+              <div class="ship__bar"><i style="width: {{ pct }}%"></i></div>
+            </div>
+          {%- endif -%}
+          {%- for discount in cart.cart_level_discount_applications -%}
+            <div class="total total--sm"><span>{{ discount.title | escape }}</span><span>−{{ discount.total_allocated_amount | money }}</span></div>
+          {%- endfor -%}
+          <div class="total"><span>Subtotal</span><strong>{{ cart.total_price | money_with_currency }}</strong></div>
+          <p class="small muted">IVA incluido. Envío y descuentos calculados al pagar.</p>
+          {%- if section.settings.show_note -%}
+            <label class="cart__note">Nota del pedido
+              <textarea name="note" rows="2">{{ cart.note }}</textarea>
+            </label>
+          {%- endif -%}
+          <noscript><button type="submit" name="update" class="btn btn--ghost btn--block">Actualizar</button></noscript>
+          <button type="submit" name="checkout" class="btn btn--primary btn--block">Finalizar pedido</button>
+          {%- if additional_checkout_buttons -%}
+            <div class="cart__extra">{{ content_for_additional_checkout_buttons }}</div>
+          {%- endif -%}
+        </aside>
+      </form>
+    {%- else -%}
+      <div class="empty">
+        <p>Tu carrito está vacío.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">Ver productos</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carrito",
+  "tag": "div",
+  "settings": [
+    { "type": "number", "id": "free_shipping", "label": "Envío gratis a partir de (€)", "default": 60, "info": "Solo se usa para la barra de progreso. Pon 0 para ocultarla. El envío gratis real se configura en Ajustes > Envíos." },
+    { "type": "checkbox", "id": "show_note", "label": "Permitir nota del pedido", "default": false }
+  ]
+}
+{% endschema %}

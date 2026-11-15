@@ -1,0 +1,148 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign active_media = current_variant.featured_media | default: product.featured_media
+  assign color_name = settings.color_option_name | downcase
+-%}
+<section class="section section--tight product" data-product data-section="{{ section.id }}">
+  <div class="container product__inner">
+    <div class="gallery">
+      <div class="gallery__stage">
+        {%- for media in product.media -%}
+          <div class="gallery__item{% if media.id == active_media.id %} is-active{% endif %}" data-media-id="{{ media.id }}">
+            {%- if media.media_type == 'image' -%}
+              {%- liquid
+                assign img_loading = 'lazy'
+                if forloop.first
+                  assign img_loading = 'eager'
+                endif
+                assign img_alt = media.alt | default: product.title
+              -%}
+              {{ media | image_url: width: 1400 | image_tag: widths: '500, 800, 1100, 1400', sizes: '(min-width: 990px) 50vw, 100vw', loading: img_loading, alt: img_alt }}
+            {%- else -%}
+              {{ media | media_tag: image_size: '1400x' }}
+            {%- endif -%}
+          </div>
+        {%- else -%}
+          <div class="gallery__item is-active">{% render 'garment', type: 'tee', color: '#d9d6cf' %}</div>
+        {%- endfor -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="gallery__thumbs">
+          {%- for media in product.media -%}
+            <button type="button" class="thumb{% if media.id == active_media.id %} is-active{% endif %}" data-thumb="{{ media.id }}" aria-label="Ver imagen {{ forloop.index }}">
+              {{ media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="product__info">
+      {%- if product.collections.size > 0 -%}<p class="eyebrow">{{ product.collections.first.title | escape }}</p>{%- endif -%}
+      <h1 class="product__title">{{ product.title | escape }}</h1>
+      <p class="price">{% render 'price', product: product, variant: current_variant %}</p>
+      {%- if section.settings.tax_note != blank -%}<p class="small muted">{{ section.settings.tax_note | escape }}</p>{%- endif -%}
+
+      {%- form 'product', product, id: 'ProductForm', class: 'product__form', novalidate: 'novalidate' -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            {%- assign oname = option.name | downcase -%}
+            <fieldset class="opt">
+              <legend class="opt__label">{{ option.name | escape }}: <strong data-option-label="{{ forloop.index0 }}">{{ option.selected_value | escape }}</strong></legend>
+              <div class="{% if oname == color_name %}swatches{% else %}sizes{% endif %}">
+                {%- for value in option.values -%}
+                  {%- assign input_id = section.id | append: '-' | append: forloop.parentloop.index0 | append: '-' | append: forloop.index0 -%}
+                  <input type="radio" class="visually-hidden" id="{{ input_id }}" name="option-{{ forloop.parentloop.index0 }}" value="{{ value | escape }}" data-option-index="{{ forloop.parentloop.index0 }}"{% if option.selected_value == value %} checked{% endif %}>
+                  {%- if oname == color_name -%}
+                    <label for="{{ input_id }}" class="swatch" title="{{ value | escape }}" style="{% if value.swatch.color %}background: {{ value.swatch.color }};{% elsif value.swatch.image %}background-image: url({{ value.swatch.image | image_url: width: 60 }});{% endif %}">
+                      {%- unless value.swatch.color or value.swatch.image -%}<span class="swatch__text">{{ value | escape }}</span>{%- endunless -%}
+                      <span class="visually-hidden">{{ value | escape }}</span>
+                    </label>
+                  {%- else -%}
+                    <label for="{{ input_id }}" class="size">{{ value | escape }}</label>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          {%- endfor -%}
+          {%- if section.settings.size_guide != blank -%}
+            <a href="{{ section.settings.size_guide.url }}" class="link small" target="_blank">Guía de tallas</a>
+          {%- endif -%}
+        {%- endunless -%}
+
+        <div class="opt opt--row">
+          <div class="qty">
+            <button type="button" data-qty="-1" aria-label="Menos">−</button>
+            <input type="number" name="quantity" value="1" min="1" aria-label="Cantidad">
+            <button type="button" data-qty="1" aria-label="Más">+</button>
+          </div>
+          <button type="submit" name="add" class="btn btn--primary" data-add-button{% unless current_variant.available %} disabled{% endunless %}>
+            <span data-add-text>{% if current_variant.available %}Añadir al carrito{% else %}Agotado{% endif %}</span>
+          </button>
+        </div>
+        {%- if section.settings.show_dynamic_checkout -%}
+          {{ form | payment_button }}
+        {%- endif -%}
+        <p class="form__error" data-form-error hidden></p>
+      {%- endform -%}
+
+      {%- if section.settings.shipping_note != blank -%}
+        <p class="note">{{ section.settings.shipping_note | escape }}</p>
+      {%- endif -%}
+
+      <div class="faq product__acc">
+        {%- if product.description != blank -%}
+          <details open>
+            <summary>Descripción</summary>
+            <div class="faq__a rte">{{ product.description }}</div>
+          </details>
+        {%- endif -%}
+        {%- for block in section.blocks -%}
+          <details {{ block.shopify_attributes }}>
+            <summary>{{ block.settings.title | escape }}</summary>
+            <div class="faq__a rte">
+              {{ block.settings.text }}
+              {%- if block.settings.page != blank -%}{{ block.settings.page.content }}{%- endif -%}
+            </div>
+          </details>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+  <script type="application/json" data-product-json>
+    {
+      "variants": {{ product.variants | json }},
+      "url": {{ product.url | json }}
+    }
+  </script>
+</section>
+
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "Producto",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "tax_note", "label": "Nota de impuestos", "default": "IVA incluido. Gastos de envío calculados al pagar." },
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Mostrar botón de pago rápido", "default": true },
+    { "type": "text", "id": "shipping_note", "label": "Nota de envío", "default": "🖨️ Impreso bajo pedido: se fabrica en 2-5 días laborables y después se envía." },
+    { "type": "page", "id": "size_guide", "label": "Página de guía de tallas" }
+  ],
+  "blocks": [
+    {
+      "type": "collapsible",
+      "name": "Desplegable",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Envíos y devoluciones" },
+        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Información sobre envíos y devoluciones.</p>" },
+        { "type": "page", "id": "page", "label": "Contenido de una página (opcional)" }
+      ]
+    }
+  ]
+}
+{% endschema %}

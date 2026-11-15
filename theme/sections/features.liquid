@@ -1,0 +1,42 @@
+<section class="section{% if section.settings.dark %} section--dark{% endif %}">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        <h2>{{ section.settings.heading | escape }}</h2>
+      </div>
+    </div>
+    <div class="techs">
+      {%- for block in section.blocks -%}
+        <article class="tech" {{ block.shopify_attributes }}>
+          <h3>{{ block.settings.title | escape }}</h3>
+          <p>{{ block.settings.text | escape }}</p>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ventajas",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Calidad" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Hecho para durar" },
+    { "type": "checkbox", "id": "dark", "label": "Fondo oscuro", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Ventaja",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Algodón" },
+        { "type": "textarea", "id": "text", "label": "Texto", "default": "Descripción." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "Ventajas", "blocks": [{ "type": "feature" }, { "type": "feature" }, { "type": "feature" }, { "type": "feature" }] }]
+}
+{% endschema %}

@@ -1,0 +1,15 @@
+{
+  "type": "header",
+  "name": "Cabecera",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": { "text": "Envío gratis en pedidos de más de 60 € · Impreso bajo pedido para ti" }
+    },
+    "header": {
+      "type": "header",
+      "settings": { "menu": "main-menu" }
+    }
+  },
+  "order": ["announcement", "header"]
+}

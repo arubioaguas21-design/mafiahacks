@@ -1,0 +1,77 @@
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>
+      <a href="{{ routes.root_url }}" class="logo logo--light">{{ section.settings.logo_text | default: shop.name | escape }}<span>.</span></a>
+      {%- if section.settings.tagline != blank -%}<p>{{ section.settings.tagline | escape }}</p>{%- endif -%}
+      <div class="social">
+        {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
+        {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener">TikTok</a>{%- endif -%}
+      </div>
+    </div>
+    {%- for i in (1..2) -%}
+      {%- liquid
+        assign menu_key = 'menu_' | append: i
+        assign title_key = 'menu_' | append: i | append: '_title'
+        assign menu = section.settings[menu_key]
+      -%}
+      {%- if menu.links.size > 0 -%}
+        <div>
+          <h4>{{ section.settings[title_key] | default: menu.title | escape }}</h4>
+          {%- for link in menu.links -%}
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+    <div>
+      <h4>{{ section.settings.newsletter_title | escape }}</h4>
+      {%- form 'customer', id: 'FooterNewsletter', class: 'newsletter-wrap' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        {%- if form.posted_successfully? -%}
+          <p class="form__ok">¡Gracias por suscribirte!</p>
+        {%- else -%}
+          <div class="newsletter">
+            <input type="email" name="contact[email]" placeholder="Tu email" required aria-label="Email" autocomplete="email">
+            <button type="submit" aria-label="Suscribirme">→</button>
+          </div>
+          {%- if form.errors -%}<p class="form__error">{{ form.errors | default_errors }}</p>{%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+      {%- if section.settings.newsletter_text != blank -%}<p class="small">{{ section.settings.newsletter_text | escape }}</p>{%- endif -%}
+    </div>
+  </div>
+  <div class="container footer__bottom">
+    <span>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</span>
+    <span class="footer__policies">
+      {%- for policy in shop.policies -%}
+        <a href="{{ policy.url }}">{{ policy.title | escape }}</a>
+      {%- endfor -%}
+    </span>
+    {%- if section.settings.show_payment_icons -%}
+      <ul class="payment-icons">
+        {%- for type in shop.enabled_payment_types -%}
+          <li>{{ type | payment_type_svg_tag: class: 'payment-icon' }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Pie de página",
+  "class": "section-footer",
+  "settings": [
+    { "type": "text", "id": "logo_text", "label": "Texto del logo", "default": "MAFIA" },
+    { "type": "text", "id": "tagline", "label": "Descripción", "default": "Camisetas y sudaderas con diseños propios, impresas bajo pedido." },
+    { "type": "link_list", "id": "menu_1", "label": "Menú 1", "default": "main-menu" },
+    { "type": "text", "id": "menu_1_title", "label": "Título menú 1", "default": "Tienda" },
+    { "type": "link_list", "id": "menu_2", "label": "Menú 2", "default": "footer" },
+    { "type": "text", "id": "menu_2_title", "label": "Título menú 2", "default": "Ayuda" },
+    { "type": "text", "id": "newsletter_title", "label": "Título newsletter", "default": "Newsletter" },
+    { "type": "text", "id": "newsletter_text", "label": "Texto newsletter", "default": "Novedades y lanzamientos antes que nadie." },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Mostrar métodos de pago", "default": true }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

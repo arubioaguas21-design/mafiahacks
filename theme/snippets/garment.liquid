@@ -1,0 +1,25 @@
+{%- comment -%}
+  Ilustración de prenda (se usa cuando aún no hay imagen).
+  Uso: {% render 'garment', type: 'tee' | 'hoodie', color: '#hex' %}
+{%- endcomment -%}
+{%- liquid
+  assign c = color | default: '#f2f0eb'
+  assign dark = c | color_darken: 12
+  assign darker = c | color_darken: 25
+  assign light = c | color_brightness
+-%}
+<svg class="garment" viewBox="0 0 200 190" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <ellipse cx="100" cy="188" rx="70" ry="3" fill="rgba(0,0,0,.08)"/>
+  {%- if type == 'hoodie' -%}
+    <path d="M66 30 Q100 58 134 30 L172 42 L198 170 L175 178 L156 92 L156 176 L44 176 L44 92 L25 178 L2 170 L28 42 Z" fill="{{ c }}" stroke="rgba(0,0,0,.25)" stroke-width="1.5" stroke-linejoin="round"/>
+    <rect x="44" y="166" width="112" height="12" rx="2" fill="{{ dark }}"/>
+    <path d="M175 178 L198 170 L195 158 L172 166 Z M25 178 L2 170 L5 158 L28 166 Z" fill="{{ dark }}"/>
+    <path d="M62 34 Q56 2 100 2 Q144 2 138 34 Q100 66 62 34 Z" fill="{{ c }}" stroke="rgba(0,0,0,.25)" stroke-width="1.5"/>
+    <path d="M74 32 Q74 12 100 12 Q126 12 126 32 Q100 52 74 32 Z" fill="{{ darker }}"/>
+    <path d="M90 50 L88 88 M110 50 L112 88" stroke="{% if light > 160 %}{{ darker }}{% else %}#f2f2f2{% endif %}" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M68 128 L132 128 L142 162 L58 162 Z" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="2"/>
+  {%- else -%}
+    <path d="M70 22 Q100 42 130 22 L172 38 L196 84 L162 98 L155 82 L155 186 L45 186 L45 82 L38 98 L4 84 L28 38 Z" fill="{{ c }}" stroke="rgba(0,0,0,.18)" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M70 22 Q100 44 130 22" fill="none" stroke="{{ darker }}" stroke-width="5" stroke-linecap="round"/>
+  {%- endif -%}
+</svg>

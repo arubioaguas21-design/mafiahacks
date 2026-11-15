@@ -1,0 +1,77 @@
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__text">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h1>
+        {{- section.settings.heading | escape | newline_to_br -}}
+        {%- if section.settings.heading_accent != blank %} <em>{{ section.settings.heading_accent | escape }}</em>.{% endif -%}
+      </h1>
+      {%- if section.settings.text != blank -%}<div class="lead">{{ section.settings.text }}</div>{%- endif -%}
+      <div class="hero__cta">
+        {%- if section.settings.button_1_label != blank -%}
+          <a href="{{ section.settings.button_1_link | default: routes.all_products_collection_url }}" class="btn btn--primary">{{ section.settings.button_1_label | escape }}</a>
+        {%- endif -%}
+        {%- if section.settings.button_2_label != blank -%}
+          <a href="{{ section.settings.button_2_link | default: '#' }}" class="btn btn--ghost">{{ section.settings.button_2_label | escape }}</a>
+        {%- endif -%}
+      </div>
+      {%- if section.blocks.size > 0 -%}
+        <ul class="hero__stats">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}><strong>{{ block.settings.value | escape }}</strong><span>{{ block.settings.label | escape }}</span></li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+    <div class="hero__visual">
+      <div class="hero__card hero__card--back">
+        {%- if section.settings.image_1 != blank -%}
+          {{ section.settings.image_1 | image_url: width: 900 | image_tag: widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, 70vw', loading: 'eager', fetchpriority: 'high' }}
+        {%- else -%}
+          {% render 'garment', type: 'hoodie', color: '#1f3a5f' %}
+        {%- endif -%}
+      </div>
+      <div class="hero__card hero__card--front">
+        {%- if section.settings.image_2 != blank -%}
+          {{ section.settings.image_2 | image_url: width: 900 | image_tag: widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, 70vw', loading: 'eager' }}
+        {%- else -%}
+          {% render 'garment', type: 'tee', color: '#f2f0eb' %}
+        {%- endif -%}
+      </div>
+      {%- if section.settings.sticker != blank -%}<div class="sticker">{{ section.settings.sticker | escape }}</div>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Portada",
+  "tag": "div",
+  "class": "section-hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Diseños propios · Impreso bajo pedido" },
+    { "type": "textarea", "id": "heading", "label": "Título", "default": "Ropa con\nactitud." },
+    { "type": "text", "id": "heading_accent", "label": "Palabra destacada (en color)", "default": "Y diseño" },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Camisetas y sudaderas con diseños exclusivos. Cada prenda se imprime cuando la pides: sin stock parado, sin desperdicio.</p>" },
+    { "type": "text", "id": "button_1_label", "label": "Botón 1", "default": "Ver colección" },
+    { "type": "url", "id": "button_1_link", "label": "Enlace botón 1" },
+    { "type": "text", "id": "button_2_label", "label": "Botón 2", "default": "Cómo funciona" },
+    { "type": "url", "id": "button_2_link", "label": "Enlace botón 2" },
+    { "type": "image_picker", "id": "image_1", "label": "Imagen trasera", "info": "Foto o mockup con fondo limpio. Cuadrada." },
+    { "type": "image_picker", "id": "image_2", "label": "Imagen delantera", "info": "Foto o mockup con fondo limpio. Cuadrada." },
+    { "type": "text", "id": "sticker", "label": "Pegatina", "default": "100% algodón" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Dato",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "value", "label": "Valor", "default": "48 h" },
+        { "type": "text", "id": "label", "label": "Descripción", "default": "producción" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Portada" }]
+}
+{% endschema %}

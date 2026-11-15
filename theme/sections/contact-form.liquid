@@ -1,0 +1,45 @@
+<section class="section section--alt">
+  <div class="container contact">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h2>{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}<div class="rte muted">{{ section.settings.text }}</div>{%- endif -%}
+      <ul class="contact__info">
+        {%- if section.settings.email != blank -%}<li><strong>Email</strong> <a href="mailto:{{ section.settings.email }}">{{ section.settings.email | escape }}</a></li>{%- endif -%}
+        {%- if section.settings.whatsapp != blank -%}<li><strong>WhatsApp</strong> {{ section.settings.whatsapp | escape }}</li>{%- endif -%}
+        {%- if section.settings.hours != blank -%}<li><strong>Horario</strong> {{ section.settings.hours | escape }}</li>{%- endif -%}
+      </ul>
+    </div>
+    {%- form 'contact', class: 'form', id: 'ContactForm' -%}
+      {%- if form.posted_successfully? -%}
+        <p class="form__ok">¡Gracias! Te responderemos muy pronto.</p>
+      {%- endif -%}
+      {%- if form.errors -%}
+        <p class="form__error">{{ form.errors | default_errors }}</p>
+      {%- endif -%}
+      <div class="form__row">
+        <label>Nombre<input type="text" name="contact[name]" required autocomplete="name" value="{{ form.name }}"></label>
+        <label>Email<input type="email" name="contact[email]" required autocomplete="email" value="{{ form.email }}"></label>
+      </div>
+      <label>Número de pedido (opcional)<input type="text" name="contact[pedido]"></label>
+      <label>Mensaje<textarea name="contact[body]" rows="5" required placeholder="¿En qué podemos ayudarte?">{{ form.body }}</textarea></label>
+      <button class="btn btn--primary btn--block" type="submit">Enviar mensaje</button>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Formulario de contacto",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Contacto" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "¿Hablamos?" },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Escríbenos y te respondemos en menos de 24 h laborables.</p>" },
+    { "type": "text", "id": "email", "label": "Email" },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp" },
+    { "type": "text", "id": "hours", "label": "Horario", "default": "L–V · 9:00–18:00" }
+  ],
+  "presets": [{ "name": "Formulario de contacto" }]
+}
+{% endschema %}

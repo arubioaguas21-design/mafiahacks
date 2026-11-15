@@ -1,0 +1,26 @@
+<section class="section section--tight">
+  <div class="container">
+    <div class="section__head"><h1 class="h2">{{ blog.title | escape }}</h1></div>
+    {%- paginate blog.articles by 12 -%}
+      <div class="grid">
+        {%- for article in blog.articles -%}
+          <a href="{{ article.url }}" class="card">
+            {%- if article.image -%}
+              <div class="card__img">{{ article.image | image_url: width: 700 | image_tag: loading: 'lazy', class: 'card__photo card__photo--cover', widths: '350, 700' }}</div>
+            {%- endif -%}
+            <div class="card__body">
+              <p class="card__meta">{{ article.published_at | date: '%d/%m/%Y' }}</p>
+              <h3 class="card__title">{{ article.title | escape }}</h3>
+              <p class="card__meta">{{ article.excerpt_or_content | strip_html | truncatewords: 20 }}</p>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+      {% render 'pagination', paginate: paginate %}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Blog", "tag": "div", "settings": [] }
+{% endschema %}

@@ -1,0 +1,43 @@
+{%- assign col = section.settings.collection | default: collections.all -%}
+<section class="section{% if section.settings.alt_bg %} section--alt{% endif %}" id="tienda">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        <h2>{{ section.settings.heading | escape }}</h2>
+      </div>
+      {%- if col.products_count > 0 -%}
+        <a href="{{ col.url }}" class="btn btn--ghost btn--sm">Ver todo</a>
+      {%- endif -%}
+    </div>
+    <div class="grid">
+      {%- if col != blank and col.products_count > 0 -%}
+        {%- for product in col.products limit: section.settings.limit -%}
+          {% render 'product-card', product: product, index: forloop.index %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..4) -%}
+          <div class="card card--placeholder">
+            <div class="card__img">{% render 'garment', type: 'tee', color: '#d9d6cf' %}</div>
+            <div class="card__body"><div class="card__top"><h3 class="card__title">Tu producto</h3><span class="card__price">29,90 €</span></div></div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Productos destacados",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Colección" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Lo más nuevo" },
+    { "type": "collection", "id": "collection", "label": "Colección" },
+    { "type": "range", "id": "limit", "label": "Número de productos", "min": 2, "max": 16, "step": 1, "default": 8 },
+    { "type": "checkbox", "id": "alt_bg", "label": "Fondo alternativo", "default": true }
+  ],
+  "presets": [{ "name": "Productos destacados" }]
+}
+{% endschema %}

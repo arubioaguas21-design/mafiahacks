@@ -1,0 +1,17 @@
+{
+  "type": "footer",
+  "name": "Pie de página",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "tagline": "Camisetas y sudaderas con diseños propios, impresas bajo pedido.",
+        "menu_1": "main-menu",
+        "menu_1_title": "Tienda",
+        "menu_2": "footer",
+        "menu_2_title": "Ayuda"
+      }
+    }
+  },
+  "order": ["footer"]
+}
