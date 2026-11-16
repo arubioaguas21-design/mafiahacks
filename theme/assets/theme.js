@@ -1,4 +1,4 @@
-/* Mafia theme */
+/* Colorcalle theme */
 (function () {
   const root = (window.Shopify && Shopify.routes && Shopify.routes.root) || '/';
 

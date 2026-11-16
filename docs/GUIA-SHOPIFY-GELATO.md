@@ -15,9 +15,9 @@ Cómo funciona todo junto:
 
 ## 2. Sube el tema
 
-1. Genera el archivo del tema (o usa el `tema-mafia.zip` que te he pasado):
+1. Genera el archivo del tema (o usa el `tema-colorcalle.zip` que te he pasado):
    ```bash
-   cd theme && zip -r ../tema-mafia.zip . -x '.*'
+   cd theme && zip -r ../tema-colorcalle.zip . -x '.*'
    ```
    Los archivos `layout/`, `sections/`… tienen que quedar en la raíz del zip, no dentro de una carpeta.
 2. En Shopify: **Tienda online → Temas → Añadir tema → Subir archivo zip**.
@@ -27,7 +27,7 @@ En el editor (**Personalizar**) puedes cambiar sin tocar código:
 
 | Dónde | Qué cambiar |
 |---|---|
-| Cabecera | Logo (o el texto "MAFIA") y menú |
+| Cabecera | Logo (o el texto "colorcalle") y menú |
 | Barra de anuncios | El texto de arriba del todo |
 | Portada | Título, texto, botones y las 2 imágenes (usa mockups de Gelato con fondo limpio) |
 | Categorías | Elige las colecciones **Camisetas** y **Sudaderas** (paso 5) |

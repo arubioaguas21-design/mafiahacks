@@ -1,5 +1,5 @@
 /* =========================================================
-   MAFIA · Tienda de camisetas y sudaderas personalizadas
+   Colorcalle · Tienda de camisetas y sudaderas personalizadas
    ========================================================= */
 
 // ---------- Utilidades de color ----------
@@ -237,7 +237,7 @@ $("#mAdd").addEventListener("click", () => {
 });
 
 // ---------- Carrito ----------
-const STORAGE_KEY = "mafia-cart";
+const STORAGE_KEY = "colorcalle-cart";
 let cart = [];
 try { cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { cart = []; }
 cart = cart.filter((it) => PRODUCTS.some((p) => p.id === it.id) && it.key.split("|").length === 3);
