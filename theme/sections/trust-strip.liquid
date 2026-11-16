@@ -1,0 +1,32 @@
+{%- if section.blocks.size > 0 -%}
+  <div class="trust-strip">
+    <div class="container trust-strip__inner">
+      {%- for block in section.blocks -%}
+        <span class="trust-item" {{ block.shopify_attributes }}>{% render 'icon', name: block.settings.icon %}{{ block.settings.text | escape }}</span>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Franja de confianza",
+  "class": "section-trust",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Elemento",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icono", "default": "lock", "options": [
+          { "value": "lock", "label": "Candado" }, { "value": "truck", "label": "Camión" }, { "value": "return", "label": "Devolución" },
+          { "value": "chat", "label": "Chat" }, { "value": "shield", "label": "Escudo" }, { "value": "leaf", "label": "Hoja" }, { "value": "star", "label": "Estrella" }
+        ] },
+        { "type": "text", "id": "text", "label": "Texto", "default": "Pago 100% seguro" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "enabled_on": { "groups": ["header"] },
+  "presets": [{ "name": "Franja de confianza", "blocks": [{ "type": "item" }] }]
+}
+{% endschema %}

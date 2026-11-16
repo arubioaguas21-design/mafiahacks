@@ -40,7 +40,12 @@
     <div class="product__info">
       {%- if product.collections.size > 0 -%}<p class="eyebrow">{{ product.collections.first.title | escape }}</p>{%- endif -%}
       <h1 class="product__title">{{ product.title | escape }}</h1>
-      <p class="price">{% render 'price', product: product, variant: current_variant %}</p>
+      {%- assign rating = product.metafields.reviews.rating.value -%}
+      {%- assign rating_count = product.metafields.reviews.rating_count.value -%}
+      {%- if rating and rating_count > 0 -%}
+        <a href="#reviews" class="product__rating">{% render 'stars', rating: rating.rating %} {{ rating.rating | round: 1 }} · {{ rating_count }} {% if rating_count == 1 %}opinión{% else %}opiniones{% endif %}</a>
+      {%- endif -%}
+      <p class="price">{% render 'price', product: product, variant: current_variant, show_save: true %}</p>
       {%- if section.settings.tax_note != blank -%}<p class="small muted">{{ section.settings.tax_note | escape }}</p>{%- endif -%}
 
       {%- form 'product', product, id: 'ProductForm', class: 'product__form', novalidate: 'novalidate' -%}
@@ -88,6 +93,34 @@
         <p class="form__error" data-form-error hidden></p>
       {%- endform -%}
 
+      {%- if settings.delivery_show -%}
+        <div class="delivery" data-delivery data-min="{{ settings.delivery_min }}" data-max="{{ settings.delivery_max }}">
+          {% render 'icon', name: 'calendar' %}
+          <span>Pide hoy y recíbelo <strong data-delivery-text>en {{ settings.delivery_min }}-{{ settings.delivery_max }} días laborables</strong></span>
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="buy-trust">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'trust' -%}
+              <li {{ block.shopify_attributes }}>{% render 'icon', name: 'check' %}{{ block.settings.text | escape }}</li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.show_secure -%}
+        <div class="secure-pay">
+          <p>{% render 'icon', name: 'lock' %} Pago cifrado y seguro con</p>
+          <ul class="payment-icons">
+            {%- for type in shop.enabled_payment_types -%}
+              <li>{{ type | payment_type_svg_tag: class: 'payment-icon' }}</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
       {%- if section.settings.shipping_note != blank -%}
         <p class="note">{{ section.settings.shipping_note | escape }}</p>
       {%- endif -%}
@@ -100,6 +133,7 @@
           </details>
         {%- endif -%}
         {%- for block in section.blocks -%}
+          {%- if block.type != 'collapsible' -%}{%- continue -%}{%- endif -%}
           <details {{ block.shopify_attributes }}>
             <summary>{{ block.settings.title | escape }}</summary>
             <div class="faq__a rte">
@@ -110,6 +144,13 @@
         {%- endfor -%}
       </div>
     </div>
+  </div>
+  <div class="sticky-buy" data-sticky-buy aria-hidden="true">
+    <div class="sticky-buy__info">
+      <p class="sticky-buy__title">{{ product.title | escape }}</p>
+      <p class="sticky-buy__price" data-sticky-price>{{ current_variant.price | money }}</p>
+    </div>
+    <button type="button" class="btn btn--primary btn--sm" data-sticky-add tabindex="-1">Añadir al carrito</button>
   </div>
   <script type="application/json" data-product-json>
     {
@@ -130,10 +171,19 @@
   "settings": [
     { "type": "text", "id": "tax_note", "label": "Nota de impuestos", "default": "IVA incluido. Gastos de envío calculados al pagar." },
     { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Mostrar botón de pago rápido", "default": true },
-    { "type": "text", "id": "shipping_note", "label": "Nota de envío", "default": "🖨️ Impreso bajo pedido: se fabrica en 2-5 días laborables y después se envía." },
-    { "type": "page", "id": "size_guide", "label": "Página de guía de tallas" }
+    { "type": "text", "id": "shipping_note", "label": "Nota de envío", "default": "🖨️ Se imprime especialmente para ti cuando haces el pedido: sin stock acumulado y sin desperdicio." },
+    { "type": "page", "id": "size_guide", "label": "Página de guía de tallas" },
+    { "type": "checkbox", "id": "show_secure", "label": "Mostrar «Pago seguro» con los métodos de pago", "default": true }
   ],
   "blocks": [
+    {
+      "type": "trust",
+      "name": "Ventaja de compra",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "text", "label": "Texto", "default": "Devolución en 14 días" }
+      ]
+    },
     {
       "type": "collapsible",
       "name": "Desplegable",

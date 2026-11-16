@@ -1,0 +1,9 @@
+{%- comment -%}
+  Estrellas a partir de una valoración real (0-5). Solo se pinta si hay valoración.
+  Uso: {% render 'stars', rating: 4.6 %}
+{%- endcomment -%}
+{%- liquid
+  assign r = rating | default: 0 | times: 1.0
+  assign full = r | round
+-%}
+<span class="stars" aria-hidden="true">{% for i in (1..5) %}{% if i <= full %}★{% else %}☆{% endif %}{% endfor %}</span>

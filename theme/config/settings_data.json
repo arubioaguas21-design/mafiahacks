@@ -2,14 +2,19 @@
   "current": "Default",
   "presets": {
     "Default": {
-      "color_bg": "#faf9f6",
-      "color_bg_alt": "#f0eee8",
-      "color_ink": "#141414",
-      "color_accent": "#e63b2e",
-      "color_highlight": "#ffd23f",
+      "color_bg": "#fbf9f4",
+      "color_bg_alt": "#f3efe6",
+      "color_ink": "#111015",
+      "color_accent": "#6b2cff",
+      "color_highlight": "#d6ff3c",
       "card_show_swatches": true,
       "color_option_name": "Color",
-      "card_second_image": true
+      "card_second_image": true,
+      "color_accent_2": "#ff3d8b",
+      "card_tint": true,
+      "delivery_show": true,
+      "delivery_min": 4,
+      "delivery_max": 8
     }
   }
 }

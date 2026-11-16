@@ -3,16 +3,67 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "care": { "type": "collapsible", "settings": { "title": "Cuidados", "text": "<p>Lavar del revés en agua fría. No usar secadora. No planchar sobre el diseño.</p>" } },
-        "shipping": { "type": "collapsible", "settings": { "title": "Envíos y devoluciones", "text": "<p>Fabricación bajo pedido en 2-5 días laborables y envío con seguimiento. Tienes 14 días para solicitar una devolución. Si la prenda llega defectuosa, te la reponemos gratis.</p>" } }
+        "tr1": {
+          "type": "trust",
+          "settings": {
+            "text": "Devolución en 14 días"
+          }
+        },
+        "tr2": {
+          "type": "trust",
+          "settings": {
+            "text": "Envío con seguimiento"
+          }
+        },
+        "tr3": {
+          "type": "trust",
+          "settings": {
+            "text": "Reposición gratis si llega defectuosa"
+          }
+        },
+        "tr4": {
+          "type": "trust",
+          "settings": {
+            "text": "Te respondemos en menos de 24 h"
+          }
+        },
+        "care": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Cuidados",
+            "text": "<p>Lavar del revés en agua fría. No usar secadora. No planchar sobre el diseño.</p>"
+          }
+        },
+        "shipping": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Envíos y devoluciones",
+            "text": "<p>Fabricación bajo pedido en 2-5 días laborables y envío con seguimiento. Tienes 14 días para solicitar una devolución. Si la prenda llega defectuosa, te la reponemos gratis.</p>"
+          }
+        }
       },
-      "block_order": ["care", "shipping"],
+      "block_order": [
+        "tr1",
+        "tr2",
+        "tr3",
+        "tr4",
+        "care",
+        "shipping"
+      ],
       "settings": {}
     },
     "related": {
       "type": "featured-collection",
-      "settings": { "eyebrow": "Te puede gustar", "heading": "Más diseños", "limit": 4, "alt_bg": true }
+      "settings": {
+        "eyebrow": "Te puede gustar",
+        "heading": "Más diseños",
+        "limit": 4,
+        "alt_bg": true
+      }
     }
   },
-  "order": ["main", "related"]
+  "order": [
+    "main",
+    "related"
+  ]
 }

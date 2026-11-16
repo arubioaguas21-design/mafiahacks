@@ -22,7 +22,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     {% render 'css-variables' %}
     {{ 'base.css' | asset_url | stylesheet_tag }}
@@ -30,7 +30,7 @@
 
     {{ content_for_header }}
   </head>
-  <body class="template-{{ template.name }}">
+  <body class="template-{{ template.name }}{% if settings.card_tint %} tint-on{% endif %}">
     <a class="skip-link" href="#MainContent">Saltar al contenido</a>
     {% sections 'header-group' %}
 

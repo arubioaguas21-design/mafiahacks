@@ -1,0 +1,51 @@
+<section class="section{% if section.settings.alt_bg %} section--alt{% endif %}">
+  <div class="container">
+    <div class="section__head section__head--center">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h2>
+        {{- section.settings.heading | escape -}}
+        {%- if section.settings.heading_accent != blank %} <em>{{ section.settings.heading_accent | escape }}</em>{% endif -%}
+      </h2>
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+    </div>
+    <div class="guarantees">
+      {%- for block in section.blocks -%}
+        <article class="guarantee" {{ block.shopify_attributes }}>
+          <div class="guarantee__icon">{% render 'icon', name: block.settings.icon %}</div>
+          <h3>{{ block.settings.title | escape }}</h3>
+          <p>{{ block.settings.text | escape }}</p>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Garantías",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Compra tranquilo" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Sin letra" },
+    { "type": "text", "id": "heading_accent", "label": "Palabra destacada", "default": "pequeña" },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Lo que prometemos, lo cumplimos. Y si algo falla, lo arreglamos." },
+    { "type": "checkbox", "id": "alt_bg", "label": "Fondo alternativo", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "guarantee",
+      "name": "Garantía",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icono", "default": "lock", "options": [
+          { "value": "lock", "label": "Candado" }, { "value": "truck", "label": "Camión" }, { "value": "return", "label": "Devolución" },
+          { "value": "chat", "label": "Chat" }, { "value": "shield", "label": "Escudo" }, { "value": "leaf", "label": "Hoja" }, { "value": "star", "label": "Estrella" }
+        ] },
+        { "type": "text", "id": "title", "label": "Título", "default": "Pago seguro" },
+        { "type": "textarea", "id": "text", "label": "Texto", "default": "Descripción." }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "Garantías", "blocks": [{ "type": "guarantee" }, { "type": "guarantee" }, { "type": "guarantee" }, { "type": "guarantee" }] }]
+}
+{% endschema %}

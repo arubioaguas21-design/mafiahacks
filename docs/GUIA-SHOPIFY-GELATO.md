@@ -32,9 +32,15 @@ En el editor (**Personalizar**) puedes cambiar sin tocar código:
 | Portada | Título, texto, botones y las 2 imágenes (usa mockups de Gelato con fondo limpio) |
 | Categorías | Elige las colecciones **Camisetas** y **Sudaderas** (paso 5) |
 | Productos destacados | La colección que se muestra (si no eliges ninguna, salen todos los productos) |
+| Franja de confianza | Los 4 mensajes bajo la cabecera (pago seguro, envío, devoluciones, atención) |
+| Garantías | Las 4 tarjetas de "Sin letra pequeña" |
+| Banner promocional | El "-10% en tu primer pedido" (mira el paso 9 bis: hay que crear el código) |
 | Opiniones | **Está oculta.** Actívala solo cuando tengas opiniones reales de clientes |
 | Pie de página | Texto, menús y newsletter |
-| Configuración del tema → Colores | Colores de la marca |
+| Configuración del tema → Colores | Los 6 colores de la marca (violeta, rosa, lima…) |
+| Configuración del tema → Datos de la empresa | **Titular, NIF, dirección y email.** Salen en el pie de página: dan confianza y en España es obligatorio (LSSI) |
+| Configuración del tema → Entrega | Días laborables mínimos y máximos para el aviso "Recíbelo entre el … y el …" de cada producto. Pon plazos reales |
+| Configuración del tema → Tarjetas de producto | Teñir el fondo blanco de los mockups con el color de la tarjeta (activado) |
 
 ## 3. Conecta Gelato
 
@@ -95,6 +101,18 @@ Gelato te cobra el envío de cada pedido, así que tus tarifas de envío deben c
 - **Configuración → Pagos**: activa Shopify Payments (tarjeta, Apple Pay, Google Pay) y Bizum o PayPal si te interesan.
 - **Configuración → Impuestos**: precios con IVA incluido. Si vendes a otros países de la UE, infórmate sobre la ventanilla única (OSS).
 
+## 9 bis. Código de bienvenida del banner (-10 %)
+
+El banner promete un 10 % de descuento al apuntarse a la newsletter. Para que la promesa se cumpla:
+
+1. **Descuentos → Crear descuento**: un código, por ejemplo `BIENVENIDA10`, con un 10 % y "un uso por cliente".
+2. Instala **Shopify Email** (gratis) y crea la automatización **Bienvenida a nuevos suscriptores** con ese código.
+3. Si no quieres ofrecer descuento, cambia el banner a "Botón con enlace" o desactívalo en **Personalizar**.
+
+## Opiniones reales (recomendado)
+
+Las estrellas de las tarjetas y de la ficha de producto **solo aparecen si hay valoraciones reales**. El tema las lee de una app de opiniones que use el metacampo estándar de Shopify (`reviews.rating`), como Judge.me o Shopify Product Reviews. Instala una, activa los emails que piden opinión tras la compra y, cuando tengas unas cuantas, activa también la sección **Opiniones** de la portada con textos reales. No te inventes opiniones: es ilegal en la UE y se nota.
+
 ## 10. Devoluciones y textos legales (importante)
 
 - En la UE, el cliente tiene **14 días para desistir** de una compra online. La excepción para productos personalizados se aplica a lo hecho según las indicaciones del cliente. **Con diseños tuyos en tallas estándar, lo normal es que la excepción no se aplique.** Cuenta con aceptar devoluciones.
@@ -116,6 +134,8 @@ precio de venta (con IVA)
 
 ## 12. Antes de abrir
 
+- [ ] Rellena **Datos de la empresa** y la página de contacto con datos reales.
+- [ ] Comprueba que lo que dicen la franja de confianza, las garantías y las FAQ (14 días, envío con seguimiento, respuesta en 24 h) es lo que vas a cumplir.
 - [ ] Haz un **pedido de prueba** con tus propios diseños para ver la calidad real.
 - [ ] Revisa la web en el móvil.
 - [ ] Conecta tu dominio (**Configuración → Dominios**).

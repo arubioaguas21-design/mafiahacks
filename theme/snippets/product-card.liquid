@@ -3,26 +3,28 @@
   assign first = product.featured_media
   assign second = product.media[1]
   assign tags = product.tags | join: ',' | downcase
+  assign wanted = settings.color_option_name | downcase
   assign color_option = nil
   for option in product.options_with_values
     assign oname = option.name | downcase
-    assign wanted = settings.color_option_name | downcase
     if oname == wanted
       assign color_option = option
     endif
   endfor
+  assign rating = product.metafields.reviews.rating.value
+  assign rating_count = product.metafields.reviews.rating_count.value
 -%}
 <a href="{{ product.url }}" class="card" style="--d: {{ index | default: 0 | times: 40 }}ms">
-  <div class="card__img{% if first == blank %} card__img--empty{% endif %}">
+  <div class="card__img">
     {%- unless product.available -%}
       <span class="badge badge--dark">Agotado</span>
     {%- else -%}
       {%- if product.compare_at_price > product.price -%}
-        <span class="badge">Oferta</span>
+        <span class="badge">-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</span>
       {%- elsif tags contains 'nuevo' -%}
-        <span class="badge">Nuevo</span>
+        <span class="badge badge--lime">Nuevo</span>
       {%- elsif tags contains 'mas-vendido' or tags contains 'más vendido' -%}
-        <span class="badge">Más vendido</span>
+        <span class="badge badge--violet">🔥 Más vendido</span>
       {%- endif -%}
     {%- endunless -%}
     {%- if first != blank -%}
@@ -31,14 +33,18 @@
         {{ second.preview_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '300, 450, 600, 800', sizes: '(min-width: 990px) 25vw, 50vw', class: 'card__photo card__photo--alt', alt: '' }}
       {%- endif -%}
     {%- else -%}
-      {% render 'garment', type: 'tee', color: '#d9d6cf' %}
+      {% render 'garment', type: 'tee', color: '#f7f6f2' %}
     {%- endif -%}
+    <span class="card__go" aria-hidden="true">→</span>
   </div>
   <div class="card__body">
     <div class="card__top">
       <h3 class="card__title">{{ product.title | escape }}</h3>
       <span class="card__price">{% render 'price', product: product %}</span>
     </div>
+    {%- if rating and rating_count > 0 -%}
+      <div class="card__rating">{% render 'stars', rating: rating.rating %} {{ rating.rating | round: 1 }} ({{ rating_count }})</div>
+    {%- endif -%}
     {%- if settings.card_show_swatches and color_option -%}
       <div class="card__dots">
         {%- for value in color_option.values limit: 6 -%}

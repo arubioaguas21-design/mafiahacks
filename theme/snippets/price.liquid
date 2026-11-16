@@ -14,4 +14,7 @@
     <span data-price>{{ target.price | money }}</span>
   {%- endif -%}
   <s class="price-compare" data-compare>{% if on_sale %}{{ compare | money }}{% endif %}</s>
+  {%- if show_save -%}
+    <span class="price-save" data-save>{% if on_sale %}-{{ compare | minus: target.price | times: 100 | divided_by: compare }}%{% endif %}</span>
+  {%- endif -%}
 </span>

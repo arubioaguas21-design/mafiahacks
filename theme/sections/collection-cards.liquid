@@ -7,7 +7,7 @@
       {%- for block in section.blocks -%}
         {%- assign col = block.settings.collection -%}
         <a href="{{ col.url | default: routes.all_products_collection_url }}" class="cat" {{ block.shopify_attributes }}>
-          <div class="cat__img" style="background: {{ block.settings.bg }}">
+          <div class="cat__img"{% if block.settings.bg != blank %} style="background: {{ block.settings.bg }}"{% endif %}>
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 990px) 25vw, 45vw' }}
             {%- elsif col.featured_image -%}
@@ -19,7 +19,8 @@
           <div class="cat__body">
             <h3>{{ block.settings.title | default: col.title | escape }}</h3>
             {%- if block.settings.text != blank -%}<p>{{ block.settings.text | escape }}</p>{%- endif -%}
-            <span class="link">{{ block.settings.link_label | escape }} →</span>
+            <span class="cat__go" aria-hidden="true">→</span>
+            <span class="visually-hidden">{{ block.settings.link_label | escape }}</span>
           </div>
         </a>
       {%- endfor -%}
@@ -44,7 +45,7 @@
         { "type": "text", "id": "text", "label": "Texto", "default": "Básicas, oversize y manga larga." },
         { "type": "text", "id": "link_label", "label": "Texto del enlace", "default": "Ver camisetas" },
         { "type": "image_picker", "id": "image", "label": "Imagen" },
-        { "type": "color", "id": "bg", "label": "Fondo de la imagen", "default": "#ece8df" },
+        { "type": "color", "id": "bg", "label": "Fondo de la imagen", "info": "Déjalo vacío para usar los colores del tema." },
         { "type": "select", "id": "fallback", "label": "Ilustración si no hay imagen", "options": [{ "value": "tee", "label": "Camiseta" }, { "value": "hoodie", "label": "Sudadera" }], "default": "tee" },
         { "type": "color", "id": "fallback_color", "label": "Color de la ilustración", "default": "#c8102e" }
       ]

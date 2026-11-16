@@ -1,0 +1,52 @@
+<section class="section">
+  <div class="container">
+    <div class="promo">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" style="color: var(--highlight)">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        <h2>
+          {{- section.settings.heading | escape -}}
+          {%- if section.settings.heading_accent != blank %} <em>{{ section.settings.heading_accent | escape }}</em>{% endif -%}
+        </h2>
+        {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+      </div>
+      <div>
+        {%- if section.settings.mode == 'newsletter' -%}
+          {%- form 'customer', id: 'PromoNewsletter' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter,promo">
+            {%- if form.posted_successfully? -%}
+              <p class="newsletter" style="padding: 1rem 1.2rem; color: var(--ink); font-weight: 800">{{ section.settings.success | escape }}</p>
+            {%- else -%}
+              <div class="newsletter">
+                <input type="email" name="contact[email]" placeholder="Tu email" required aria-label="Email" autocomplete="email">
+                <button type="submit">{{ section.settings.button_label | escape }}</button>
+              </div>
+              {%- if form.errors -%}<p class="small">{{ form.errors | default_errors }}</p>{%- endif -%}
+            {%- endif -%}
+          {%- endform -%}
+          {%- if section.settings.fine_print != blank -%}<p class="small">{{ section.settings.fine_print | escape }}</p>{%- endif -%}
+        {%- else -%}
+          <a href="{{ section.settings.link | default: routes.all_products_collection_url }}" class="btn btn--lime">{{ section.settings.button_label | escape }} {% render 'icon', name: 'arrow' %}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner promocional",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Solo para nuevos" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "-10% en tu" },
+    { "type": "text", "id": "heading_accent", "label": "Palabra destacada", "default": "primer pedido" },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Apúntate a la newsletter y te enviamos el código al momento. Cero spam: solo lanzamientos y descuentos." },
+    { "type": "select", "id": "mode", "label": "Tipo", "default": "newsletter", "options": [{ "value": "newsletter", "label": "Formulario de newsletter" }, { "value": "link", "label": "Botón con enlace" }] },
+    { "type": "text", "id": "button_label", "label": "Texto del botón", "default": "Quiero mi -10%" },
+    { "type": "url", "id": "link", "label": "Enlace (tipo botón)" },
+    { "type": "text", "id": "success", "label": "Mensaje al suscribirse", "default": "¡Hecho! Revisa tu email 💌" },
+    { "type": "text", "id": "fine_print", "label": "Letra pequeña", "default": "Puedes darte de baja cuando quieras." }
+  ],
+  "presets": [{ "name": "Banner promocional" }]
+}
+{% endschema %}

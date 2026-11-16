@@ -1,6 +1,12 @@
 <section class="hero">
   <div class="container hero__inner">
     <div class="hero__text">
+      {%- if section.settings.badge_text != blank -%}
+        <a href="{{ section.settings.badge_link | default: routes.all_products_collection_url }}" class="hero__badge">
+          {%- if section.settings.badge_label != blank -%}<b>{{ section.settings.badge_label | escape }}</b>{%- endif -%}
+          {{ section.settings.badge_text | escape }} →
+        </a>
+      {%- endif -%}
       {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
       <h1>
         {{- section.settings.heading | escape | newline_to_br -}}
@@ -9,7 +15,7 @@
       {%- if section.settings.text != blank -%}<div class="lead">{{ section.settings.text }}</div>{%- endif -%}
       <div class="hero__cta">
         {%- if section.settings.button_1_label != blank -%}
-          <a href="{{ section.settings.button_1_link | default: routes.all_products_collection_url }}" class="btn btn--primary">{{ section.settings.button_1_label | escape }}</a>
+          <a href="{{ section.settings.button_1_link | default: routes.all_products_collection_url }}" class="btn btn--primary">{{ section.settings.button_1_label | escape }} {% render 'icon', name: 'arrow' %}</a>
         {%- endif -%}
         {%- if section.settings.button_2_label != blank -%}
           <a href="{{ section.settings.button_2_link | default: '#' }}" class="btn btn--ghost">{{ section.settings.button_2_label | escape }}</a>
@@ -39,6 +45,7 @@
         {%- endif -%}
       </div>
       {%- if section.settings.sticker != blank -%}<div class="sticker">{{ section.settings.sticker | escape }}</div>{%- endif -%}
+      {%- if section.settings.sticker_2 != blank -%}<div class="sticker sticker--round">{{ section.settings.sticker_2 | escape | newline_to_br }}</div>{%- endif -%}
     </div>
   </div>
 </section>
@@ -49,6 +56,9 @@
   "tag": "div",
   "class": "section-hero",
   "settings": [
+    { "type": "text", "id": "badge_label", "label": "Etiqueta del aviso", "default": "NUEVO" },
+    { "type": "text", "id": "badge_text", "label": "Texto del aviso", "default": "Ya está aquí el nuevo drop" },
+    { "type": "url", "id": "badge_link", "label": "Enlace del aviso" },
     { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Diseños propios · Impreso bajo pedido" },
     { "type": "textarea", "id": "heading", "label": "Título", "default": "Ropa con\nactitud." },
     { "type": "text", "id": "heading_accent", "label": "Palabra destacada (en color)", "default": "Y diseño" },
@@ -59,7 +69,8 @@
     { "type": "url", "id": "button_2_link", "label": "Enlace botón 2" },
     { "type": "image_picker", "id": "image_1", "label": "Imagen trasera", "info": "Foto o mockup con fondo limpio. Cuadrada." },
     { "type": "image_picker", "id": "image_2", "label": "Imagen delantera", "info": "Foto o mockup con fondo limpio. Cuadrada." },
-    { "type": "text", "id": "sticker", "label": "Pegatina", "default": "100% algodón" }
+    { "type": "text", "id": "sticker", "label": "Pegatina", "default": "100% algodón" },
+    { "type": "textarea", "id": "sticker_2", "label": "Pegatina redonda", "default": "Hecho\npara ti" }
   ],
   "blocks": [
     {

@@ -42,6 +42,24 @@
     });
   }
 
+  // Fecha estimada de entrega (días laborables, sin fines de semana)
+  document.querySelectorAll('[data-delivery]').forEach((el) => {
+    const addBusinessDays = (date, n) => {
+      const d = new Date(date);
+      while (n > 0) {
+        d.setDate(d.getDate() + 1);
+        if (d.getDay() !== 0 && d.getDay() !== 6) n--;
+      }
+      return d;
+    };
+    const fmt = (d) => d.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
+    const now = new Date();
+    const from = addBusinessDays(now, parseInt(el.dataset.min, 10));
+    const to = addBusinessDays(now, parseInt(el.dataset.max, 10));
+    const out = el.querySelector('[data-delivery-text]');
+    if (out) out.textContent = `entre el ${fmt(from)} y el ${fmt(to)}`;
+  });
+
   // Página de producto
   document.querySelectorAll('[data-product]').forEach(initProduct);
 
@@ -61,6 +79,9 @@
     const priceWrap = section.querySelector('.price [data-price-wrap]');
     const priceEl = priceWrap && priceWrap.querySelector('[data-price]');
     const compareEl = priceWrap && priceWrap.querySelector('[data-compare]');
+    const saveEl = priceWrap && priceWrap.querySelector('[data-save]');
+    const sticky = section.querySelector('[data-sticky-buy]');
+    const stickyPrice = section.querySelector('[data-sticky-price]');
     const errorEl = section.querySelector('[data-form-error]');
 
     // Galería
@@ -109,6 +130,8 @@
       const sale = v.compare_at_price && v.compare_at_price > v.price;
       if (priceEl) priceEl.textContent = money(v.price);
       if (compareEl) compareEl.textContent = sale ? money(v.compare_at_price) : '';
+      if (saveEl) saveEl.textContent = sale ? '-' + Math.floor(((v.compare_at_price - v.price) * 100) / v.compare_at_price) + '%' : '';
+      if (stickyPrice) stickyPrice.textContent = money(v.price);
       if (priceWrap) priceWrap.classList.toggle('is-sale', !!sale);
       if (v.featured_media) showMedia(v.featured_media.id);
       const url = new URL(window.location.href);
@@ -117,6 +140,19 @@
     }
     section.querySelectorAll('input[data-option-index]').forEach((i) => i.addEventListener('change', update));
     if (section.querySelector('fieldset.opt')) markAvailability(selected());
+
+    // Barra fija de compra en móvil: aparece cuando el botón principal sale de pantalla
+    if (sticky && addBtn && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        const show = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        sticky.classList.toggle('is-visible', show);
+        sticky.setAttribute('aria-hidden', String(!show));
+      }).observe(addBtn);
+      sticky.querySelector('[data-sticky-add]').addEventListener('click', () => {
+        if (addBtn.disabled) { addBtn.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+        form.requestSubmit ? form.requestSubmit() : addBtn.click();
+      });
+    }
 
     // Añadir al carrito sin recargar la página
     if (form && window.fetch) {

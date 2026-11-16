@@ -4,9 +4,17 @@
       <a href="{{ routes.root_url }}" class="logo logo--light">{{ section.settings.logo_text | default: shop.name | escape }}<span>.</span></a>
       {%- if section.settings.tagline != blank -%}<p>{{ section.settings.tagline | escape }}</p>{%- endif -%}
       <div class="social">
-        {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
-        {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener">TikTok</a>{%- endif -%}
+        {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'icon', name: 'instagram' %}</a>{%- endif -%}
+        {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener" aria-label="TikTok">{% render 'icon', name: 'tiktok' %}</a>{%- endif -%}
       </div>
+      {%- if settings.legal_name != blank or settings.legal_email != blank -%}
+        <p class="footer__legal">
+          {%- if settings.legal_name != blank -%}{{ settings.legal_name | escape }}{%- endif -%}
+          {%- if settings.legal_id != blank %} · NIF {{ settings.legal_id | escape }}{% endif -%}
+          {%- if settings.legal_address != blank -%}<br>{{ settings.legal_address | escape }}{%- endif -%}
+          {%- if settings.legal_email != blank -%}<br><a href="mailto:{{ settings.legal_email }}">{{ settings.legal_email | escape }}</a>{%- endif -%}
+        </p>
+      {%- endif -%}
     </div>
     {%- for i in (1..2) -%}
       {%- liquid
@@ -63,7 +71,7 @@
   "class": "section-footer",
   "settings": [
     { "type": "text", "id": "logo_text", "label": "Texto del logo", "default": "MAFIA" },
-    { "type": "text", "id": "tagline", "label": "Descripción", "default": "Camisetas y sudaderas con diseños propios, impresas bajo pedido." },
+    { "type": "text", "id": "tagline", "label": "Descripción", "default": "Camisetas y sudaderas con diseños propios, impresas bajo pedido para ti." },
     { "type": "link_list", "id": "menu_1", "label": "Menú 1", "default": "main-menu" },
     { "type": "text", "id": "menu_1_title", "label": "Título menú 1", "default": "Tienda" },
     { "type": "link_list", "id": "menu_2", "label": "Menú 2", "default": "footer" },

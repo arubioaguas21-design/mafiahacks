@@ -10,32 +10,165 @@
   {
     "name": "Colores",
     "settings": [
-      { "type": "color", "id": "color_bg", "label": "Fondo", "default": "#faf9f6" },
-      { "type": "color", "id": "color_bg_alt", "label": "Fondo alternativo", "default": "#f0eee8" },
-      { "type": "color", "id": "color_ink", "label": "Texto y botones", "default": "#141414" },
-      { "type": "color", "id": "color_accent", "label": "Color de acento", "default": "#e63b2e" },
-      { "type": "color", "id": "color_highlight", "label": "Color secundario", "default": "#ffd23f" }
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Fondo",
+        "default": "#fbf9f4"
+      },
+      {
+        "type": "color",
+        "id": "color_bg_alt",
+        "label": "Fondo alternativo",
+        "default": "#f3efe6"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Texto, bordes y sombras",
+        "default": "#111015"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Color principal (botones)",
+        "default": "#6b2cff"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_2",
+        "label": "Color de ofertas e insignias",
+        "default": "#ff3d8b"
+      },
+      {
+        "type": "color",
+        "id": "color_highlight",
+        "label": "Color de resaltado",
+        "default": "#d6ff3c"
+      }
     ]
   },
   {
     "name": "Marca",
     "settings": [
-      { "type": "image_picker", "id": "favicon", "label": "Favicon", "info": "Imagen cuadrada de 32 × 32 px" }
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Imagen cuadrada de 32 × 32 px"
+      }
     ]
   },
   {
     "name": "Tarjetas de producto",
     "settings": [
-      { "type": "checkbox", "id": "card_show_swatches", "label": "Mostrar colores disponibles", "default": true },
-      { "type": "text", "id": "color_option_name", "label": "Nombre de la opción de color", "default": "Color", "info": "Tal como se llama la opción en tus productos (p. ej. Color o Colour)." },
-      { "type": "checkbox", "id": "card_second_image", "label": "Mostrar segunda imagen al pasar el ratón", "default": true }
+      {
+        "type": "checkbox",
+        "id": "card_show_swatches",
+        "label": "Mostrar colores disponibles",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "color_option_name",
+        "label": "Nombre de la opción de color",
+        "default": "Color",
+        "info": "Tal como se llama la opción en tus productos (p. ej. Color o Colour)."
+      },
+      {
+        "type": "checkbox",
+        "id": "card_second_image",
+        "label": "Mostrar segunda imagen al pasar el ratón",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "card_tint",
+        "label": "Teñir el fondo blanco de las fotos",
+        "default": true,
+        "info": "Ideal para mockups con fondo blanco: el fondo toma el color de la tarjeta."
+      },
+      {
+        "type": "paragraph",
+        "content": "Las estrellas de valoración solo aparecen si usas una app de opiniones (Judge.me, Shopify Product Reviews…) que guarde la valoración en el metacampo estándar reviews.rating."
+      }
+    ]
+  },
+  {
+    "name": "Entrega",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Se usa para mostrar en cada producto «Recíbelo entre el … y el …». Pon días laborables reales: fabricación de Gelato + envío."
+      },
+      {
+        "type": "checkbox",
+        "id": "delivery_show",
+        "label": "Mostrar fecha estimada de entrega",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "delivery_min",
+        "label": "Días laborables mínimos",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "delivery_max",
+        "label": "Días laborables máximos",
+        "min": 2,
+        "max": 30,
+        "step": 1,
+        "default": 8
+      }
+    ]
+  },
+  {
+    "name": "Datos de la empresa",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Mostrar quién está detrás de la tienda da confianza y en España es obligatorio (LSSI). Aparece en el pie de página."
+      },
+      {
+        "type": "text",
+        "id": "legal_name",
+        "label": "Titular (nombre o razón social)"
+      },
+      {
+        "type": "text",
+        "id": "legal_id",
+        "label": "NIF / CIF"
+      },
+      {
+        "type": "text",
+        "id": "legal_address",
+        "label": "Dirección"
+      },
+      {
+        "type": "text",
+        "id": "legal_email",
+        "label": "Email de contacto"
+      }
     ]
   },
   {
     "name": "Redes sociales",
     "settings": [
-      { "type": "text", "id": "social_instagram", "label": "Instagram (URL)" },
-      { "type": "text", "id": "social_tiktok", "label": "TikTok (URL)" }
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram (URL)"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "TikTok (URL)"
+      }
     ]
   }
 ]

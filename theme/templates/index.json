@@ -3,90 +3,371 @@
     "hero": {
       "type": "hero",
       "blocks": {
-        "s1": { "type": "stat", "settings": { "value": "100%", "label": "diseños propios" } },
-        "s2": { "type": "stat", "settings": { "value": "2-5 días", "label": "de fabricación" } },
-        "s3": { "type": "stat", "settings": { "value": "0", "label": "stock desperdiciado" } }
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "value": "14 días",
+            "label": "para devolver"
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "value": "+60 €",
+            "label": "envío gratis"
+          }
+        },
+        "s3": {
+          "type": "stat",
+          "settings": {
+            "value": "24 h",
+            "label": "respuesta"
+          }
+        }
       },
-      "block_order": ["s1", "s2", "s3"],
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
       "settings": {
-        "eyebrow": "Diseños propios · Impreso bajo pedido",
-        "heading": "Ropa con\nactitud.",
-        "heading_accent": "Y diseño",
+        "eyebrow": "Diseños propios · Impreso para ti",
+        "heading": "Ropa que\nhabla",
+        "heading_accent": "por ti",
         "text": "<p>Camisetas y sudaderas con diseños exclusivos. Cada prenda se imprime cuando la pides: sin stock parado, sin desperdicio.</p>",
-        "button_1_label": "Ver colección",
+        "button_1_label": "Comprar ahora",
         "button_1_link": "shopify://collections/all",
         "button_2_label": "Cómo funciona",
         "button_2_link": "/#como-funciona",
-        "sticker": "100% algodón"
+        "sticker": "100% algodón",
+        "badge_label": "NUEVO",
+        "badge_text": "Ya está aquí el nuevo drop",
+        "sticker_2": "Hecho\npara ti"
       }
     },
     "marquee": {
       "type": "marquee",
       "blocks": {
-        "m1": { "type": "text", "settings": { "text": "Diseños propios" } },
-        "m2": { "type": "text", "settings": { "text": "Impreso bajo pedido" } },
-        "m3": { "type": "text", "settings": { "text": "Algodón de calidad" } },
-        "m4": { "type": "text", "settings": { "text": "Ediciones limitadas" } }
+        "m1": {
+          "type": "text",
+          "settings": {
+            "text": "Diseños propios"
+          }
+        },
+        "m2": {
+          "type": "text",
+          "settings": {
+            "text": "Impreso para ti"
+          }
+        },
+        "m3": {
+          "type": "text",
+          "settings": {
+            "text": "Algodón de calidad"
+          }
+        },
+        "m4": {
+          "type": "text",
+          "settings": {
+            "text": "Envío con seguimiento"
+          }
+        },
+        "m5": {
+          "type": "text",
+          "settings": {
+            "text": "Pago seguro"
+          }
+        }
       },
-      "block_order": ["m1", "m2", "m3", "m4"]
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5"
+      ]
     },
     "cats": {
       "type": "collection-cards",
       "blocks": {
-        "c1": { "type": "collection", "settings": { "title": "Camisetas", "text": "Básicas, oversize y manga larga.", "link_label": "Ver camisetas", "bg": "#ece8df", "fallback": "tee", "fallback_color": "#c8102e" } },
-        "c2": { "type": "collection", "settings": { "title": "Sudaderas", "text": "Con capucha y cuello redondo.", "link_label": "Ver sudaderas", "bg": "#dfe6ec", "fallback": "hoodie", "fallback_color": "#2d2d2d" } }
+        "c1": {
+          "type": "collection",
+          "settings": {
+            "title": "Camisetas",
+            "text": "Básicas, oversize y manga larga.",
+            "link_label": "Ver camisetas",
+            "fallback": "tee",
+            "fallback_color": "#c8102e"
+          }
+        },
+        "c2": {
+          "type": "collection",
+          "settings": {
+            "title": "Sudaderas",
+            "text": "Con capucha y cuello redondo.",
+            "link_label": "Ver sudaderas",
+            "fallback": "hoodie",
+            "fallback_color": "#2d2d2d"
+          }
+        }
       },
-      "block_order": ["c1", "c2"]
+      "block_order": [
+        "c1",
+        "c2"
+      ]
     },
     "featured": {
       "type": "featured-collection",
-      "settings": { "eyebrow": "Colección", "heading": "Lo más nuevo", "limit": 8, "alt_bg": true }
+      "settings": {
+        "eyebrow": "Recién salido",
+        "heading": "Lo más nuevo",
+        "limit": 8,
+        "alt_bg": true
+      }
     },
     "steps": {
       "type": "steps",
       "blocks": {
-        "p1": { "type": "step", "settings": { "title": "Elige tu diseño", "text": "Explora la colección y encuentra el diseño que va contigo." } },
-        "p2": { "type": "step", "settings": { "title": "Talla y color", "text": "Escoge prenda, color y talla. Tienes la guía de tallas en cada producto." } },
-        "p3": { "type": "step", "settings": { "title": "Lo imprimimos para ti", "text": "Tu prenda se fabrica bajo pedido en 2-5 días laborables." } },
-        "p4": { "type": "step", "settings": { "title": "Te llega a casa", "text": "La enviamos con seguimiento para que sepas dónde está en todo momento." } }
+        "p1": {
+          "type": "step",
+          "settings": {
+            "title": "Elige tu diseño",
+            "text": "Explora la colección y encuentra el diseño que va contigo."
+          }
+        },
+        "p2": {
+          "type": "step",
+          "settings": {
+            "title": "Talla y color",
+            "text": "Escoge prenda, color y talla. Tienes la guía de tallas en cada producto."
+          }
+        },
+        "p3": {
+          "type": "step",
+          "settings": {
+            "title": "Lo imprimimos para ti",
+            "text": "Tu prenda se fabrica bajo pedido en 2-5 días laborables."
+          }
+        },
+        "p4": {
+          "type": "step",
+          "settings": {
+            "title": "Te llega a casa",
+            "text": "La enviamos con seguimiento para que sepas dónde está en todo momento."
+          }
+        }
       },
-      "block_order": ["p1", "p2", "p3", "p4"],
-      "settings": { "eyebrow": "Proceso", "heading": "Así funciona", "anchor": "como-funciona" }
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "settings": {
+        "eyebrow": "Proceso",
+        "heading": "Así de fácil",
+        "anchor": "como-funciona"
+      }
     },
     "features": {
       "type": "features",
       "blocks": {
-        "f1": { "type": "feature", "settings": { "title": "Impresión DTG", "text": "Impresión directa sobre la prenda: colores vivos, tacto suave y gran detalle." } },
-        "f2": { "type": "feature", "settings": { "title": "Bordado", "text": "Acabado premium para logos y detalles pequeños en pecho y mangas." } },
-        "f3": { "type": "feature", "settings": { "title": "Algodón", "text": "Prendas de algodón de calidad, cómodas y pensadas para durar." } },
-        "f4": { "type": "feature", "settings": { "title": "Bajo pedido", "text": "Solo fabricamos lo que se vende. Menos desperdicio, más sentido." } }
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "title": "Impresión DTG",
+            "text": "Impresión directa sobre la prenda: colores vivos, tacto suave y gran detalle."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "title": "Bordado",
+            "text": "Acabado premium para logos y detalles pequeños en pecho y mangas."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "title": "Algodón",
+            "text": "Prendas de algodón de calidad, cómodas y pensadas para durar."
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "title": "Bajo pedido",
+            "text": "Solo fabricamos lo que se vende. Menos desperdicio, más sentido."
+          }
+        }
       },
-      "block_order": ["f1", "f2", "f3", "f4"],
-      "settings": { "eyebrow": "Calidad", "heading": "Hecho para durar", "dark": true }
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ],
+      "settings": {
+        "eyebrow": "Calidad",
+        "heading": "Hecho para durar",
+        "dark": true
+      }
     },
     "reviews": {
       "type": "reviews",
       "disabled": true,
       "blocks": {
-        "r1": { "type": "review", "settings": { "stars": 5, "quote": "Sustituye este texto por la opinión de un cliente real.", "author": "Nombre del cliente" } },
-        "r2": { "type": "review", "settings": { "stars": 5, "quote": "Sustituye este texto por la opinión de un cliente real.", "author": "Nombre del cliente" } },
-        "r3": { "type": "review", "settings": { "stars": 5, "quote": "Sustituye este texto por la opinión de un cliente real.", "author": "Nombre del cliente" } }
+        "r1": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "quote": "Sustituye este texto por la opinión de un cliente real.",
+            "author": "Nombre del cliente"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "quote": "Sustituye este texto por la opinión de un cliente real.",
+            "author": "Nombre del cliente"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "quote": "Sustituye este texto por la opinión de un cliente real.",
+            "author": "Nombre del cliente"
+          }
+        }
       },
-      "block_order": ["r1", "r2", "r3"],
-      "settings": { "eyebrow": "Opiniones", "heading": "Lo que dicen nuestros clientes" }
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "eyebrow": "Opiniones",
+        "heading": "Lo que dicen nuestros clientes"
+      }
     },
     "faq": {
       "type": "faq",
       "blocks": {
-        "q1": { "type": "question", "settings": { "question": "¿Cuánto tarda mi pedido?", "answer": "<p>Cada prenda se fabrica bajo pedido en 2-5 días laborables. Después se envía con seguimiento; el plazo de entrega depende de tu dirección.</p>" } },
-        "q2": { "type": "question", "settings": { "question": "¿Qué talla elijo?", "answer": "<p>En cada producto tienes la guía de tallas con las medidas de la prenda. Si dudas entre dos, para un look más holgado elige la mayor.</p>" } },
-        "q3": { "type": "question", "settings": { "question": "¿Puedo devolver o cambiar una prenda?", "answer": "<p>Tienes 14 días desde que la recibes para solicitar una devolución. Si la prenda llega defectuosa o con un error de impresión, te la reponemos gratis. Escríbenos desde la página de contacto con tu número de pedido.</p>" } },
-        "q4": { "type": "question", "settings": { "question": "¿Cómo lavo la prenda para que el diseño dure?", "answer": "<p>Lávala del revés, en agua fría y sin secadora. No planches directamente sobre el diseño.</p>" } },
-        "q5": { "type": "question", "settings": { "question": "¿Hacéis pedidos para grupos o empresas?", "answer": "<p>Sí. Escríbenos desde la página de contacto contándonos qué necesitas y te preparamos un presupuesto.</p>" } }
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "¿Cuánto tarda mi pedido?",
+            "answer": "<p>Cada prenda se fabrica bajo pedido en 2-5 días laborables. Después se envía con seguimiento; el plazo de entrega depende de tu dirección.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "¿Qué talla elijo?",
+            "answer": "<p>En cada producto tienes la guía de tallas con las medidas de la prenda. Si dudas entre dos, para un look más holgado elige la mayor.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "¿Puedo devolver o cambiar una prenda?",
+            "answer": "<p>Tienes 14 días desde que la recibes para solicitar una devolución. Si la prenda llega defectuosa o con un error de impresión, te la reponemos gratis. Escríbenos desde la página de contacto con tu número de pedido.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "¿Cómo lavo la prenda para que el diseño dure?",
+            "answer": "<p>Lávala del revés, en agua fría y sin secadora. No planches directamente sobre el diseño.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "¿Hacéis pedidos para grupos o empresas?",
+            "answer": "<p>Sí. Escríbenos desde la página de contacto contándonos qué necesitas y te preparamos un presupuesto.</p>"
+          }
+        }
       },
-      "block_order": ["q1", "q2", "q3", "q4", "q5"],
-      "settings": { "eyebrow": "FAQ", "heading": "Preguntas frecuentes" }
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "Preguntas frecuentes"
+      }
+    },
+    "guarantees": {
+      "type": "guarantees",
+      "blocks": {
+        "g1": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "lock",
+            "title": "Pago 100% seguro",
+            "text": "Pagas con la pasarela de Shopify: tarjeta, Apple Pay, Google Pay y más. Nunca vemos ni guardamos tu tarjeta."
+          }
+        },
+        "g2": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "truck",
+            "title": "Envío con seguimiento",
+            "text": "Te mandamos el número de seguimiento por email para que sepas dónde está tu pedido en todo momento."
+          }
+        },
+        "g3": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "return",
+            "title": "14 días para devolver",
+            "text": "¿No te convence? Tienes 14 días desde que lo recibes. Y si llega con algún defecto, te lo reponemos gratis."
+          }
+        },
+        "g4": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "chat",
+            "title": "Personas reales",
+            "text": "Escríbenos por email o WhatsApp y te responde alguien del equipo en menos de 24 h laborables."
+          }
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3",
+        "g4"
+      ],
+      "settings": {
+        "eyebrow": "Compra tranquilo",
+        "heading": "Sin letra",
+        "heading_accent": "pequeña",
+        "text": "Lo que prometemos, lo cumplimos. Y si algo falla, lo arreglamos.",
+        "alt_bg": false
+      }
+    },
+    "promo": {
+      "type": "promo-banner",
+      "settings": {}
     }
   },
-  "order": ["hero", "marquee", "cats", "featured", "steps", "features", "reviews", "faq"]
+  "order": [
+    "hero",
+    "marquee",
+    "cats",
+    "featured",
+    "guarantees",
+    "steps",
+    "features",
+    "reviews",
+    "promo",
+    "faq"
+  ]
 }

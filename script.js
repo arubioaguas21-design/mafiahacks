@@ -95,43 +95,38 @@ const COLORS = {
 };
 
 const PRODUCTS = [
-  { id: "tee-basic", cat: "camiseta", type: "tee", name: "Camiseta Básica", price: 14.9, badge: "Más vendida",
+  { id: "tee-basic", cat: "camiseta", type: "tee", name: "Camiseta «Sin Filtro»", price: 14.9, badge: "🔥 Más vendido",
     desc: "Algodón 100% peinado de 180 g/m². Corte unisex regular y tacto suave. La base perfecta para cualquier diseño.",
     colors: ["blanco", "negro", "gris", "marino", "rojo", "verde"], sizes: ["XS", "S", "M", "L", "XL", "XXL"] },
-  { id: "tee-oversize", cat: "camiseta", type: "oversize", name: "Camiseta Oversize", price: 19.9, badge: "Nuevo",
+  { id: "tee-oversize", cat: "camiseta", type: "oversize", name: "Oversize «Modo Avión»", price: 24.9, compare: 29.9, badge: "Nuevo",
     desc: "Gramaje pesado de 240 g/m², hombro caído y cuello grueso. Estilo streetwear.",
     colors: ["negro", "blanco", "arena", "verde", "burdeos"], sizes: ["S", "M", "L", "XL"] },
-  { id: "tee-long", cat: "camiseta", type: "longsleeve", name: "Camiseta Manga Larga", price: 18.9,
+  { id: "tee-long", cat: "camiseta", type: "longsleeve", name: "Manga larga «Noche»", price: 18.9,
     desc: "Algodón orgánico de 200 g/m² con puños de canalé. Ideal para estampar también en las mangas.",
     colors: ["blanco", "negro", "marino", "gris"], sizes: ["S", "M", "L", "XL", "XXL"] },
-  { id: "tee-tank", cat: "camiseta", type: "tank", name: "Camiseta de Tirantes", price: 12.9,
+  { id: "tee-tank", cat: "camiseta", type: "tank", name: "Tirantes «Verano Eterno»", price: 12.9,
     desc: "Fresca y ligera, 160 g/m². Perfecta para gimnasio, festivales y verano.",
     colors: ["blanco", "negro", "rojo", "azul"], sizes: ["S", "M", "L", "XL"] },
-  { id: "tee-premium", cat: "camiseta", type: "tee", name: "Camiseta Premium Orgánica", price: 22.9, badge: "Eco",
+  { id: "tee-premium", cat: "camiseta", type: "tee", name: "Camiseta «Raíces» orgánica", price: 22.9, badge: "Eco",
     desc: "Algodón 100% orgánico certificado GOTS, 200 g/m². Teñido con tintes de bajo impacto.",
     colors: ["arena", "rosa", "azul", "verde", "blanco"], sizes: ["XS", "S", "M", "L", "XL"] },
-  { id: "tee-kids", cat: "camiseta", type: "tee", name: "Camiseta Infantil", price: 11.9,
+  { id: "tee-kids", cat: "camiseta", type: "tee", name: "Camiseta infantil «Pequeño Jefe»", price: 11.9,
     desc: "Algodón suave para los más pequeños. Tallas de 3 a 14 años.",
     colors: ["blanco", "rojo", "azul", "rosa", "mostaza"], sizes: ["3-4", "5-6", "7-8", "9-11", "12-14"] },
-  { id: "hoodie-classic", cat: "sudadera", type: "hoodie", name: "Sudadera con Capucha", price: 32.9, badge: "Más vendida",
+  { id: "hoodie-classic", cat: "sudadera", type: "hoodie", name: "Sudadera «La Familia»", price: 32.9, badge: "🔥 Más vendido",
     desc: "Felpa perchada de 300 g/m², bolsillo canguro y cordones a juego. Abrigo y comodidad.",
     colors: ["negro", "gris", "marino", "burdeos", "verde", "arena"], sizes: ["XS", "S", "M", "L", "XL", "XXL"] },
-  { id: "hoodie-heavy", cat: "sudadera", type: "hoodie", name: "Sudadera Oversize Heavy", price: 42.9, badge: "Nuevo",
+  { id: "hoodie-heavy", cat: "sudadera", type: "hoodie", name: "Sudadera oversize «Domingo»", price: 42.9, badge: "Nuevo",
     desc: "Gramaje extra de 400 g/m², capucha doble y caída holgada. Calidad premium.",
     colors: ["negro", "arena", "rosa", "azul"], sizes: ["S", "M", "L", "XL"] },
-  { id: "crew-classic", cat: "sudadera", type: "crew", name: "Sudadera Cuello Redondo", price: 27.9,
+  { id: "crew-classic", cat: "sudadera", type: "crew", name: "Sudadera «Clásico»", price: 27.9,
     desc: "Clásica sin capucha de 280 g/m² con puños y cintura de canalé.",
     colors: ["gris", "negro", "marino", "mostaza", "blanco"], sizes: ["S", "M", "L", "XL", "XXL"] },
-  { id: "zip-hoodie", cat: "sudadera", type: "zip", name: "Sudadera con Cremallera", price: 36.9,
+  { id: "zip-hoodie", cat: "sudadera", type: "zip", name: "Cremallera «Ruta»", price: 36.9,
     desc: "Cremallera completa metálica, capucha y bolsillos laterales. Perfecta para bordar el logo en el pecho.",
     colors: ["negro", "marino", "gris", "rojo"], sizes: ["S", "M", "L", "XL", "XXL"] },
 ];
 
-const PRINT_ZONES = [
-  { id: "front", name: "Delante", extra: 0 },
-  { id: "back", name: "Espalda", extra: 0 },
-  { id: "both", name: "Delante + espalda", extra: 6 },
-];
 
 const FREE_SHIPPING = 60;
 const SHIPPING_COST = 4.95;
@@ -148,22 +143,25 @@ function renderGrid() {
   if (currentSort === "price-asc") list = [...list].sort((a, b) => a.price - b.price);
   if (currentSort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
 
-  $("#productGrid").innerHTML = list.map((p, i) => `
-    <article class="card" data-id="${p.id}" tabindex="0" style="animation-delay:${i * 40}ms">
+  $("#productGrid").innerHTML = list.map((p, i) => {
+    const badgeCls = p.compare ? "" : p.badge === "Nuevo" ? "badge--lime" : p.badge === "Eco" ? "badge--dark" : "badge--violet";
+    const badge = p.compare ? `-${Math.floor(((p.compare - p.price) / p.compare) * 100)}%` : p.badge;
+    return `
+    <article class="card" data-id="${p.id}" tabindex="0" role="button" style="--d:${i * 40}ms; cursor:pointer">
       <div class="card__img">
-        ${p.badge ? `<span class="badge ${p.badge === "Eco" ? "badge--dark" : ""}">${p.badge}</span>` : ""}
+        ${badge ? `<span class="badge ${badgeCls}">${badge}</span>` : ""}
         ${garmentSVG(p.type, COLORS[p.colors[0]].hex)}
+        <span class="card__go" aria-hidden="true">→</span>
       </div>
       <div class="card__body">
         <div class="card__top">
           <h3 class="card__title">${p.name}</h3>
-          <span class="card__price">${eur(p.price)}</span>
+          <span class="card__price"><span class="price-wrap${p.compare ? " is-sale" : ""}"><span data-price>${eur(p.price)}</span>${p.compare ? `<s class="price-compare">${eur(p.compare)}</s>` : ""}</span></span>
         </div>
-        <p class="card__meta">${p.colors.length} colores · ${p.sizes[0]}–${p.sizes[p.sizes.length - 1]}</p>
-        <div class="card__dots">${p.colors.slice(0, 6).map((c) => `<span class="dot" style="background:${COLORS[c].hex}" title="${COLORS[c].name}"></span>`).join("")}</div>
-        <div class="card__btn"><span>Elegir opciones</span></div>
+        <div class="card__dots">${p.colors.slice(0, 6).map((c) => `<span class="dot" style="background:${COLORS[c].hex}" title="${COLORS[c].name}"></span>`).join("")}<span class="card__meta">${p.colors.length} colores</span></div>
       </div>
-    </article>`).join("");
+    </article>`;
+  }).join("");
 }
 
 document.querySelectorAll(".chip").forEach((chip) => {
@@ -194,7 +192,7 @@ let sel = null;
 
 function openModal(id) {
   const p = PRODUCTS.find((x) => x.id === id);
-  sel = { product: p, color: p.colors[0], size: p.sizes[Math.min(2, p.sizes.length - 1)], zone: "front", qty: 1 };
+  sel = { product: p, color: p.colors[0], size: p.sizes[Math.min(2, p.sizes.length - 1)], qty: 1 };
 
   $("#mCat").textContent = p.cat === "camiseta" ? "Camisetas" : "Sudaderas";
   $("#mTitle").textContent = p.name;
@@ -202,8 +200,6 @@ function openModal(id) {
   $("#mColors").innerHTML = p.colors.map((c) =>
     `<button class="swatch" data-color="${c}" style="background:${COLORS[c].hex}" aria-label="${COLORS[c].name}" title="${COLORS[c].name}"></button>`).join("");
   $("#mSizes").innerHTML = p.sizes.map((s) => `<button class="size" data-size="${s}">${s}</button>`).join("");
-  $("#mPrint").innerHTML = PRINT_ZONES.map((z) =>
-    `<button class="size" data-zone="${z.id}">${z.name}${z.extra ? ` (+${z.extra} €)` : ""}</button>`).join("");
   $("#mQty").value = 1;
   updateModal();
 
@@ -214,13 +210,12 @@ function openModal(id) {
 
 function updateModal() {
   const p = sel.product;
-  const zone = PRINT_ZONES.find((z) => z.id === sel.zone);
   $("#mImg").innerHTML = garmentSVG(p.type, COLORS[sel.color].hex);
   $("#mColorName").textContent = COLORS[sel.color].name;
-  $("#mPrice").innerHTML = `${eur(p.price + zone.extra)} <small>/ ud · estampado incluido</small>`;
+  $("#mPrice").innerHTML = `<span class="price-wrap${p.compare ? " is-sale" : ""}"><span data-price>${eur(p.price)}</span>${p.compare ? `<s class="price-compare">${eur(p.compare)}</s><span class="price-save">-${Math.floor(((p.compare - p.price) / p.compare) * 100)}%</span>` : ""}</span> <small>IVA incluido</small>`;
+  $("#mDelivery").textContent = deliveryText(4, 8);
   document.querySelectorAll("#mColors .swatch").forEach((b) => b.classList.toggle("is-active", b.dataset.color === sel.color));
   document.querySelectorAll("#mSizes .size").forEach((b) => b.classList.toggle("is-active", b.dataset.size === sel.size));
-  document.querySelectorAll("#mPrint .size").forEach((b) => b.classList.toggle("is-active", b.dataset.zone === sel.zone));
 }
 
 function closeModal() {
@@ -230,7 +225,6 @@ function closeModal() {
 
 $("#mColors").addEventListener("click", (e) => { const b = e.target.closest("[data-color]"); if (b) { sel.color = b.dataset.color; updateModal(); } });
 $("#mSizes").addEventListener("click", (e) => { const b = e.target.closest("[data-size]"); if (b) { sel.size = b.dataset.size; updateModal(); } });
-$("#mPrint").addEventListener("click", (e) => { const b = e.target.closest("[data-zone]"); if (b) { sel.zone = b.dataset.zone; updateModal(); } });
 $("#mMinus").addEventListener("click", () => { $("#mQty").value = Math.max(1, +$("#mQty").value - 1); });
 $("#mPlus").addEventListener("click", () => { $("#mQty").value = Math.min(999, +$("#mQty").value + 1); });
 modal.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", closeModal));
@@ -246,7 +240,7 @@ $("#mAdd").addEventListener("click", () => {
 const STORAGE_KEY = "mafia-cart";
 let cart = [];
 try { cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { cart = []; }
-cart = cart.filter((it) => PRODUCTS.some((p) => p.id === it.id));
+cart = cart.filter((it) => PRODUCTS.some((p) => p.id === it.id) && it.key.split("|").length === 3);
 
 function saveCart() {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } catch { /* sin almacenamiento */ }
@@ -254,14 +248,14 @@ function saveCart() {
 
 function unitPrice(it) {
   const p = PRODUCTS.find((x) => x.id === it.id);
-  return p.price + PRINT_ZONES.find((z) => z.id === it.zone).extra;
+  return p.price;
 }
 
-function addToCart({ product, color, size, zone, qty }) {
-  const key = [product.id, color, size, zone].join("|");
+function addToCart({ product, color, size, qty }) {
+  const key = [product.id, color, size].join("|");
   const existing = cart.find((it) => it.key === key);
   if (existing) existing.qty += qty;
-  else cart.push({ key, id: product.id, color, size, zone, qty });
+  else cart.push({ key, id: product.id, color, size, qty });
   saveCart();
   renderCart();
   const badge = $("#cartCount");
@@ -278,13 +272,12 @@ function renderCart() {
   } else {
     $("#cartItems").innerHTML = cart.map((it) => {
       const p = PRODUCTS.find((x) => x.id === it.id);
-      const z = PRINT_ZONES.find((x) => x.id === it.zone);
       return `
       <div class="item" data-key="${it.key}">
         <div class="item__img">${garmentSVG(p.type, COLORS[it.color].hex)}</div>
         <div>
           <p class="item__title">${p.name}</p>
-          <p class="item__meta">${COLORS[it.color].name} · Talla ${it.size} · ${z.name}</p>
+          <p class="item__meta">${COLORS[it.color].name} · Talla ${it.size}</p>
           <div class="item__qty">
             <button data-act="dec" aria-label="Menos">−</button><span>${it.qty}</span><button data-act="inc" aria-label="Más">+</button>
           </div>
@@ -332,12 +325,12 @@ $("#checkout").addEventListener("click", () => {
   saveCart();
   renderCart();
   closeCart();
-  toast(`¡Pedido recibido (${eur(total)})! Te escribiremos para pedirte tu diseño.`, 4500);
+  toast(`Maqueta: en la tienda real aquí se abre el pago seguro de Shopify (${eur(total)}).`, 4500);
 });
 
 // ---------- Menú móvil ----------
 const nav = $("#nav");
-$("#menuBtn").addEventListener("click", () => nav.classList.toggle("is-open"));
+$("#menuBtn").addEventListener("click", () => $("#menuBtn").setAttribute("aria-expanded", nav.classList.toggle("is-open")));
 nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => nav.classList.remove("is-open")));
 
 // ---------- Formularios ----------
@@ -359,8 +352,20 @@ $("#contactForm").addEventListener("submit", (e) => {
 $("#newsletter").addEventListener("submit", (e) => {
   e.preventDefault();
   e.target.reset();
-  toast("¡Suscrito! Te llegará un 10% de descuento por email.");
+  toast("¡Hecho! Revisa tu email 💌");
 });
+
+$("#promoForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  e.target.reset();
+  toast("¡Hecho! Revisa tu email 💌");
+});
+
+function deliveryText(min, max) {
+  const add = (n) => { const d = new Date(); while (n > 0) { d.setDate(d.getDate() + 1); if (d.getDay() % 6) n--; } return d; };
+  const f = (d) => d.toLocaleDateString("es-ES", { weekday: "short", day: "numeric", month: "short" });
+  return `entre el ${f(add(min))} y el ${f(add(max))}`;
+}
 
 // ---------- Toast ----------
 let toastTimer;
