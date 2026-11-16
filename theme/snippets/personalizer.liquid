@@ -1,0 +1,83 @@
+{%- comment -%}
+  Personalizador de la ficha de producto (texto + imagen propia).
+  Se guarda en el pedido como propiedades de la línea: Shopify las muestra en el pedido y en el email.
+  Uso: {% render 'personalizer', block: block, product: product %}
+{%- endcomment -%}
+{%- liquid
+  assign s = block.settings
+  assign colors = s.colors | split: ','
+  assign positions = s.positions | split: ','
+  assign fonts = 'Grotesca|Bricolage Grotesque,Manuscrita|Pacifico,Deportiva|Bebas Neue,Máquina|Space Mono' | split: ','
+-%}
+<details class="perso" data-perso {{ block.shopify_attributes }}{% if s.open %} open{% endif %}>
+  <summary class="perso__head">
+    <span class="perso__icon" aria-hidden="true">✦</span>
+    <span>
+      <strong>{{ s.heading | escape }}</strong>
+      {%- if s.subheading != blank -%}<small>{{ s.subheading | escape }}</small>{%- endif -%}
+    </span>
+  </summary>
+
+  <div class="perso__body">
+    {%- if s.text_enabled -%}
+      <label class="perso__field">
+        <span class="opt__label">Tu texto <small class="muted" data-perso-count>0/{{ s.max_chars }}</small></span>
+        <input type="text" name="properties[Texto]" maxlength="{{ s.max_chars }}" placeholder="{{ s.placeholder | escape }}" autocomplete="off" data-perso-input>
+      </label>
+
+      <fieldset class="perso__field">
+        <legend class="opt__label">Tipografía</legend>
+        <div class="sizes">
+          {%- for f in fonts -%}
+            {%- assign parts = f | split: '|' -%}
+            {%- assign fid = block.id | append: '-font-' | append: forloop.index -%}
+            <input type="radio" class="visually-hidden" id="{{ fid }}" name="properties[Tipografía]" value="{{ parts[0] }}" data-perso-font="{{ parts[1] }}"{% if forloop.first %} checked{% endif %}>
+            <label for="{{ fid }}" class="size" style="font-family: '{{ parts[1] }}', sans-serif; font-weight: 400">{{ parts[0] }}</label>
+          {%- endfor -%}
+        </div>
+      </fieldset>
+
+      <fieldset class="perso__field">
+        <legend class="opt__label">Color del texto</legend>
+        <div class="swatches">
+          {%- for c in colors -%}
+            {%- assign hex = c | strip -%}
+            {%- assign cid = block.id | append: '-color-' | append: forloop.index -%}
+            <input type="radio" class="visually-hidden" id="{{ cid }}" name="properties[Color del texto]" value="{{ hex }}" data-perso-color{% if forloop.first %} checked{% endif %}>
+            <label for="{{ cid }}" class="swatch" style="background: {{ hex }}" title="{{ hex }}"><span class="visually-hidden">{{ hex }}</span></label>
+          {%- endfor -%}
+        </div>
+      </fieldset>
+    {%- endif -%}
+
+    {%- if positions.size > 0 -%}
+      <fieldset class="perso__field">
+        <legend class="opt__label">Dónde lo ponemos</legend>
+        <div class="sizes">
+          {%- for p in positions -%}
+            {%- assign pos = p | strip -%}
+            {%- assign pid = block.id | append: '-pos-' | append: forloop.index -%}
+            <input type="radio" class="visually-hidden" id="{{ pid }}" name="properties[Posición]" value="{{ pos }}"{% if forloop.first %} checked{% endif %}>
+            <label for="{{ pid }}" class="size">{{ pos }}</label>
+          {%- endfor -%}
+        </div>
+      </fieldset>
+    {%- endif -%}
+
+    {%- if s.upload_enabled -%}
+      <label class="perso__field perso__upload">
+        <span class="opt__label">Tu imagen o logo <small class="muted">(PNG o JPG, máx. {{ s.max_mb }} MB)</small></span>
+        <input type="file" name="properties[Imagen]" accept="image/png,image/jpeg" data-perso-file data-max-mb="{{ s.max_mb }}">
+        <span class="perso__drop" data-perso-drop>📎 Elegir archivo</span>
+      </label>
+    {%- endif -%}
+
+    {%- if s.note != blank -%}<div class="perso__note rte">{{ s.note }}</div>{%- endif -%}
+
+    <label class="perso__consent" data-perso-consent hidden>
+      <input type="checkbox" data-perso-agree>
+      <span>{{ s.consent | escape }}</span>
+    </label>
+    <p class="form__error" data-perso-error hidden></p>
+  </div>
+</details>

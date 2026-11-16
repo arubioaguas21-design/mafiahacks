@@ -3,6 +3,10 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "perso": {
+          "type": "personalizer",
+          "settings": {}
+        },
         "tr1": {
           "type": "trust",
           "settings": {
@@ -43,6 +47,7 @@
         }
       },
       "block_order": [
+        "perso",
         "tr1",
         "tr2",
         "tr3",

@@ -7,6 +7,10 @@
   <div class="container product__inner">
     <div class="gallery">
       <div class="gallery__stage">
+        <div class="perso-preview" data-perso-preview hidden aria-hidden="true">
+          <img alt="" data-perso-img hidden>
+          <span data-perso-text></span>
+        </div>
         {%- for media in product.media -%}
           <div class="gallery__item{% if media.id == active_media.id %} is-active{% endif %}" data-media-id="{{ media.id }}">
             {%- if media.media_type == 'image' -%}
@@ -76,6 +80,25 @@
             <a href="{{ section.settings.size_guide.url }}" class="link small" target="_blank">Guía de tallas</a>
           {%- endif -%}
         {%- endunless -%}
+
+        {%- liquid
+          assign perso_block = nil
+          for block in section.blocks
+            if block.type == 'personalizer'
+              assign perso_tag = block.settings.tag | downcase | strip
+              assign tags_lc = product.tags | join: ',' | downcase
+              if perso_tag == blank
+                assign perso_block = block
+              elsif tags_lc contains perso_tag
+                assign perso_block = block
+              endif
+            endif
+          endfor
+        -%}
+        {%- if perso_block -%}
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Pacifico&family=Space+Mono:wght@700&display=swap">
+          {% render 'personalizer', block: perso_block, product: product %}
+        {%- endif -%}
 
         <div class="opt opt--row">
           <div class="qty">
@@ -176,6 +199,27 @@
     { "type": "checkbox", "id": "show_secure", "label": "Mostrar «Pago seguro» con los métodos de pago", "default": true }
   ],
   "blocks": [
+    {
+      "type": "personalizer",
+      "name": "Personalizador",
+      "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "Permite añadir un texto y/o una imagen. Se guarda en el pedido (lo ves en Pedidos y en el email de confirmación)." },
+        { "type": "text", "id": "tag", "label": "Mostrar solo en productos con la etiqueta", "default": "personalizable", "info": "Déjalo vacío para mostrarlo en todos los productos." },
+        { "type": "text", "id": "heading", "label": "Título", "default": "Hazla tuya" },
+        { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Añade tu nombre, una frase o tu propio diseño" },
+        { "type": "checkbox", "id": "open", "label": "Abierto por defecto", "default": true },
+        { "type": "checkbox", "id": "text_enabled", "label": "Permitir texto", "default": true },
+        { "type": "range", "id": "max_chars", "label": "Máximo de caracteres", "min": 5, "max": 40, "step": 1, "default": 20 },
+        { "type": "text", "id": "placeholder", "label": "Ejemplo en el campo", "default": "Ej.: LAURA 23" },
+        { "type": "text", "id": "colors", "label": "Colores del texto (hex, separados por comas)", "default": "#ffffff,#111015,#d6ff3c,#ff3d8b,#6b2cff" },
+        { "type": "text", "id": "positions", "label": "Posiciones (separadas por comas)", "default": "Pecho,Centro,Espalda" },
+        { "type": "checkbox", "id": "upload_enabled", "label": "Permitir subir imagen", "default": true },
+        { "type": "range", "id": "max_mb", "label": "Tamaño máximo de imagen", "min": 1, "max": 20, "step": 1, "unit": "MB", "default": 10 },
+        { "type": "richtext", "id": "note", "label": "Nota", "default": "<p>Revisamos cada diseño antes de imprimir. Si algo no se ve bien, te escribimos.</p>" },
+        { "type": "text", "id": "consent", "label": "Texto de aceptación", "default": "He revisado el texto y la imagen. Entiendo que una prenda personalizada no se puede devolver salvo defecto." }
+      ]
+    },
     {
       "type": "trust",
       "name": "Ventaja de compra",

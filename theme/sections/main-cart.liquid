@@ -23,6 +23,18 @@
                 {%- unless item.product.has_only_default_variant -%}
                   <p class="item__meta">{{ item.variant.title | escape }}</p>
                 {%- endunless -%}
+                {%- for prop in item.properties -%}
+                  {%- assign pfirst = prop.first | slice: 0 -%}
+                  {%- if prop.last != blank and pfirst != '_' -%}
+                    <p class="item__meta item__prop">
+                      {{ prop.first | escape }}:
+                      {%- if prop.last contains '/uploads/' %} <a href="{{ prop.last }}" target="_blank" class="link">ver imagen</a>
+                      {%- elsif prop.first == 'Color del texto' %} <span class="dot dot--inline" style="background: {{ prop.last | escape }}"></span>
+                      {%- else %} {{ prop.last | escape }}
+                      {%- endif -%}
+                    </p>
+                  {%- endif -%}
+                {%- endfor -%}
                 {%- for discount in item.line_level_discount_allocations -%}
                   <p class="item__meta item__discount">{{ discount.discount_application.title | escape }} (−{{ discount.amount | money }})</p>
                 {%- endfor -%}

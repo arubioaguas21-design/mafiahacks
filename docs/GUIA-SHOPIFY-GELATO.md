@@ -150,3 +150,31 @@ El tema está subido a la tienda Lolives como **"Tintuka (nuevo)"**, **sin publi
 - Para verlo: **Tienda online → Temas → Tintuka (nuevo) → Vista previa**.
 - Para publicarlo (lo haces tú, desde el admin): **Acciones → Publicar**. Así sustituye al tema actual ("Lolives Y2K (nuevo)"), que queda guardado en la biblioteca de temas y puedes volver a él cuando quieras.
 - Ten en cuenta que mostrará los productos de Lolives (ropa de mujer) con el diseño y los textos de Tintuka (camisetas y sudaderas). Revisa textos, colecciones y menús en **Personalizar** antes de publicar.
+
+---
+
+## Personalizador de camisetas
+
+En la ficha de producto hay un bloque **"Hazla tuya"** donde el cliente puede:
+- escribir un texto (nombre, número, frase), con 4 tipografías y 5 colores;
+- elegir dónde va (pecho, centro o espalda);
+- subir su propia imagen o logo (PNG o JPG);
+- ver una **vista previa en directo** sobre la foto del producto.
+
+Antes de añadir al carrito tiene que marcar que ha revisado el diseño y que una prenda personalizada no se puede devolver salvo defecto (en la UE, los productos hechos a medida del cliente quedan fuera del derecho de desistimiento de 14 días).
+
+**Cómo activarlo en un producto:** añade la etiqueta `personalizable` al producto. Solo los productos con esa etiqueta muestran el personalizador. Puedes cambiar la etiqueta, los colores, las posiciones, el máximo de caracteres o desactivar la subida de imágenes en **Personalizar → Producto → Personalizador**. Si dejas la etiqueta vacía, sale en todos los productos.
+
+**Dónde ves lo que ha pedido el cliente:** en **Pedidos**, cada línea muestra Texto, Tipografía, Color del texto, Posición y un enlace a la imagen subida. También aparece en el carrito y en el email de confirmación.
+
+### ⚠️ Personalización y Gelato
+
+Gelato imprime el diseño que subiste al crear el producto. **No lee el texto ni la imagen que añade el cliente**, así que un pedido personalizado no se puede dejar en automático:
+
+1. Revisa en Gelato que los pedidos **no pasen solos a producción**. Busca la opción de aprobar pedidos a mano; si no la hay, no conectes los productos personalizables al envío automático.
+2. Cuando entre un pedido personalizado, prepara el archivo de impresión con el texto o la imagen del cliente y **crea el pedido a mano en Gelato** con ese archivo.
+3. Alternativa: Gelato tiene su propia herramienta de personalización para Shopify que envía el diseño del cliente automáticamente. Mira en su web si está disponible para tu plan y para los productos que vendes. Si la usas, desactiva el bloque "Hazla tuya" del tema para no tener dos personalizadores.
+
+**Precio:** el personalizador no suma dinero por sí solo. Pon a los productos personalizables un precio que ya incluya la personalización, o crea una variante "Personalizada" más cara.
+
+**Devoluciones:** en los productos personalizables, cambia los mensajes de "Devolución en 14 días" (bloques "Ventaja de compra" y desplegable de envíos) o crea una plantilla de producto aparte para ellos.

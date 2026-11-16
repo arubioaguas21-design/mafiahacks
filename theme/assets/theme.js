@@ -141,6 +141,9 @@
     section.querySelectorAll('input[data-option-index]').forEach((i) => i.addEventListener('change', update));
     if (section.querySelector('fieldset.opt')) markAvailability(selected());
 
+    // Personalizador
+    const perso = initPersonalizer(section);
+
     // Barra fija de compra en móvil: aparece cuando el botón principal sale de pantalla
     if (sticky && addBtn && 'IntersectionObserver' in window) {
       new IntersectionObserver(([entry]) => {
@@ -157,6 +160,9 @@
     // Añadir al carrito sin recargar la página
     if (form && window.fetch) {
       form.addEventListener('submit', async (e) => {
+        if (perso && !perso.validate()) { e.preventDefault(); return; }
+        // Con imagen subida se usa el envío normal del formulario (sube el archivo y va al carrito)
+        if (perso && perso.hasFile()) return;
         e.preventDefault();
         if (addBtn.disabled) return;
         errorEl.hidden = true;
@@ -189,6 +195,105 @@
         }
       });
     }
+  }
+
+  function initPersonalizer(section) {
+    const box = section.querySelector('[data-perso]');
+    if (!box) return null;
+    const preview = section.querySelector('[data-perso-preview]');
+    const pText = preview && preview.querySelector('[data-perso-text]');
+    const pImg = preview && preview.querySelector('[data-perso-img]');
+    const input = box.querySelector('[data-perso-input]');
+    const count = box.querySelector('[data-perso-count]');
+    const file = box.querySelector('[data-perso-file]');
+    const drop = box.querySelector('[data-perso-drop]');
+    const consent = box.querySelector('[data-perso-consent]');
+    const agree = box.querySelector('[data-perso-agree]');
+    const error = box.querySelector('[data-perso-error]');
+    const fontInputs = box.querySelectorAll('[data-perso-font]');
+    const colorInputs = box.querySelectorAll('[data-perso-color]');
+    const posInputs = box.querySelectorAll('input[name="properties[Posición]"]');
+    const max = input ? parseInt(input.maxLength, 10) : 0;
+
+    const checked = (list) => Array.from(list).find((i) => i.checked);
+    const text = () => (input ? input.value.trim() : '');
+    const hasFile = () => !!(file && file.files && file.files.length);
+
+    function showError(msg) {
+      error.textContent = msg;
+      error.hidden = !msg;
+    }
+
+    function update() {
+      const t = text();
+      const active = !!t || hasFile();
+      if (count) count.textContent = `${input.value.length}/${max}`;
+      // Solo se envían las opciones si de verdad hay personalización
+      fontInputs.forEach((i) => (i.disabled = !t));
+      colorInputs.forEach((i) => (i.disabled = !t));
+      posInputs.forEach((i) => (i.disabled = !active));
+      // Campos vacíos sin nombre: así no se guardan en el pedido
+      if (input) input.name = t ? 'properties[Texto]' : '';
+      if (file) file.name = hasFile() ? 'properties[Imagen]' : '';
+      consent.hidden = !active;
+      if (!preview) return;
+      preview.hidden = !active;
+      const pos = checked(posInputs);
+      preview.dataset.pos = pos ? pos.value : '';
+      if (pText) {
+        pText.textContent = t;
+        const f = checked(fontInputs);
+        const c = checked(colorInputs);
+        pText.style.fontFamily = f ? `'${f.dataset.persoFont}', sans-serif` : '';
+        pText.style.color = c ? c.value : '';
+      }
+    }
+
+    if (input) input.addEventListener('input', () => { showError(''); update(); });
+    box.addEventListener('change', (e) => {
+      if (e.target === file) {
+        showError('');
+        const f = file.files[0];
+        const maxMb = parseFloat(file.dataset.maxMb || '10');
+        if (f && !/^image\/(png|jpeg)$/.test(f.type)) {
+          showError('El archivo tiene que ser PNG o JPG.');
+          file.value = '';
+        } else if (f && f.size > maxMb * 1024 * 1024) {
+          showError(`La imagen pesa demasiado (máximo ${maxMb} MB).`);
+          file.value = '';
+        }
+        const ok = hasFile();
+        drop.textContent = ok ? `✓ ${file.files[0].name}` : '📎 Elegir archivo';
+        drop.classList.toggle('has-file', ok);
+        if (pImg) {
+          if (ok) {
+            const reader = new FileReader();
+            reader.onload = () => { pImg.src = reader.result; pImg.hidden = false; };
+            reader.readAsDataURL(file.files[0]);
+          } else {
+            pImg.hidden = true;
+            pImg.removeAttribute('src');
+          }
+        }
+      }
+      update();
+    });
+    update();
+
+    return {
+      hasFile,
+      validate() {
+        const active = !!text() || hasFile();
+        if (active && agree && !agree.checked) {
+          showError('Marca la casilla para confirmar tu personalización.');
+          box.open = true;
+          consent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return false;
+        }
+        showError('');
+        return true;
+      },
+    };
   }
 
   function showToast(msg, href) {
