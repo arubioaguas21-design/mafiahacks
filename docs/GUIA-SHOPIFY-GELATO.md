@@ -140,3 +140,13 @@ precio de venta (con IVA)
 - [ ] Revisa la web en el móvil.
 - [ ] Conecta tu dominio (**Configuración → Dominios**).
 - [ ] Quita la contraseña de la tienda (**Tienda online → Preferencias**).
+
+---
+
+## Tema ya subido a Lolives
+
+El tema está subido a la tienda Lolives como **"Tintuka (nuevo)"**, **sin publicar**. La web actual de Lolives no ha cambiado.
+
+- Para verlo: **Tienda online → Temas → Tintuka (nuevo) → Vista previa**.
+- Para publicarlo (lo haces tú, desde el admin): **Acciones → Publicar**. Así sustituye al tema actual ("Lolives Y2K (nuevo)"), que queda guardado en la biblioteca de temas y puedes volver a él cuando quieras.
+- Ten en cuenta que mostrará los productos de Lolives (ropa de mujer) con el diseño y los textos de Tintuka (camisetas y sudaderas). Revisa textos, colecciones y menús en **Personalizar** antes de publicar.
