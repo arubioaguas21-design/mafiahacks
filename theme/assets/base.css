@@ -83,6 +83,11 @@ h3 { font-size: 1.3rem; letter-spacing: -.02em; }
 .logo span { color: var(--accent-2); }
 .logo--light { color: #fff; }
 .logo__img { height: auto; }
+.logo { --logo-1: var(--accent); }
+.logo__svg { height: 30px; width: auto; display: block; }
+.logo--light { --logo-1: var(--highlight); }
+.footer .logo__svg { height: 34px; }
+.password .logo__svg { height: 44px; margin-inline: auto; }
 .nav { display: flex; gap: .3rem; font-weight: 700; font-size: .95rem; }
 .nav a { padding: .5rem .9rem; border-radius: 999px; transition: background .15s; }
 .nav a:hover, .nav a[aria-current] { background: var(--highlight); }
@@ -507,6 +512,7 @@ input:focus-visible + .swatch, input:focus-visible + .size { box-shadow: 0 0 0 3
   .cat { grid-template-columns: 1fr 1.3fr; }
   .cat__body { padding: 1.1rem; }
   .cat__body p { font-size: .9rem; }
+  .logo__svg { height: 25px; }
   .hero__stats li { flex: 1; min-width: 0; padding: .6rem .7rem; }
   .hero__stats strong { font-size: 1.2rem; }
   .sticker--round { width: 84px; height: 84px; font-size: .75rem; }

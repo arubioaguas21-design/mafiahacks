@@ -8,7 +8,11 @@
     <link rel="canonical" href="{{ canonical_url }}">
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+    {%- else -%}
+      <link rel="icon" type="image/svg+xml" href="{{ 'favicon.svg' | asset_url }}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ 'favicon-32.png' | asset_url }}">
     {%- endif -%}
+    <link rel="apple-touch-icon" href="{{ 'apple-touch-icon.png' | asset_url }}">
     <title>
       {{ page_title }}
       {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}

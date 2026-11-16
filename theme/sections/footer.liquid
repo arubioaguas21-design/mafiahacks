@@ -1,7 +1,9 @@
 <footer class="footer">
   <div class="container footer__inner">
     <div>
-      <a href="{{ routes.root_url }}" class="logo logo--light">{{ section.settings.logo_text | default: shop.name | escape }}<span>.</span></a>
+      <a href="{{ routes.root_url }}" class="logo logo--light">
+        {%- if section.settings.svg_logo -%}{% render 'logo-svg' %}{%- else -%}{{ section.settings.logo_text | default: shop.name | escape }}<span>.</span>{%- endif -%}
+      </a>
       {%- if section.settings.tagline != blank -%}<p>{{ section.settings.tagline | escape }}</p>{%- endif -%}
       <div class="social">
         {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'icon', name: 'instagram' %}</a>{%- endif -%}
@@ -70,6 +72,7 @@
   "name": "Pie de página",
   "class": "section-footer",
   "settings": [
+    { "type": "checkbox", "id": "svg_logo", "label": "Usar el logo de Colorcalle (SVG)", "default": true },
     { "type": "text", "id": "logo_text", "label": "Texto del logo", "default": "colorcalle" },
     { "type": "text", "id": "tagline", "label": "Descripción", "default": "Camisetas y sudaderas con diseños propios, impresas bajo pedido para ti." },
     { "type": "link_list", "id": "menu_1", "label": "Menú 1", "default": "main-menu" },
