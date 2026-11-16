@@ -1,4 +1,4 @@
-# Colorcalle · Camisetas y sudaderas
+# Tintuka · Camisetas y sudaderas
 
 Tienda de camisetas y sudaderas con diseños propios, impresas bajo pedido con **Gelato** y vendidas con **Shopify**.
 
@@ -13,7 +13,7 @@ Tienda de camisetas y sudaderas con diseños propios, impresas bajo pedido con *
 ## Generar el zip del tema
 
 ```bash
-cd theme && zip -r ../tema-colorcalle.zip . -x '.*'
+cd theme && zip -r ../tema-tintuka.zip . -x '.*'
 ```
 
 ## Qué incluye el tema
