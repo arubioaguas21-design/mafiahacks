@@ -272,14 +272,330 @@ push(`tl.to("#h1-lapiz",{scale:0,opacity:0,duration:0.25,ease:"power3.in"},${at(
 push(`tl.fromTo("#h1-line",{scaleX:0},{scaleX:1,transformOrigin:"0 50%",duration:0.35,ease:"power3.out"},${at(E("apuntar"))});`);
 sfx.push({ f: "teclas", t: P("apuntar") });
 
+
+// =====================================================================
+// RESTO DEL VÍDEO: duelos 1-3, clímax y llamada a la acción
+// =====================================================================
+
+// --- utilidades de escena ---
+const segs = [];
+function segmento(id, d) {
+  segs.push(`<path class="seg" id="${id}" d="${d}" fill="none" stroke="#22c55e" stroke-width="14" stroke-linecap="round"/>
+  <path class="seg" id="${id}-g" d="${d}" fill="none" stroke="#22c55e" stroke-opacity=".25" stroke-width="40" stroke-linecap="round"/>`);
+}
+function dibujar(id, t, dur) {
+  push(`tl.fromTo(["#${id}","#${id}-g"],{strokeDashoffset:(i,el)=>el.getTotalLength()},{strokeDashoffset:0,duration:${r3(dur)},ease:"power2.inOut"},${at(t)});`);
+}
+let nWhoosh = 0;
+const WH = ["whoosh", "whoosh2", "whoosh3"];
+function viaje(t, dur, cx, cy, s, seg, blur = 6) {
+  if (seg) dibujar(seg, t, dur);
+  camTo(t, cx, cy, s, dur, { ease: "power2.inOut", blur });
+  if (blur) sfx[sfx.length - 1].f = WH[nWhoosh++ % 3];
+}
+function fila(id, texto, { pill = "", cls = "" } = {}) {
+  return `<div class="row ${cls}" id="${id}"><span class="chk" id="${id}-c">${icon("check-bold", "chk-i")}</span><span class="rt">${texto}<i class="strike" id="${id}-s"></i></span>${pill ? `<span class="pill" id="${id}-p">${pill}</span>` : ""}</div>`;
+}
+function tachar(id, t) {
+  push(`tl.to("#${id}-c",{backgroundColor:"#22c55e",borderColor:"#22c55e",duration:0.15},${at(t)});`);
+  push(`tl.fromTo("#${id}-c .chk-i",{scale:0,opacity:1},{scale:1,opacity:1,duration:0.3,ease:"back.out(2.5)"},${at(t)});`);
+  push(`tl.fromTo("#${id}-s",{scaleX:0,opacity:1},{scaleX:1,opacity:1,transformOrigin:"0 50%",duration:0.25,ease:"power2.out"},${at(t + 0.05)});`);
+  push(`tl.to("#${id} .rt",{color:"#9ca3af",duration:0.2},${at(t + 0.05)});`);
+  sfx.push({ f: "click", t });
+}
+function cabecera(id, x, y, simbolo, sub, palabra, numCls = "") {
+  const fsz = Math.round(Math.min(112, 560 / (palabra.length * 0.68)));
+  add(`<div class="card duelo" id="${id}" style="left:${x - 470}px;top:${y - 190}px;width:940px;height:380px">
+  <div class="num ${numCls}" id="${id}-num">${simbolo}</div>
+  <div class="h-txt"><div class="h-sub">${sub}</div><div class="h-word" id="${id}-word" style="font-size:${fsz}px">${palabra}</div><div class="h-line" id="${id}-line"></div></div>
+</div>`);
+}
+function animCabecera(id, tNum, tPal, tFin) {
+  push(`tl.fromTo("#${id}",{scale:0.7,opacity:0},{scale:1,opacity:1,duration:0.5,ease:"expo.out"},${at(tNum - 0.3)});`);
+  push(`tl.fromTo("#${id}-num",{scale:0,rotation:-180},{scale:1,rotation:0,duration:0.45,ease:"back.out(1.8)"},${at(tNum)});`);
+  sfx.push({ f: "pop", t: tNum });
+  const d = Math.max(0.4, tFin - tPal);
+  push(`tl.fromTo("#${id}-word",{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",duration:${r3(d)},ease:"power1.inOut"},${at(tPal)});`);
+  push(`tl.fromTo("#${id}-line",{scaleX:0},{scaleX:1,transformOrigin:"0 50%",duration:0.35,ease:"power3.out"},${at(tPal + d * 0.6)});`);
+  sfx.push({ f: "teclas", t: tPal });
+}
+const pj = (id, c, x, y) => add(`<div class="pos" id="${id}-pos" style="left:${x}px;top:${y}px">${personaje(id, c)}</div>`);
+const vivos = ["nov", "pro"];
+const persona = (id, c, x, y) => { pj(id, c, x, y); vivos.push(id); };
+function cursorEn(id, x0, y0, x1, y1, t, dur = 0.45) {
+  push(`tl.fromTo("#${id}",{x:${x0},y:${y0},opacity:0},{x:${x1},y:${y1},opacity:1,duration:${dur},ease:"power3.out"},${at(t)});`);
+  push(`tl.to("#${id}",{scale:0.82,duration:0.08,yoyo:true,repeat:1,ease:"power2.inOut"},${at(t + dur)});`);
+  sfx.push({ f: "click", t: t + dur });
+}
+
+// geometría de cada duelo
+const DY = [0, 2620, 5120, 7620];
+const panelN = (k) => ({ cx: 540, cy: DY[k] + 1250 });
+const panelP = (k) => ({ cx: 1640, cy: DY[k] + 1250 });
+const tl0 = (p) => ({ x: p.cx - 480, y: p.cy - 540 }); // esquina sup. izq. del encuadre
+for (const k of [1, 2, 3]) {
+  const Y = DY[k], n = tl0(panelN(k)), p = tl0(panelP(k));
+  segmento(`s${k}a`, `M 540 ${Y + 190} C 540 ${Y + 330}, 560 ${Y + 420}, 540 ${n.y + 10}`);
+  segmento(`s${k}b`, `M ${n.x + 940} ${n.y + 380} C ${n.x + 1080} ${n.y + 300}, ${p.x + 160} ${p.y + 460}, ${p.x + 300} ${p.y + 380}`);
+  if (k < 3) segmento(`s${k}c`, `M ${p.x + 620} ${p.y + 1040} C ${p.x + 620} ${p.y + 1320}, 560 ${DY[k + 1] - 600}, 540 ${DY[k + 1] - 190}`);
+}
+const Y4 = 10500, Y5 = Y4 + 2750;
+segmento("s3c", `M ${tl0(panelP(3)).x + 620} ${tl0(panelP(3)).y + 1040} C 1800 ${Y4 - 700}, 560 ${Y4 - 600}, 540 ${Y4 - 190}`);
+segmento("s4a", `M 540 ${Y4 + 190} C 540 ${Y4 + 330}, 540 ${Y4 + 450}, 540 ${Y4 + 600}`);
+segmento("s4b", `M 960 ${Y4 + 1150} C 1100 ${Y4 + 1050}, 1200 ${Y4 + 1250}, 1400 ${Y4 + 1150}`);
+segmento("s4c", `M 1640 ${Y4 + 1690} C 1640 ${Y4 + 1950}, 1700 ${Y5 - 700}, 1640 ${Y5 - 520}`);
+
+// ---------------- DUELO 1 ----------------
+{
+  const k = 1, N = panelN(k), Pp = panelP(k), n = tl0(N), p = tl0(Pp);
+  const lista = ["Responder correos", "Llamar al banco", "Comprar pan", "Ir al gimnasio", "Pagar facturas", "Hacer el informe",
+    "Ordenar cajones", "Lavar el coche", "Pedir cita", "Regar plantas", "Leer un libro", "Revisar gastos", "Cortar el pelo", "Arreglar la silla"];
+  add(`<div class="card app" id="a1" style="left:${n.x + 300}px;top:${n.y + 20}px;width:640px;height:760px">
+  <div class="app-h">${icon("list-checks-fill", "ico-h")}<span>Todo</span><span class="badge rojo">${rodillo("r1", 2)}</span></div>
+  <div class="app-list"><div class="app-scroll" id="sc1">${lista.map((t, i) => fila(`f1-${i}`, t)).join("")}</div></div></div>`);
+  persona("nov1", NOVATO, n.x + 40, n.y + 620);
+  add(`<div class="card app" id="b1" style="left:${p.x + 300}px;top:${p.y + 60}px;width:640px;height:620px">
+  <div class="app-h">${icon("star-fill", "ico-h ico-oro")}<span>Hoy</span><span class="badge verde">${rodillo("r1b", 1)}</span></div>
+  <div class="app-list">${["Hacer el informe", "Llamar al banco", "Pagar facturas"].map((t, i) => `<div class="row big3" id="g1-${i}"><span class="estrella" id="g1-${i}-e">${icon("star-fill")}</span>${t}</div>`).join("")}</div></div>
+  <div class="cursor" id="cur1" style="left:${p.x + 840}px;top:${p.y + 220}px">${icon("cursor-fill")}</div>`);
+  persona("pro1", PRO, p.x + 40, p.y + 620);
+
+  // frase 4: novato
+  const t4 = Math.max(E("apuntar") + 0.05, F(3) - 0.4);
+  viaje(t4, P("novato", 2) + 0.1 - t4, N.cx, N.cy, 1, "s1a", 4);
+  push(`tl.fromTo("#a1",{scale:0.85,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"expo.out"},${at(P("novato", 2) - 0.2)});`);
+  const tA = P("apunta", 1), tC = P("cuarenta");
+  lista.forEach((_, i) => {
+    const t = tA + (i * (tC - tA)) / lista.length;
+    push(`tl.fromTo("#f1-${i}",{opacity:0,x:-50},{opacity:1,x:0,duration:0.2,ease:"power3.out"},${at(t)});`);
+    if (i >= 6) push(`tl.to("#sc1",{y:${-92 * (i - 5)},duration:0.18,ease:"power2.out"},${at(t)});`);
+  });
+  sfx.push({ f: "teclas", t: tA });
+  rodar("r1", 2, 40, P("todo"), Math.max(0.6, tC - P("todo")));
+  push(`tl.to("#a1",{boxShadow:"0 0 0 10px #ef4444, 0 30px 80px rgba(0,0,0,.5)",duration:0.25},${at(tC)});`);
+  push(`tl.fromTo("#a1",{rotation:0},{rotation:2,duration:0.07,yoyo:true,repeat:5,ease:"sine.inOut"},${at(P("cosas"))});`);
+  sfx.push({ f: "pop", t: tC });
+  cara("nov1", P("sola"), true);
+  brazo("nov1", "R", -40, tA, 0.3);
+  push(`tl.to("#nov1-head",{rotation:-14,svgOrigin:"100 140",duration:0.3,ease:"power2.out"},${at(tC)});`);
+
+  // frase 5: pro
+  viaje(F(4) - 0.35, 0.6, Pp.cx, Pp.cy, 1, "s1b", 4);
+  push(`tl.fromTo("#b1",{scale:0.85,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"expo.out"},${at(F(4) - 0.1)});`);
+  cursorEn("cur1", 140, 260, 0, 0, P("elige") - 0.2);
+  [0, 1, 2].forEach((i) => {
+    const t = P("tres", 1) + i * 0.12;
+    push(`tl.fromTo("#g1-${i}",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.3,ease:"back.out(1.8)"},${at(t)});`);
+    push(`tl.fromTo("#g1-${i}-e",{scale:0,rotation:-120,color:"#d1d5db"},{scale:1,rotation:0,color:"#f59e0b",duration:0.4,ease:"back.out(2.4)"},${at(P("importantes") + i * 0.1)});`);
+  });
+  sfx.push({ f: "pop", t: P("tres", 1) });
+  sfx.push({ f: "pop2", t: P("importantes") });
+  rodar("r1b", 1, 3, P("tres", 1), 0.6);
+  push(`tl.to("#cur1",{opacity:0,duration:0.2},${at(P("importantes"))});`);
+  push(`tl.fromTo("#b1",{boxShadow:"0 0 0 0px #22c55e, 0 30px 80px rgba(0,0,0,.5)"},{boxShadow:"0 0 0 10px #22c55e, 0 30px 80px rgba(0,0,0,.5)",duration:0.25},${at(P("hoy"))});`);
+  brazo("pro1", "R", -150, P("hoy"));
+  push(`tl.fromTo("#pro1-in",{y:0},{y:-30,duration:0.18,yoyo:true,repeat:1,ease:"power2.out"},${at(P("hoy"))});`);
+  // se aleja para enseñar el duelo entero
+  camTo(P("hoy") + 0.3, 1090, DY[1] + 800, 0.46, 0.5, { ease: "power2.inOut" });
+}
+
+// ---------------- DUELO 2 ----------------
+cabecera("h2", 540, DY[2], "2", "DUELO", "EMPEZAR");
+{
+  const k = 2, N = panelN(k), Pp = panelP(k), n = tl0(N), p = tl0(Pp);
+  viaje(P("duelo", 2) - 0.1, P("empezar") - P("duelo", 2) + 0.1, 540, DY[2] + 30, 1, "s1c", 7);
+  animCabecera("h2", P("dos", 1), P("empezar"), E("empezar"));
+  const faciles = ["Comprar pan", "Regar plantas", "Ordenar cajones", "Pedir cita"];
+  add(`<div class="card app" id="a2" style="left:${n.x + 300}px;top:${n.y + 20}px;width:640px;height:760px">
+  <div class="app-h">${icon("list-checks-fill", "ico-h")}<span>Hoy</span></div>
+  <div class="app-list"><div class="row grande" id="f2-big"><span class="flag">${icon("flag-fill")}</span><span class="rt">EL INFORME</span></div>
+  ${faciles.map((t, i) => fila(`f2-${i}`, t)).join("")}</div></div>`);
+  persona("nov2", NOVATO, n.x + 40, n.y + 620);
+  add(`<div class="bloque" id="blk2" style="left:${p.x + 300}px;top:${p.y + 60}px">${icon("barbell-fill", "ico-blk")}<span>EL INFORME</span>
+  <div class="barra"><i id="bar2"></i></div><div class="ok" id="ok2">${icon("check-circle-fill")}</div></div>
+  <div class="movil" id="mov2" style="left:${p.x + 740}px;top:${p.y + 560}px">${icon("device-mobile-fill")}</div>
+  ${["Nuevo mensaje", "3 me gusta", "Oferta"].map((t, i) => `<div class="noti" id="n2-${i}" style="left:${p.x + 290}px;top:${p.y + 560 + i * 100}px">${icon("bell-fill")}<span>${t}</span></div>`).join("")}`);
+  persona("pro2", PRO, p.x + 40, p.y + 620);
+
+  // frase 7: novato empieza por lo fácil
+  viaje(Math.max(E("empezar") + 0.05, F(6) - 0.4), 0.6, N.cx, N.cy, 1, "s2a", 4);
+  push(`tl.fromTo("#a2",{scale:0.85,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"expo.out"},${at(F(6) - 0.15)});`);
+  faciles.forEach((_, i) => tachar(`f2-${i}`, P("facil") + i * 0.28));
+  cara("nov2", P("facil"), false);
+  brazo("nov2", "R", -140, P("productivo"));
+  push(`tl.fromTo("#f2-big",{scale:1,backgroundColor:"#ffffff",color:"#0b0d12"},{scale:1.08,backgroundColor:"#ef4444",color:"#ffffff",duration:0.6,ease:"power2.out"},${at(P("empieza"))});`);
+  push(`tl.to("#f2-big",{scale:1.16,duration:0.35,yoyo:true,repeat:3,ease:"sine.inOut"},${at(P("sentirse"))});`);
+
+  // frase 8: el pro hace primero lo difícil
+  viaje(F(7) - 0.35, 0.6, Pp.cx, Pp.cy, 1, "s2b", 4);
+  push(`tl.fromTo("#blk2",{scale:0.85,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"expo.out"},${at(F(7) - 0.1)});`);
+  push(`tl.fromTo("#mov2",{scale:0,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"back.out(2)"},${at(F(7) - 0.1)});`);
+  brazo("pro2", "R", -75, P("hace", 1), 0.3);
+  brazo("pro2", "L", 75, P("hace", 1), 0.3);
+  push(`tl.to("#pro2-in",{rotation:8,transformOrigin:"50% 100%",duration:0.3,ease:"power2.out"},${at(P("primero"))});`);
+  push(`tl.fromTo("#bar2",{scaleX:0},{scaleX:1,transformOrigin:"0 50%",duration:${r3(P("dificil") - P("primero"))},ease:"power1.inOut"},${at(P("primero"))});`);
+  push(`tl.fromTo("#ok2",{scale:0,rotation:-90},{scale:1,rotation:0,duration:0.4,ease:"back.out(2.2)"},${at(P("dificil"))});`);
+  sfx.push({ f: "pop", t: P("dificil") });
+  push(`tl.to("#pro2-in",{rotation:0,duration:0.3,ease:"power2.out"},${at(P("dificil") + 0.1)});`);
+  [0, 1, 2].forEach((i) => {
+    const t = P("antes", 1) + i * 0.18;
+    push(`tl.fromTo("#n2-${i}",{opacity:0,y:-60,scale:0.8},{opacity:1,y:0,scale:1,duration:0.3,ease:"back.out(1.8)"},${at(t)});`);
+    sfx.push({ f: "noti", t });
+  });
+  push(`tl.fromTo("#mov2",{rotation:0},{rotation:8,duration:0.05,yoyo:true,repeat:9,ease:"sine.inOut"},${at(P("antes", 1))});`);
+  // en "móvil" lo pone boca abajo y las notificaciones se apagan
+  push(`tl.to("#mov2",{rotation:180,color:"#475569",duration:0.4,ease:"back.out(1.6)"},${at(P("movil"))});`);
+  push(`tl.to(["#n2-0","#n2-1","#n2-2"],{opacity:0.25,scale:0.9,duration:0.3},${at(P("movil"))});`);
+  push(`tl.to("#pro2-head",{rotation:-12,svgOrigin:"100 140",duration:0.3,ease:"power2.out"},${at(P("movil"))});`);
+  brazo("pro2", "R", -4, P("movil"), 0.4);
+  brazo("pro2", "L", 4, P("movil"), 0.4);
+  camTo(E("movil") + 0.1, 1090, DY[2] + 800, 0.46, 0.45, { ease: "power2.inOut" });
+}
+
+// ---------------- DUELO 3 ----------------
+cabecera("h3", 540, DY[3], "3", "DUELO", "LO PEQUEÑO");
+{
+  const k = 3, N = panelN(k), Pp = panelP(k), n = tl0(N), p = tl0(Pp);
+  viaje(P("duelo", 3) - 0.1, P("pequeno") - P("duelo", 3) + 0.1, 540, DY[3] + 30, 1, "s2c", 7);
+  animCabecera("h3", P("tres", 2), P("lo", 3), E("pequeno"));
+  const peques = ["Decir «ok»", "Guardar", "Mover cita", "Tirar papel", "Cerrar web"];
+  add(`<div class="card app" id="a3" style="left:${n.x + 300}px;top:${n.y + 20}px;width:640px;height:760px">
+  <div class="app-h">${icon("list-checks-fill", "ico-h")}<span>Pendiente</span></div>
+  <div class="app-list">${peques.map((t, i) => fila(`f3-${i}`, t, { pill: "1 min", cls: "conpill" })).join("")}</div></div>`);
+  persona("nov3", NOVATO, n.x + 40, n.y + 620);
+  add(`<div class="card crono" id="cr3" style="left:${p.x + 300}px;top:${p.y + 20}px;width:640px;height:520px">
+  <div class="cr-t" id="cr3-t">REGLA DE LOS</div>
+  <div class="cr-n">${icon("timer-fill", "ico-cr")}${rodillo("rm", 1)}<b>:</b>${rodillo("rs", 2)}</div>
+  <div class="cr-sub">MINUTOS</div></div>
+  <div class="chip2" id="ch3" style="left:${p.x + 320}px;top:${p.y + 600}px"><span class="chk" id="ch3-c">${icon("check-bold", "chk-i")}</span>Decir «ok»</div>`);
+  persona("pro3", PRO, p.x + 40, p.y + 620);
+
+  // frase 10: el novato lo apunta todo
+  viaje(Math.max(E("pequeno") + 0.05, F(9) - 0.4), 0.6, N.cx, N.cy, 1, "s3a", 4);
+  push(`tl.fromTo("#a3",{scale:0.85,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"expo.out"},${at(F(9) - 0.15)});`);
+  const tA = P("apunta", 2), tM = P("minuto");
+  peques.forEach((_, i) => {
+    const t = tA + (i * (tM - tA)) / peques.length;
+    push(`tl.fromTo("#f3-${i}",{opacity:0,y:-120},{opacity:1,y:0,duration:0.3,ease:"bounce.out"},${at(t)});`);
+    sfx.push({ f: "pop2", t });
+  });
+  push(`tl.to("#a3 .pill",{backgroundColor:"#ef4444",color:"#ffffff",scale:1.15,duration:0.25,stagger:0.05,ease:"back.out(2)"},${at(tM)});`);
+  cara("nov3", P("hasta"), true);
+  push(`tl.to("#nov3-in",{scaleY:0.9,scaleX:1.05,transformOrigin:"50% 100%",duration:0.3,ease:"power2.out"},${at(tM)});`);
+
+  // frase 11: regla de los dos minutos
+  viaje(F(10) - 0.35, 0.6, Pp.cx, Pp.cy, 1, "s3b", 4);
+  push(`tl.fromTo("#cr3",{scale:0.85,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"expo.out"},${at(F(10) - 0.1)});`);
+  push(`tl.fromTo("#cr3-t",{opacity:0,y:20},{opacity:1,y:0,duration:0.3,ease:"power3.out"},${at(P("regla"))});`);
+  rodar("rm", 1, 2, P("dos", 2), 0.5);
+  sfx.push({ f: "pop", t: P("dos", 2) });
+  push(`tl.fromTo("#ch3",{opacity:0,x:120},{opacity:1,x:0,duration:0.35,ease:"power3.out"},${at(P("si"))});`);
+  push(`tl.to("#ch3-c",{backgroundColor:"#22c55e",borderColor:"#22c55e",duration:0.15},${at(P("ya"))});`);
+  push(`tl.fromTo("#ch3-c .chk-i",{scale:0,opacity:1},{scale:1,opacity:1,duration:0.3,ease:"back.out(2.5)"},${at(P("ya"))});`);
+  push(`tl.to("#ch3",{backgroundColor:"#dcfce7",duration:0.2},${at(P("ya"))});`);
+  sfx.push({ f: "click", t: P("ya") });
+  brazo("pro3", "R", -150, P("ya"));
+  push(`tl.fromTo("#pro3-in",{y:0},{y:-30,duration:0.18,yoyo:true,repeat:1,ease:"power2.out"},${at(P("ya"))});`);
+}
+
+// ---------------- CLÍMAX ----------------
+// frase 12: "Y ahora, el truco más potente." — la cámara enseña todo el camino y salta al truco
+camTo(P("ahora") - 0.1, 1090, 5600, 0.16, 0.65, { ease: "power3.inOut" });
+cabecera("h4", 540, Y4, icon("lightning-fill"), "AHORA", "EL TRUCO", "num-oro");
+viaje(P("truco") - 0.05, P("potente") - P("truco") + 0.05, 540, Y4 + 30, 1, "s3c", 9);
+push(`tl.fromTo("#h4",{scale:0.6,opacity:0},{scale:1,opacity:1,duration:0.5,ease:"expo.out"},${at(P("truco") + 0.15)});`);
+push(`tl.fromTo("#h4-num",{scale:0,rotation:-180},{scale:1,rotation:0,duration:0.45,ease:"back.out(1.8)"},${at(P("mas", 2))});`);
+push(`tl.fromTo("#h4-word",{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",duration:0.45,ease:"power1.inOut"},${at(P("potente"))});`);
+push(`tl.fromTo("#h4-line",{scaleX:0},{scaleX:1,transformOrigin:"0 50%",duration:0.35,ease:"power3.out"},${at(P("potente") + 0.3)});`);
+sfx.push({ f: "riser", t: P("ahora") });
+sfx.push({ f: "impact2", t: P("potente") });
+
+// frases 13-14: el cerebro y el efecto Zeigarnik
+add(`<div class="cerebro" id="br" style="left:350px;top:${Y4 + 610}px">${icon("brain-fill")}</div>
+<div class="card tarea" id="tm" style="left:160px;top:${Y4 + 1060}px;width:760px;height:220px">
+  <div class="tm-h">${icon("flag-fill", "ico-flag")}<span>El informe</span><b id="tm-pc">${rodillo("rp", 2)}%</b></div>
+  <div class="barra"><i id="bar4"></i></div></div>
+<div class="card zeig" id="zg" style="left:110px;top:${Y4 + 1340}px;width:860px;height:300px">
+  <div class="zg-a" id="zg-a">EFECTO</div><div class="zg-b" id="zg-b">ZEIGARNIK</div></div>`);
+viaje(F(12) - 0.4, 0.6, 540, Y4 + 1150, 1, "s4a", 4);
+push(`tl.fromTo("#br",{scale:0,rotation:-20},{scale:1,rotation:0,duration:0.55,ease:"back.out(1.7)"},${at(P("cerebro"))});`);
+sfx.push({ f: "pop", t: P("cerebro") });
+push(`tl.fromTo("#br",{filter:"drop-shadow(0 0 0px #f472b6)"},{filter:"drop-shadow(0 0 40px #f472b6)",duration:0.5,yoyo:true,repeat:5,ease:"sine.inOut"},${at(P("recordar"))});`);
+push(`tl.fromTo("#tm",{opacity:0,y:40},{opacity:1,y:0,duration:0.4,ease:"power3.out"},${at(P("dejas"))});`);
+push(`tl.fromTo("#bar4",{scaleX:0},{scaleX:0.5,transformOrigin:"0 50%",duration:0.6,ease:"power2.out"},${at(P("medias"))});`);
+rodar("rp", 2, 50, P("medias"), 0.6);
+sfx.push({ f: "pop2", t: P("medias") });
+push(`tl.fromTo("#zg",{opacity:0,scale:0.9},{opacity:1,scale:1,duration:0.35,ease:"power3.out"},${at(P("efecto"))});`);
+push(`tl.fromTo("#zg-b",{opacity:0,scale:2.2,rotation:-6},{opacity:1,scale:1,rotation:-2,duration:0.35,ease:"power4.in"},${at(P("zeigarnik") - 0.25)});`);
+push(`tl.fromTo("#zg",{y:0},{y:10,duration:0.05,yoyo:true,repeat:5,ease:"sine.inOut"},${at(P("zeigarnik") + 0.1)});`);
+sfx.push({ f: "impact", t: P("zeigarnik") + 0.1 });
+
+// frase 15: el pro deja escrita la primera acción de mañana
+const NT = { cx: 1640, cy: Y4 + 1150 }, nt = tl0(NT);
+const nota = "1. Abrir el informe y escribir el título";
+add(`<div class="card nota" id="nt" style="left:${nt.x + 300}px;top:${nt.y + 80}px;width:640px;height:640px">
+  <div class="app-h">${icon("chat-teardrop-text-fill", "ico-h")}<span>Notas</span><span class="badge verde" id="nt-b">MAÑANA</span></div>
+  <div class="nt-txt">${(() => { let i = 0; return nota.split(" ").map((w) => `<span class="nw">${[...w].map((c) => `<span class="lt" id="lt${i++}">${c}</span>`).join("")}</span>`).join(" "); })()}<span class="caret" id="caret"></span></div>
+  <div class="ok ok-nt" id="ok4">${icon("check-circle-fill")}</div></div>`);
+persona("pro4", PRO, nt.x + 40, nt.y + 620);
+viaje(F(14) - 0.35, 0.6, NT.cx, NT.cy, 1, "s4b", 4);
+push(`tl.fromTo("#nt",{scale:0.85,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"expo.out"},${at(F(14) - 0.1)});`);
+{
+  const t0 = P("escrita"), t1 = P("antes", 2);
+  [...nota.replace(/ /g, "")].forEach((_, i) => push(`tl.fromTo("#lt${i}",{opacity:0},{opacity:1,duration:0.01},${at(t0 + (i * (t1 - t0)) / nota.replace(/ /g, "").length)});`));
+  push(`tl.fromTo("#caret",{opacity:1},{opacity:0,duration:0.25,yoyo:true,repeat:${Math.ceil((t1 - t0) / 0.25) + 3},ease:"steps(1)"},${at(t0)});`);
+  sfx.push({ f: "teclas", t: t0 });
+  sfx.push({ f: "teclas", t: t0 + 1.2 });
+  brazo("pro4", "R", -60, t0, 0.3);
+}
+push(`tl.fromTo("#nt-b",{scale:0},{scale:1,duration:0.35,ease:"back.out(2.2)"},${at(P("manana"))});`);
+sfx.push({ f: "pop", t: P("manana") });
+push(`tl.fromTo("#ok4",{scale:0,rotation:-90},{scale:1,rotation:0,duration:0.4,ease:"back.out(2.2)"},${at(P("cerrar"))});`);
+brazo("pro4", "R", -150, P("cerrar"));
+sfx.push({ f: "pop2", t: P("cerrar") });
+
+// ---------------- LLAMADA A LA ACCIÓN ----------------
+const CT = { cx: 1640, cy: Y5 }, ct = tl0(CT);
+add(`<div class="card coment" id="cm" style="left:${ct.x + 60}px;top:${ct.y + 40}px;width:840px;height:250px">
+  <div class="cm-av">${icon("chat-circle-fill")}</div>
+  <div class="cm-in"><span class="cm-ph" id="cm-ph">Añade un comentario…</span><span class="cm-tx">${[..."LISTA"].map((c, i) => `<b id="cl${i}">${c}</b>`).join("")}</span></div>
+  <div class="cm-send" id="cm-send">${icon("paper-plane-tilt-fill")}</div></div>
+<div class="card burbuja" id="bb" style="left:${ct.x + 60}px;top:${ct.y + 330}px;width:540px;height:180px">
+  <span class="bb-tx">LISTA</span><span class="bb-h" id="bb-h">${icon("heart-fill")}</span></div>
+<div class="avion" id="av" style="left:${ct.x + 700}px;top:${ct.y + 360}px">${icon("paper-plane-tilt-fill")}</div>
+<div class="cursor" id="cur5" style="left:${ct.x + 820}px;top:${ct.y + 190}px">${icon("cursor-fill")}</div>`);
+persona("nov5", NOVATO, ct.x + 250, ct.y + 620);
+persona("pro5", PRO, ct.x + 520, ct.y + 620);
+viaje(F(15) - 0.45, 0.65, CT.cx, CT.cy, 1, "s4c", 5);
+push(`tl.fromTo("#cm",{scale:0.85,opacity:0},{scale:1,opacity:1,duration:0.45,ease:"expo.out"},${at(F(15) - 0.15)});`);
+push(`tl.to("#cm-ph",{opacity:0,duration:0.1},${at(P("lista", 3))});`);
+[..."LISTA"].forEach((_, i) => push(`tl.fromTo("#cl${i}",{opacity:0,y:10},{opacity:1,y:0,duration:0.08},${at(P("lista", 3) + i * 0.07)});`));
+sfx.push({ f: "teclas", t: P("lista", 3) });
+cursorEn("cur5", 120, 160, 0, 0, P("lista", 3), 0.35);
+push(`tl.fromTo("#bb",{opacity:0,scale:0.6,y:-60},{opacity:1,scale:1,y:0,duration:0.4,ease:"back.out(1.8)"},${at(P("y", 3))});`);
+push(`tl.fromTo("#bb-h",{scale:0},{scale:1,duration:0.35,ease:"back.out(3)"},${at(P("y", 3) + 0.25)});`);
+sfx.push({ f: "pop", t: P("y", 3) });
+push(`tl.fromTo("#av",{opacity:0,x:-200,y:60,rotation:-10},{opacity:1,x:0,y:0,rotation:0,duration:0.4,ease:"power3.out"},${at(P("mandaselo") - 0.1)});`);
+push(`tl.to("#av",{x:420,y:-260,scale:0.6,opacity:0,duration:0.6,ease:"power3.in"},${at(P("mandaselo") + 0.45)});`);
+sfx.push({ f: "whoosh2", t: P("mandaselo") + 0.5 });
+push(`tl.to("#cur5",{opacity:0,duration:0.2},${at(P("mandaselo"))});`);
+brazo("nov5", "R", -150, P("siempre"));
+brazo("pro5", "L", 150, P("siempre") + 0.1);
+cara("nov5", P("siempre"), false);
+push(`tl.fromTo(["#nov5-in","#pro5-in"],{y:0},{y:-36,duration:0.2,yoyo:true,repeat:3,stagger:0.12,ease:"power2.out"},${at(P("tiempo", 2))});`);
+camTo(P("tiempo", 2) + 0.2, CT.cx, CT.cy + 30, 0.92, Math.max(0.5, D - P("tiempo", 2) - 0.25), { ease: "power1.inOut" });
+
+html.unshift(`<svg class="camino" width="3000" height="15000" viewBox="0 0 3000 15000" overflow="visible">${segs.join("\n")}</svg>`);
+
+// la estación del gancho ya no vuelve a verse: se oculta fuera de cámara
+push(`tl.set(["#app0","#clk0","#cae0","#cae1","#cae2","#cae3","#cae4","#tag-nov","#tag-pro"],{opacity:0},${at(P("apunta", 1))});`);
 // personajes vivos
-vida("nov", 0);
-vida("pro", 1);
+vivos.forEach((id, i) => vida(id, i % 5));
 
 // partículas del fondo (paralaje)
 let part = "";
-for (let i = 0; i < 60; i++) {
-  const x = (i * 397) % 2600 - 300, y = (i * 709) % 5200 - 300, s = 6 + (i % 5) * 4;
+for (let i = 0; i < 150; i++) {
+  const x = (i * 397) % 2600 - 300, y = (i * 709) % 14500 - 300, s = 6 + (i % 5) * 4;
   part += `<i class="pt" id="pt${i}" style="left:${x}px;top:${y}px;width:${s}px;height:${s}px"></i>`;
   push(`tl.fromTo("#pt${i}",{y:0},{y:${-30 - (i % 4) * 15},duration:${3 + (i % 3)},ease:"sine.inOut",yoyo:true,repeat:${Math.ceil(D / 3) + 1}},0);`);
 }
@@ -291,10 +607,10 @@ const mundo = `<template>
 #fondo-glow{position:absolute;inset:0;background:radial-gradient(120% 45% at 50% 108%,rgba(34,197,94,.30),rgba(34,197,94,.08) 45%,transparent 70%)}
 #paralaje{position:absolute;left:0;top:0;width:10px;height:10px}
 .pt{position:absolute;border-radius:50%;background:rgba(255,255,255,.10)}
-#mundo{position:absolute;left:0;top:0;width:3000px;height:6000px;
+#mundo{position:absolute;left:0;top:0;width:3000px;height:15000px;
   background-image:linear-gradient(rgba(255,255,255,.055) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.055) 2px,transparent 2px);
   background-size:90px 90px;background-position:-600px -600px}
-#rejilla{position:absolute;left:-2400px;top:-2400px;width:8000px;height:11000px;background-image:inherit;background-size:inherit;background-position:0 0}
+#rejilla{position:absolute;left:-2400px;top:-2400px;width:8000px;height:20000px;background-image:inherit;background-size:inherit;background-position:0 0}
 .card{position:absolute;background:#fff;border-radius:44px;box-shadow:0 30px 80px rgba(0,0,0,.5);color:#0b0d12}
 .app{overflow:hidden}
 .app-h{display:flex;align-items:center;gap:22px;height:150px;padding:0 40px;font-weight:900;font-size:62px;border-bottom:4px solid #eef0f3}
@@ -316,9 +632,60 @@ const mundo = `<template>
 .duelo{display:flex;align-items:center;gap:44px;padding:0 60px}
 .num{width:210px;height:210px;border-radius:50%;background:#0b0d12;color:#fff;font-size:150px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none}
 .h-sub{font-size:52px;font-weight:700;color:#6b7280;letter-spacing:.12em}
-.h-word{font-size:112px;font-weight:900;line-height:1.05;letter-spacing:-.02em}
+.h-word{font-size:112px;font-weight:900;line-height:1.05;letter-spacing:-.02em;white-space:nowrap}
 .h-line{height:14px;width:470px;border-radius:7px;background:#22c55e;margin-top:8px}
 .lapiz{position:absolute;left:330px;top:150px;font-size:110px;color:#f59e0b;filter:drop-shadow(0 8px 14px rgba(0,0,0,.3))}
+.rt{position:relative;white-space:nowrap}
+.strike{position:absolute;left:-6px;right:-6px;top:50%;height:6px;margin-top:-3px;background:#9ca3af;border-radius:3px;opacity:0}
+.chk{display:flex;align-items:center;justify-content:center;color:#fff}
+.chk-i{font-size:30px;opacity:0}
+.pill{margin-left:auto;background:#fef3c7;color:#92400e;font-size:46px;font-weight:900;padding:2px 18px;border-radius:999px;white-space:nowrap}
+.ico-oro{color:#f59e0b}
+.row.big3{height:150px;font-size:54px;font-weight:900;gap:28px}
+.estrella{font-size:64px;color:#d1d5db;display:flex}
+.row.grande{height:140px;font-size:60px;font-weight:900;gap:26px;border-radius:24px;margin:10px 16px;border:4px solid #fecaca}
+.flag{color:#ef4444;font-size:60px;display:flex}
+.bloque{position:absolute;width:640px;height:460px;border-radius:44px;background:#1e293b;color:#fff;box-shadow:0 30px 80px rgba(0,0,0,.5);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;font-size:78px;font-weight:900;border:4px solid #334155}
+.ico-blk{font-size:130px;color:#f59e0b}
+.barra{width:80%;height:34px;border-radius:17px;background:#334155;overflow:hidden}
+.barra i{display:block;height:100%;background:#22c55e;border-radius:17px}
+.tarea .barra{background:#e5e7eb;margin:0 auto}
+.ok{position:absolute;right:-40px;top:-40px;font-size:150px;color:#22c55e;background:#fff;border-radius:50%;display:flex;line-height:0;box-shadow:0 14px 40px rgba(0,0,0,.4)}
+.movil{position:absolute;font-size:200px;color:#e5e7eb;display:flex;line-height:0;z-index:3}
+.noti{position:absolute;display:flex;align-items:center;gap:18px;background:#fff;color:#0b0d12;font-size:46px;font-weight:700;padding:14px 28px;border-radius:24px;box-shadow:0 14px 40px rgba(0,0,0,.45);white-space:nowrap;z-index:5}
+.noti .ico{color:#f59e0b}
+.cursor{position:absolute;font-size:110px;color:#0b0d12;display:flex;line-height:0;z-index:9;filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 3px #fff) drop-shadow(0 8px 10px rgba(0,0,0,.4))}
+.crono{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.cr-t{font-size:60px;font-weight:900;color:#6b7280;letter-spacing:.06em}
+.cr-n{display:flex;align-items:center;gap:10px;font-size:190px;font-weight:900;line-height:1}
+.ico-cr{font-size:150px;color:#22c55e;margin-right:16px}
+.cr-sub{font-size:60px;font-weight:900;color:#22c55e;letter-spacing:.1em}
+.chip2{position:absolute;display:flex;align-items:center;gap:24px;background:#fff;color:#0b0d12;font-size:56px;font-weight:900;padding:26px 40px;border-radius:30px;box-shadow:0 14px 40px rgba(0,0,0,.45);white-space:nowrap}
+.cerebro{position:absolute;font-size:380px;color:#f472b6;display:flex;line-height:0}
+.tarea{display:flex;flex-direction:column;justify-content:center;gap:30px;padding:0 50px}
+.tm-h{display:flex;align-items:center;gap:22px;font-size:60px;font-weight:900}
+.tm-h b{margin-left:auto;display:flex;color:#ef4444}
+.ico-flag{color:#ef4444}
+.zeig{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#facc15}
+.zg-a{font-size:64px;font-weight:900;letter-spacing:.14em;color:#713f12}
+.zg-b{font-size:120px;font-weight:900;letter-spacing:-.02em;line-height:1}
+.nota{overflow:visible}
+.nota .badge{font-size:44px;padding:4px 20px}
+.nt-txt{padding:40px 44px;font-size:64px;font-weight:900;line-height:1.3}
+.nw{display:inline-block;white-space:nowrap}.lt{display:inline}
+.caret{display:inline-block;width:8px;height:66px;background:#22c55e;margin-left:6px;vertical-align:-8px}
+.ok-nt{right:-30px;top:auto;bottom:-30px}
+.coment{display:flex;align-items:center;gap:26px;padding:0 34px}
+.cm-av{font-size:110px;color:#22c55e;display:flex;line-height:0}
+.cm-in{flex:1;height:130px;border-radius:65px;background:#f1f3f6;display:flex;align-items:center;padding:0 40px;position:relative;font-size:64px;font-weight:900}
+.cm-ph{position:absolute;left:40px;color:#9ca3af;font-size:46px;font-weight:700;white-space:nowrap}
+.cm-tx{display:flex;letter-spacing:.06em}
+.cm-send{width:130px;height:130px;border-radius:50%;background:#22c55e;color:#fff;font-size:72px;display:flex;align-items:center;justify-content:center}
+.burbuja{display:flex;align-items:center;gap:30px;padding:0 50px;font-size:96px;font-weight:900;border-radius:44px 44px 44px 10px}
+.bb-h{margin-left:auto;color:#ef4444;font-size:96px;display:flex}
+.avion{position:absolute;font-size:150px;color:#22c55e;display:flex;line-height:0;z-index:8}
+.num-oro{background:#facc15;color:#0b0d12}
 .camino{position:absolute;left:0;top:0;z-index:0;pointer-events:none}
 #camino,#camino-glow{--L:2200}
 </style>
@@ -333,7 +700,7 @@ ${html.join("\n")}
 <script>
 const tl = gsap.timeline({ paused: true });
 // longitud real del camino para dibujarlo
-document.querySelectorAll("#camino,#camino-glow").forEach(p=>{const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.setProperty("--L",L);p.style.strokeDashoffset=L;});
+document.querySelectorAll("#camino,#camino-glow,.seg").forEach(p=>{const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.setProperty("--L",L);p.style.strokeDashoffset=L;});
 ${js.join("\n")}
 window.__timelines["mundo"] = tl;
 </script>
@@ -344,7 +711,7 @@ const CLAVE = {
   lista: "ama", tareas: "ama", tiempo: "rojo", novato: "rojo", pro: "verde", uno: "ama", apuntar: "ama",
   cuarenta: "rojo", tres: "verde", dos: "ama", empezar: "ama", facil: "rojo", dificil: "verde", movil: "rojo",
   pequeno: "ama", minuto: "rojo", minutos: "verde", truco: "ama", cerebro: "ama", medias: "ama",
-  zeigarnik: "verde", manana: "verde",
+  zeigarnik: "verde", manana: "verde", comenta: "ama", mandaselo: "verde", potente: "ama",
 };
 const grupos = [];
 const frases = [...new Set(W.map((w) => w.frase))];
@@ -405,12 +772,26 @@ const SFX = {
   impact: ["assets/sfx/impact-bass-1.mp3", 0.7],
   pop: ["assets/sfx/pop.mp3", 0.45],
   pop2: ["assets/sfx/pop.mp3", 0.35],
-  teclas: ["assets/sfx/typing.mp3", 0.3],
+  teclas: ["assets/sfx/typing.mp3", 0.3, 0, 1.2],
+  whoosh2: ["assets/sfx/whoosh-short.mp3", 0.5],
+  whoosh3: ["assets/sfx/whoosh-cinematic.mp3", 0.4, 1.9, 1.2, 0.6],
+  click: ["assets/sfx/click.mp3", 0.5],
+  noti: ["assets/sfx/notification.mp3", 0.3, 0, 0.8],
+  riser: ["assets/sfx/riser.mp3", 0.35, 2.0, 1.5, 0],
+  impact2: ["assets/sfx/impact-bass-2.mp3", 0.6, 0, 1.6],
 };
 const audioTags = sfx
-  .filter((s) => s.t < D && SFX[s.f] && fs.existsSync(SFX[s.f][0]))
-  .map((s, i) => `<audio id="sfx${i}" class="clip" src="${SFX[s.f][0]}" data-start="${r3(s.t)}" data-duration="${r3(Math.min(durMedia(SFX[s.f][0]), D - s.t))}" data-track-index="${10 + (i % 4)}" data-volume="${SFX[s.f][1]}"></audio>`)
-  .join("\n      ");
+  .map((x) => ({ ...x, d: SFX[x.f] }))
+  .filter((x) => x.d && fs.existsSync(x.d[0]))
+  .map((x) => {
+    const [file, vol, ms = 0, maxD = null, off = 0] = x.d;
+    if (x.f === "riser") x.t = P("truco") - 1.47;
+    const t = Math.max(0, x.t - off);
+    const dur = Math.min(durMedia(file) - ms, maxD ?? 99, D - t);
+    return { t, file, vol, ms, dur };
+  })
+  .filter((x) => x.t < D - 0.05 && x.dur > 0.05)
+  .map((x, i) => `<audio id="sfx${i}" class="clip" src="${x.file}" data-start="${r3(x.t)}" data-duration="${r3(x.dur)}"${x.ms ? ` data-media-start="${x.ms}"` : ""} data-track-index="${10 + (i % 6)}" data-volume="${x.vol}"></audio>`).join("\n      ");
 
 const index = `<!doctype html>
 <html lang="es">
@@ -430,7 +811,7 @@ const index = `<!doctype html>
       ${SIN_SUBS ? "" : `<div id="subtitulos" data-composition-id="subtitulos" data-composition-src="compositions/subtitulos.html"
         data-start="0" data-duration="${D}" data-track-index="2" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index:5"></div>`}
       <audio id="voz" class="clip" src="assets/voz.wav" data-start="0" data-duration="${D}" data-track-index="3" data-volume="1"></audio>
-      ${fs.existsSync("assets/musica.mp3") ? `<audio id="musica" class="clip" src="assets/musica.mp3" data-start="0" data-duration="${D}" data-track-index="4" data-volume="0.12" data-fade-out="1.5"></audio>` : ""}
+      ${fs.existsSync("assets/musica.wav") ? `<audio id="musica" class="clip" src="assets/musica.wav" data-start="0" data-duration="${D}" data-track-index="4" data-volume="0.12" data-fade-out="1.5"></audio>` : ""}
       ${audioTags}
     </div>
     <script>
